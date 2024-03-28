@@ -1,95 +1,124 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import {
+  Box,
+  Container,
+  Paper,
+  Typography
+} from '@mui/material';
+import React from 'react';
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+const Home: React.FC = () => {
+  const renderYellowLine = () => (
+    <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+      <Box sx={{ height: '2px', width: '50%', bgcolor: 'yellow' }}></Box>
+    </Box>
   );
-}
+
+  return (
+    <Container maxWidth="md" sx={{ mt: 4 }}>
+
+      <Box sx={{ backgroundColor: 'yellow', padding: 2, textAlign: 'center', marginBottom: 4 }}>
+        <Typography variant="h6" component="p" sx={{ fontWeight: 'bold', color: 'black' }}>
+          This site is currently under construction. Stay tuned for updates!
+        </Typography>
+      </Box>
+
+
+      <Box sx={{ my: 2, textAlign: 'center' }}>
+        <Typography variant="h3" component="h2" gutterBottom>
+          {`Welcome to Itaru Ota's Portfolio! 👋`}
+        </Typography>
+
+        {/* <Typography variant="subtitle1">
+          Under constraction
+        </Typography> */}
+      </Box>
+
+      <Paper sx={{ mx: 'auto', my: 4, p: 2, maxWidth: 600 }} elevation={2}>
+        <Typography variant="h4" component="h3">
+          About Me
+        </Typography>
+        {/* <Typography variant="body1">
+          Detailing my journey in the tech industry...
+        </Typography> */}
+      </Paper>
+
+      {renderYellowLine()}
+
+      <Paper sx={{ mx: 'auto', my: 4, p: 2, maxWidth: 600 }} elevation={2}>
+        <Typography variant="h4" component="h3">
+          Technical Skills
+        </Typography>
+        {/* <Typography variant="body1">
+          List or visual representation of skills...
+        </Typography> */}
+      </Paper>
+
+      {renderYellowLine()}
+
+      <Paper sx={{ mx: 'auto', my: 4, p: 2, maxWidth: 600 }} elevation={2}>
+        <Typography variant="h4" component="h3">
+          Experience
+        </Typography>
+        {/* <Typography variant="body1">
+          List of relevant work experience...
+        </Typography> */}
+      </Paper>
+
+      {renderYellowLine()}
+
+      <Paper sx={{ mx: 'auto', my: 4, p: 2, maxWidth: 600 }} elevation={2}>
+        <Typography variant="h4" component="h3">
+          Education
+        </Typography>
+        {/* <Typography variant="body1">
+          Academic background details...
+        </Typography> */}
+      </Paper>
+
+      {renderYellowLine()}
+
+      <Paper sx={{ mx: 'auto', my: 4, p: 2, maxWidth: 600 }} elevation={2}>
+        <Typography variant="h4" component="h3">
+          Publication
+        </Typography>
+        {/* Add your publication content here */}
+      </Paper>
+
+      {renderYellowLine()}
+
+      <Paper sx={{ mx: 'auto', my: 4, p: 2, maxWidth: 600 }} elevation={2}>
+        <Typography variant="h4" component="h3">
+          Awards
+        </Typography>
+        {/* Add your awards content here */}
+      </Paper>
+
+      {renderYellowLine()}
+
+      <Paper sx={{ mx: 'auto', my: 4, p: 2, maxWidth: 600 }} elevation={2}>
+        <Typography variant="h4" component="h3">
+          Certifications
+        </Typography>
+        {/* Add your certifications content here */}
+      </Paper>
+
+      {renderYellowLine()}
+
+      <Paper sx={{ mx: 'auto', my: 4, p: 2, maxWidth: 600 }} elevation={2}>
+        <Typography variant="h4" component="h3">
+          Contact Information
+        </Typography>
+        {/* Add your contact information here */}
+      </Paper>
+
+      <Box component="footer" sx={{ my: 4, p: 2, textAlign: 'center' }}>
+        <Typography variant="caption" display="block" gutterBottom>
+          © 2024 Itaru Ota. All rights reserved.
+        </Typography>
+      </Box>
+
+    </Container>
+  );
+};
+
+export default Home;
