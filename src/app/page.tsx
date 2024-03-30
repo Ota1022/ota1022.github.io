@@ -15,7 +15,7 @@ const Home: React.FC = () => {
 
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Button onClick={(colorMode.toggleColorMode)} sx={{ mb: 2 }}>
+      <Button onClick={colorMode.toggleColorMode} sx={{ mb: 2 }}>
         Toggle Dark Mode
       </Button>
 

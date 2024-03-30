@@ -20,7 +20,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { colorMode, theme } = useThemeContent()
+  const { colorMode, theme } = useThemeContent();
 
   return (
     <html lang="en">
