@@ -25,13 +25,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: yarn install
+        run: npm install
 
       - name: Build and Static HTML export with Next.js
-        run: yarn build && yarn export # Ensure your package.json scripts include an "export" command for Next.js
+        run: npm build && npm export # Ensure your package.json scripts include an "export" command for Next.js
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
