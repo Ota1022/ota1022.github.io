@@ -31,12 +31,12 @@ jobs:
         run: npm install
 
       - name: Build and Static HTML export with Next.js
-        run: npm build && npm export # Ensure your package.json scripts include an "export" command for Next.js
+        run: npm run build && npm run export
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out # This directory must match the output of your `yarn export` command
+          path: ./out
 
   deploy:
     environment:
