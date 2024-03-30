@@ -1,21 +1,32 @@
 "use client";
 
+import { createTheme, type Theme } from "@mui/material/styles";
 import { createContext, useMemo, useState } from "react";
-import { createTheme } from "@mui/material/styles";
 
-export const ColorModeContext = createContext({
+interface ColorModeContextType {
+  toggleColorMode: () => void;
+}
+
+export const ColorModeContext = createContext<ColorModeContextType>({
   toggleColorMode: () => {},
 });
 
-export function useThemeContent() {
+export function useThemeContent(): {
+  colorMode: ColorModeContextType;
+  theme: Theme;
+} {
   const [mode, setMode] = useState<"light" | "dark">("dark");
 
-  const colorMode = {
-    toggleColorMode: () => {
-      console.log(mode);
-      setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
-    },
-  };
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        console.log(mode);
+        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+      },
+    }),
+    [mode],
+  );
+
   const theme = useMemo(() => createTheme({ palette: { mode } }), [mode]);
 
   return { colorMode, theme };

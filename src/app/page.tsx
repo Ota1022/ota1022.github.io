@@ -5,7 +5,7 @@ import { Box, Button, Container, Paper, Typography } from "@mui/material";
 import React from "react";
 
 const Home: React.FC = () => {
-  const renderYellowLine = () => (
+  const renderYellowLine = (): JSX.Element => (
     <Box sx={{ display: "flex", justifyContent: "center", my: 2 }}>
       <Box sx={{ height: "2px", width: "50%", bgcolor: "yellow" }}></Box>
     </Box>
