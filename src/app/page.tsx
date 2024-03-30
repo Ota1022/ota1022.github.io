@@ -1,8 +1,8 @@
 "use client";
 
+import { ColorModeContext } from "@/contexts/ThemeContext";
 import { Box, Button, Container, Paper, Typography } from "@mui/material";
 import React from "react";
-import { DarkModeContext } from "./layout";
 
 const Home: React.FC = () => {
   const renderYellowLine = () => (
@@ -11,7 +11,7 @@ const Home: React.FC = () => {
     </Box>
   );
 
-  const colorMode = React.useContext(DarkModeContext);
+  const colorMode = React.useContext(ColorModeContext);
 
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>
