@@ -1,7 +1,11 @@
 "use client";
 
 import { ColorModeContext } from "@/contexts/ThemeContext";
-import { Box, Button, Container, Paper, Typography } from "@mui/material";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import { Box, Container, Paper, Typography } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import { useTheme } from "@mui/material/styles";
 import React from "react";
 
 const Home: React.FC = () => {
@@ -11,13 +15,35 @@ const Home: React.FC = () => {
     </Box>
   );
 
+  const theme = useTheme();
   const colorMode = React.useContext(ColorModeContext);
 
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Button onClick={colorMode.toggleColorMode} sx={{ mb: 2 }}>
-        Toggle Dark Mode
-      </Button>
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          bgcolor: "transparent",
+          color: "text.primary",
+          borderRadius: 1,
+          p: 3,
+        }}
+      >
+        <IconButton
+          sx={{ ml: 1 }}
+          onClick={colorMode.toggleColorMode}
+          color="inherit"
+        >
+          {theme.palette.mode === "dark" ? (
+            <Brightness7Icon />
+          ) : (
+            <Brightness4Icon />
+          )}
+        </IconButton>
+      </Box>
 
       <Box
         sx={{
@@ -125,7 +151,12 @@ const Home: React.FC = () => {
       </Paper>
 
       <Box component="footer" sx={{ my: 4, p: 2, textAlign: "center" }}>
-        <Typography variant="caption" display="block" gutterBottom>
+        <Typography
+          variant="caption"
+          display="block"
+          gutterBottom
+          sx={{ color: "white" }}
+        >
           © 2024 Itaru Ota. All rights reserved.
         </Typography>
       </Box>
