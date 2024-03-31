@@ -4,7 +4,7 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import React from "react";
 // import type { Metadata } from "next";
-import { ColorModeContext, useThemeContent } from "@/contexts/ThemeContext";
+import { ColorModeContext, ToggleColorMode } from "@/contexts/ThemeContext";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -21,7 +21,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>): JSX.Element {
-  const { colorMode, theme } = useThemeContent();
+  const { colorMode, theme } = ToggleColorMode();
 
   return (
     <html lang="en">
