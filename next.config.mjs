@@ -1,6 +1,5 @@
-// next.config.mjs
 const nextConfig = {
-  // assetPrefix: '/portfolio/',
+  assetPrefix: '/portfolio/',
   output: 'export',
 };
 

@@ -11,7 +11,7 @@ export const ColorModeContext = createContext<ColorModeContextType>({
   toggleColorMode: () => {},
 });
 
-export function useThemeContent(): {
+export function ToggleColorMode(): {
   colorMode: ColorModeContextType;
   theme: Theme;
 } {
