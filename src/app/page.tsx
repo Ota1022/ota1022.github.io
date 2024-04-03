@@ -8,7 +8,11 @@ import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@mui/material/styles";
 import React from "react";
 import AboutMe from "./components/AboutMe/page";
+import Awards from "./components/Awards/page";
+import Certifications from "./components/Certifications/page";
 import Education from "./components/Education/page";
+import Experience from "./components/Experience/page";
+import Publication from "./components/Publication/page";
 import Skills from "./components/Skills/page";
 
 const Home: React.FC = () => {
@@ -83,14 +87,7 @@ const Home: React.FC = () => {
 
       {renderYellowLine()}
 
-      <Paper sx={{ mx: "auto", my: 4, p: 2, maxWidth: 600 }} elevation={2}>
-        <Typography variant="h4" component="h3">
-          Experience
-        </Typography>
-        {/* <Typography variant="body1">
-                  List of relevant work experience...
-                </Typography> */}
-      </Paper>
+      <Experience />
 
       {renderYellowLine()}
 
@@ -98,30 +95,15 @@ const Home: React.FC = () => {
 
       {renderYellowLine()}
 
-      <Paper sx={{ mx: "auto", my: 4, p: 2, maxWidth: 600 }} elevation={2}>
-        <Typography variant="h4" component="h3">
-          Publication
-        </Typography>
-        {/* Add your publication content here */}
-      </Paper>
+      <Publication />
 
       {renderYellowLine()}
 
-      <Paper sx={{ mx: "auto", my: 4, p: 2, maxWidth: 600 }} elevation={2}>
-        <Typography variant="h4" component="h3">
-          Awards
-        </Typography>
-        {/* Add your awards content here */}
-      </Paper>
+      <Awards />
 
       {renderYellowLine()}
 
-      <Paper sx={{ mx: "auto", my: 4, p: 2, maxWidth: 600 }} elevation={2}>
-        <Typography variant="h4" component="h3">
-          Certifications
-        </Typography>
-        {/* Add your certifications content here */}
-      </Paper>
+      <Certifications />
 
       {renderYellowLine()}
 
