@@ -4,6 +4,7 @@ import { ColorModeContext } from "@/contexts/ThemeContext";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { Box, Container, Paper, Typography } from "@mui/material";
+import Avatar from '@mui/material/Avatar';
 import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@mui/material/styles";
 import React from "react";
@@ -15,12 +16,13 @@ import Experience from "./components/Experience/page";
 import Publication from "./components/Publication/page";
 import Skills from "./components/Skills/page";
 
+
 const Home: React.FC = () => {
-  const renderYellowLine = (): JSX.Element => (
-    <Box sx={{ display: "flex", justifyContent: "center", my: 2 }}>
-      <Box sx={{ height: "2px", width: "50%", bgcolor: "yellow" }}></Box>
-    </Box>
-  );
+  // const renderYellowLine = (): JSX.Element => (
+  //   <Box sx={{ display: "flex", justifyContent: "center", my: 2 }}>
+  //     <Box sx={{ height: "2px", width: "50%", bgcolor: "yellow" }}></Box>
+  //   </Box>
+  // );
 
   const theme = useTheme();
   const colorMode = React.useContext(ColorModeContext);
@@ -69,43 +71,50 @@ const Home: React.FC = () => {
         </Typography>
       </Box>
 
-      <Box sx={{ my: 2, textAlign: "center" }}>
+      <Box sx={{
+        my: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+        <Avatar
+          alt="Itaru Ota"
+          src="/profile.png"
+          sx={{ width: 150, height: 150 }}
+        />
         <Typography variant="h3" component="h2" gutterBottom>
           {`Welcome to Itaru Ota's Portfolio! 👋`}
         </Typography>
-
-        {/* <Typography variant="subtitle1">
-                  Under constraction
-                </Typography> */}
       </Box>
 
       <AboutMe />
 
-      {renderYellowLine()}
+      {/* {renderYellowLine()} */}
 
       <Skills />
 
-      {renderYellowLine()}
+      {/* {renderYellowLine()} */}
 
       <Experience />
 
-      {renderYellowLine()}
+      {/* {renderYellowLine()} */}
 
       <Education />
 
-      {renderYellowLine()}
+      {/* {renderYellowLine()} */}
 
       <Publication />
 
-      {renderYellowLine()}
+      {/* {renderYellowLine()} */}
 
       <Awards />
 
-      {renderYellowLine()}
+      {/* {renderYellowLine()} */}
 
       <Certifications />
 
-      {renderYellowLine()}
+      {/* {renderYellowLine()} */}
 
       <Paper sx={{ mx: "auto", my: 4, p: 2, maxWidth: 600 }} elevation={2}>
         <Typography variant="h4" component="h3">
