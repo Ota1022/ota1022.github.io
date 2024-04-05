@@ -11,6 +11,7 @@ import React from "react";
 import AboutMe from "./components/AboutMe/page";
 import Awards from "./components/Awards/page";
 import Certifications from "./components/Certifications/page";
+import Contact from "./components/Contact/page";
 import Education from "./components/Education/page";
 import Experience from "./components/Experience/page";
 import Publication from "./components/Publication/page";
@@ -18,11 +19,6 @@ import Skills from "./components/Skills/page";
 
 
 const Home: React.FC = () => {
-  // const renderYellowLine = (): JSX.Element => (
-  //   <Box sx={{ display: "flex", justifyContent: "center", my: 2 }}>
-  //     <Box sx={{ height: "2px", width: "50%", bgcolor: "yellow" }}></Box>
-  //   </Box>
-  // );
 
   const theme = useTheme();
   const colorMode = React.useContext(ColorModeContext);
@@ -81,12 +77,14 @@ const Home: React.FC = () => {
         <Avatar
           alt="Itaru Ota"
           src="/profile.png"
-          sx={{ width: 150, height: 150 }}
+          sx={{ width: 150, height: 150, mb: 4 }} // Add margin bottom to Avatar
         />
         <Typography variant="h3" component="h2" gutterBottom>
           {`Welcome to Itaru Ota's Portfolio! 👋`}
         </Typography>
       </Box>
+
+      <Contact />
 
       <AboutMe />
 
