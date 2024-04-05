@@ -3,7 +3,7 @@
 import { ColorModeContext } from "@/contexts/ThemeContext";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import { Box, Container, Paper, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@mui/material/styles";
@@ -90,38 +90,17 @@ const Home: React.FC = () => {
 
       <AboutMe />
 
-      {/* {renderYellowLine()} */}
-
       <Skills />
-
-      {/* {renderYellowLine()} */}
 
       <Experience />
 
-      {/* {renderYellowLine()} */}
-
       <Education />
-
-      {/* {renderYellowLine()} */}
 
       <Publication />
 
-      {/* {renderYellowLine()} */}
-
       <Awards />
 
-      {/* {renderYellowLine()} */}
-
       <Certifications />
-
-      {/* {renderYellowLine()} */}
-
-      <Paper sx={{ mx: "auto", my: 4, p: 2, maxWidth: 600 }} elevation={2}>
-        <Typography variant="h4" component="h3">
-          Contact Information
-        </Typography>
-        {/* Add your contact information here */}
-      </Paper>
 
       <Box component="footer" sx={{ my: 4, p: 2, textAlign: "center" }}>
         <Typography
