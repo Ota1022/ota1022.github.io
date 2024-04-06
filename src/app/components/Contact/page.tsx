@@ -1,8 +1,8 @@
-import EmailIcon from '@mui/icons-material/Email';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import EmailIcon from "@mui/icons-material/Email";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Box } from "@mui/material";
-import Link from '@mui/material/Link';
+import Link from "@mui/material/Link";
 import React from "react";
 // Import other icons as needed or use SvgIcon for custom ones
 
@@ -10,10 +10,10 @@ const Contact: React.FC = () => {
   return (
     <Box
       sx={{
-        display: 'flex', // Enables Flexbox
-        justifyContent: 'center', // Centers the items horizontally
-        flexWrap: 'wrap', // Allows items to wrap to the next line if needed
-        '& > *': { mx: 2, my: 1 } // Increases horizontal margin, keeps vertical margin
+        display: "flex", // Enables Flexbox
+        justifyContent: "center", // Centers the items horizontally
+        flexWrap: "wrap", // Allows items to wrap to the next line if needed
+        "& > *": { mx: 2, my: 1 }, // Increases horizontal margin, keeps vertical margin
       }}
     >
       <Link href="mailto:your-email@example.com" color="inherit">
@@ -30,8 +30,5 @@ const Contact: React.FC = () => {
     </Box>
   );
 };
-
-
-
 
 export default Contact;
