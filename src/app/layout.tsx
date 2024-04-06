@@ -1,15 +1,15 @@
 "use client";
 
 // import React, { useContext } from "react";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import React from "react";
-// import type { Metadata } from "next";
 import { ColorModeContext, ToggleColorMode } from "@/contexts/ThemeContext";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import { Inter } from "next/font/google";
+// import type { Metadata } from "next";
+import { Inconsolata } from "next/font/google";
+import React from "react";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inconsolata = Inconsolata({ subsets: ["latin"], weight: ["400"] });
 
 // const metadata: Metadata = {
 //   title: "Create Next App",
@@ -25,7 +25,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inconsolata.className}>
         <ColorModeContext.Provider value={colorMode}>
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
