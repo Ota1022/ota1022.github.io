@@ -3,27 +3,21 @@
 import { ColorModeContext } from "@/contexts/ThemeContext";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import { Box, Container, Paper, Typography } from "@mui/material";
-import Avatar from '@mui/material/Avatar';
+import { Box, Container, Typography } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@mui/material/styles";
 import React from "react";
 import AboutMe from "./components/AboutMe/page";
 import Awards from "./components/Awards/page";
 import Certifications from "./components/Certifications/page";
+import Contact from "./components/Contact/page";
 import Education from "./components/Education/page";
 import Experience from "./components/Experience/page";
 import Publication from "./components/Publication/page";
 import Skills from "./components/Skills/page";
 
-
 const Home: React.FC = () => {
-  // const renderYellowLine = (): JSX.Element => (
-  //   <Box sx={{ display: "flex", justifyContent: "center", my: 2 }}>
-  //     <Box sx={{ height: "2px", width: "50%", bgcolor: "yellow" }}></Box>
-  //   </Box>
-  // );
-
   const theme = useTheme();
   const colorMode = React.useContext(ColorModeContext);
 
@@ -71,57 +65,40 @@ const Home: React.FC = () => {
         </Typography>
       </Box>
 
-      <Box sx={{
-        my: 2,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
+      <Box
+        sx={{
+          my: 2,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <Avatar
           alt="Itaru Ota"
           src="/profile.png"
-          sx={{ width: 150, height: 150 }}
+          sx={{ width: 150, height: 150, mb: 4 }} // Add margin bottom to Avatar
         />
         <Typography variant="h3" component="h2" gutterBottom>
           {`Welcome to Itaru Ota's Portfolio! 👋`}
         </Typography>
       </Box>
 
-      <AboutMe />
+      <Contact />
 
-      {/* {renderYellowLine()} */}
+      <AboutMe />
 
       <Skills />
 
-      {/* {renderYellowLine()} */}
-
       <Experience />
-
-      {/* {renderYellowLine()} */}
 
       <Education />
 
-      {/* {renderYellowLine()} */}
-
       <Publication />
-
-      {/* {renderYellowLine()} */}
 
       <Awards />
 
-      {/* {renderYellowLine()} */}
-
       <Certifications />
-
-      {/* {renderYellowLine()} */}
-
-      <Paper sx={{ mx: "auto", my: 4, p: 2, maxWidth: 600 }} elevation={2}>
-        <Typography variant="h4" component="h3">
-          Contact Information
-        </Typography>
-        {/* Add your contact information here */}
-      </Paper>
 
       <Box component="footer" sx={{ my: 4, p: 2, textAlign: "center" }}>
         <Typography
