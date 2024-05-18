@@ -1,4 +1,3 @@
-import EmailIcon from "@mui/icons-material/Email";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Box } from "@mui/material";
@@ -16,13 +15,10 @@ const Contact: React.FC = () => {
         "& > *": { mx: 2, my: 1 }, // Increases horizontal margin, keeps vertical margin
       }}
     >
-      <Link href="mailto:your-email@example.com" color="inherit">
-        <EmailIcon sx={{ fontSize: 40 }} />
-      </Link>
-      <Link href="https://www.linkedin.com/in/yourprofile" color="inherit">
+      <Link href="www.linkedin.com/in/itaru-ota-naist" color="inherit">
         <LinkedInIcon sx={{ fontSize: 40 }} />
       </Link>
-      <Link href="https://github.com/yourusername" color="inherit">
+      <Link href="https://github.com/Ota1022" color="inherit">
         <GitHubIcon sx={{ fontSize: 40 }} />
       </Link>
       {/* Add other icons for SpeakerDeck, Zenn, and CV PDF with a similar pattern */}

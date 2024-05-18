@@ -48,7 +48,7 @@ const Home: React.FC = () => {
         </IconButton>
       </Box>
 
-      <Box
+      {/* <Box
         sx={{
           backgroundColor: "yellow",
           padding: 2,
@@ -63,7 +63,7 @@ const Home: React.FC = () => {
         >
           This site is currently under construction. Stay tuned for updates!
         </Typography>
-      </Box>
+      </Box> */}
 
       <Box
         sx={{
