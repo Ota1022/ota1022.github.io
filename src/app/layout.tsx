@@ -9,7 +9,12 @@ import { Inconsolata } from "next/font/google";
 import React from "react";
 import "./globals.css";
 
-const inconsolata = Inconsolata({ subsets: ["latin"], weight: ["400"], display: 'swap', adjustFontFallback: false });
+const inconsolata = Inconsolata({
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+  adjustFontFallback: false,
+});
 
 // const metadata: Metadata = {
 //   title: "Create Next App",

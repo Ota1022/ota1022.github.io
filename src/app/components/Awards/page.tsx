@@ -14,19 +14,31 @@ const Awards: React.FC = () => {
         <ul>
           <li>
             Student Presentation Award, DEIM2022,{" "}
-            <Link href="https://event.dbsj.org/deim2022/post/awards.html" target="_blank" rel="noopener">
+            <Link
+              href="https://event.dbsj.org/deim2022/post/awards.html"
+              target="_blank"
+              rel="noopener"
+            >
               [URL]
             </Link>
           </li>
           <li>
             Data Broad Award, imedia2021{" "}
-            <Link href="https://sites.google.com/view/imedia-ws/imedia2021" target="_blank" rel="noopener">
+            <Link
+              href="https://sites.google.com/view/imedia-ws/imedia2021"
+              target="_blank"
+              rel="noopener"
+            >
               [URL]
             </Link>
           </li>
           <li>
             1st Prize, GEIOT2021 in NAIST,{" "}
-            <Link href="https://x.com/NAIST_MAIN/status/1429671012770009093?s=20&t=TW6BTHQ4EXVxJPVso1mbLg" target="_blank" rel="noopener">
+            <Link
+              href="https://x.com/NAIST_MAIN/status/1429671012770009093?s=20&t=TW6BTHQ4EXVxJPVso1mbLg"
+              target="_blank"
+              rel="noopener"
+            >
               [URL]
             </Link>
           </li>

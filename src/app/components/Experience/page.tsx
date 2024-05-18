@@ -21,8 +21,11 @@ const Experience: React.FC = () => {
       >
         <TimelineItem sx={{ "&:before": { display: "none" } }}>
           <TimelineSeparator>
-            <TimelineDot sx={{ bgcolor: 'customColor.main' }} variant="outlined" />
-            <TimelineConnector sx={{ bgcolor: 'customColor.main' }} />
+            <TimelineDot
+              sx={{ bgcolor: "customColor.main" }}
+              variant="outlined"
+            />
+            <TimelineConnector sx={{ bgcolor: "customColor.main" }} />
           </TimelineSeparator>
           <TimelineContent sx={{ py: "12px", px: 2 }}>
             <Typography
@@ -40,12 +43,15 @@ const Experience: React.FC = () => {
               Individual Development
             </Typography>
             <Typography variant="body2" sx={{ mt: 1, ml: 3 }}>
-              Technologies Used: TypeScript (Next.js, NestJS, Prisma), Git, Docker, MySQL, Redis
+              Technologies Used: TypeScript (Next.js, NestJS, Prisma), Git,
+              Docker, MySQL, Redis
             </Typography>
             <Box sx={{ mt: 1, ml: 3 }}>
               <ul style={{ paddingLeft: 20 }}>
                 <li>
-                  Defined requirements, designed, and implemented the backend for a web browser application of a city latitude and longitude guessing board game
+                  Defined requirements, designed, and implemented the backend
+                  for a web browser application of a city latitude and longitude
+                  guessing board game
                 </li>
               </ul>
             </Box>
@@ -73,18 +79,24 @@ const Experience: React.FC = () => {
               Application Engineer (Full-time)
             </Typography>
             <Typography variant="body2" sx={{ mt: 1, ml: 3 }}>
-              Technologies Used: AWS, Salesforce, Java (Spring), Python (PyTorch, Pandas)
+              Technologies Used: AWS, Salesforce, Java (Spring), Python
+              (PyTorch, Pandas)
             </Typography>
             <Box sx={{ mt: 1, ml: 3 }}>
               <ul style={{ paddingLeft: 20 }}>
                 <li>
-                  Designed and implemented API integration between Salesforce and AWS for an internal business reporting system renewal project, including front-end modifications
+                  Designed and implemented API integration between Salesforce
+                  and AWS for an internal business reporting system renewal
+                  project, including front-end modifications
                 </li>
                 <li>
-                  Designed and implemented APIs for an API expansion project of a core business system
+                  Designed and implemented APIs for an API expansion project of
+                  a core business system
                 </li>
                 <li>
-                  Designed and implemented a stock price prediction model using natural language processing for an internal research and development project
+                  Designed and implemented a stock price prediction model using
+                  natural language processing for an internal research and
+                  development project
                 </li>
               </ul>
             </Box>
@@ -120,7 +132,8 @@ const Experience: React.FC = () => {
                   Implemented feature enhancements for document OCR software
                 </li>
                 <li>
-                  Improved model accuracy for image detection software on factory lines
+                  Improved model accuracy for image detection software on
+                  factory lines
                 </li>
               </ul>
             </Box>
