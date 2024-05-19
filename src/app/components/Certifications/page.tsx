@@ -14,7 +14,7 @@ const Certifications: React.FC = () => {
         <ul>
           <li>TOEIC 865 points</li>
           <li>IPA Fundamental Information Technology Engineer</li>
-          <li>IPA Applied Information Technology Engineer Examination</li>
+          <li>IPA Applied Information Technology Engineer Engineer</li>
           <li>AWS Certified Cloud Practitioner (CLF-C01)</li>
           <li>AWS Certified Solutions Architect - Associate (SAA-C03)</li>
           <li>AWS Certified Developer - Associate (DVA-C02)</li>

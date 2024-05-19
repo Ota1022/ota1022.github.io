@@ -30,7 +30,7 @@ const Education: React.FC = () => {
               component="h2"
               sx={{ color: "text.secondary" }}
             >
-              2021 - 2023
+              April 2021 - March 2023
             </Typography>
             <Typography
               variant="h6"
@@ -67,7 +67,7 @@ const Education: React.FC = () => {
               component="h2"
               sx={{ color: "text.secondary" }}
             >
-              2017 - 2021
+              April 2017 - March 2021
             </Typography>
             <Typography
               variant="h6"

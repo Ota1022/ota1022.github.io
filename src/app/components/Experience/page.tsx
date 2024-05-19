@@ -114,7 +114,7 @@ const Experience: React.FC = () => {
               component="h2"
               sx={{ color: "text.secondary" }}
             >
-              October 2021 – March 2023 (1 year 6 months)
+              October 2021 – March 2023
             </Typography>
             <Typography
               variant="h6"
