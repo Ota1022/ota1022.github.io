@@ -16,7 +16,7 @@ const Contact: React.FC = () => {
         "& > *": { mx: 4, my: 2 },
       }}
     >
-      <Link href="www.linkedin.com/in/itaru-ota-naist" color="inherit">
+      <Link href="https://linkedin.com/in/itaru-ota-naist" color="inherit">
         <LinkedInIcon sx={{ fontSize: 40 }} />
       </Link>
       <Link href="https://github.com/Ota1022" color="inherit">
