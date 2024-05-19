@@ -77,9 +77,9 @@ const Home: React.FC = () => {
         <Avatar
           alt="Itaru Ota"
           src="/profile.png"
-          sx={{ width: 150, height: 150, mb: 4 }} // Add margin bottom to Avatar
+          sx={{ width: 150, height: 150, mb: 4 }}
         />
-        <Typography variant="h3" component="h2" gutterBottom>
+        <Typography variant="h3" component="h2" align="center" gutterBottom>
           {`Welcome to Itaru Ota's Portfolio! 👋`}
         </Typography>
       </Box>
