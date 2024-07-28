@@ -24,27 +24,27 @@ const Contact: React.FC = (): JSX.Element => {
       }}
     >
       <Link href="https://linkedin.com/in/itaru-ota-naist" color="inherit">
-        <Box sx={{ fontSize: 40 }}>
+        <Box sx={{ fontSize: 60 }}>
           <LinkedInIcon />
         </Box>
       </Link>
       <Link href="https://github.com/Ota1022" color="inherit">
-        <Box sx={{ fontSize: 40 }}>
+        <Box sx={{ fontSize: 60 }}>
           <GitHubIcon />
         </Box>
       </Link>
       <Link href="https://x.com/iorandd" color="inherit">
-        <Box sx={{ fontSize: 40 }}>
+        <Box sx={{ fontSize: 60 }}>
           <XIcon />
         </Box>
       </Link>
       <Link href="https://speakerdeck.com/ota1022" color="inherit">
-        <Box sx={{ fontSize: 40 }}>
+        <Box sx={{ fontSize: 60 }}>
           <DescriptionIcon />
         </Box>
       </Link>
       <Link href="https://zenn.dev/iorandd" color="inherit">
-        <Box sx={{ fontSize: 40 }}>
+        <Box sx={{ fontSize: 60 }}>
           <ZennIcon />
         </Box>
       </Link>
