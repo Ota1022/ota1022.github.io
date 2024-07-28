@@ -1,10 +1,10 @@
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import XIcon from "@mui/icons-material/X";
-import { Box, SvgIcon } from "@mui/material";
-import Link from "@mui/material/Link";
+import { Link, SvgIcon } from "@mui/material";
 import React from "react";
 
+// ZennIconコンポーネントの定義
 const ZennIcon: React.FC = (props) => (
   <SvgIcon {...props} viewBox="0 0 24 24">
     <title>Zenn</title>
@@ -12,6 +12,7 @@ const ZennIcon: React.FC = (props) => (
   </SvgIcon>
 );
 
+// SpeakerDeckIconコンポーネントの定義
 const SpeakerDeckIcon: React.FC = (props) => (
   <SvgIcon {...props} viewBox="0 0 24 24">
     <title>Speaker Deck</title>
@@ -21,40 +22,33 @@ const SpeakerDeckIcon: React.FC = (props) => (
 
 const Contact: React.FC = (): JSX.Element => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        flexWrap: "wrap",
-        "& > *": { mx: 4, my: 2 },
-      }}
-    >
+    <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '16px' }}>
       <Link href="https://linkedin.com/in/itaru-ota-naist" color="inherit">
-        <Box sx={{ fontSize: 150 }}>
-          <LinkedInIcon />
-        </Box>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '50px', height: '50px' }}>
+          <LinkedInIcon style={{ width: '100%', height: '100%' }} />
+        </div>
       </Link>
       <Link href="https://github.com/Ota1022" color="inherit">
-        <Box sx={{ fontSize: 150 }}>
-          <GitHubIcon />
-        </Box>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '50px', height: '50px' }}>
+          <GitHubIcon style={{ width: '100%', height: '100%' }} />
+        </div>
       </Link>
       <Link href="https://x.com/iorandd" color="inherit">
-        <Box sx={{ fontSize: 150 }}>
-          <XIcon />
-        </Box>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '50px', height: '50px' }}>
+          <XIcon style={{ width: '100%', height: '100%' }} />
+        </div>
       </Link>
       <Link href="https://speakerdeck.com/ota1022" color="inherit">
-        <Box sx={{ fontSize: 150 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '50px', height: '50px' }}>
           <SpeakerDeckIcon />
-        </Box>
+        </div>
       </Link>
       <Link href="https://zenn.dev/iorandd" color="inherit">
-        <Box sx={{ fontSize: 150 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '50px', height: '50px' }}>
           <ZennIcon />
-        </Box>
+        </div>
       </Link>
-    </Box>
+    </div>
   );
 };
 
