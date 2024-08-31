@@ -7,6 +7,7 @@ import { Box, Container, Typography } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@mui/material/styles";
+import Head from 'next/head';
 import React from "react";
 import AboutMe from "./components/AboutMe/page";
 import Awards from "./components/Awards/page";
@@ -23,6 +24,10 @@ const Home: React.FC = () => {
 
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>
+      <Head>
+        <title>Itaru OTA</title>
+      </Head>
+
       <Box
         sx={{
           display: "flex",
@@ -80,7 +85,7 @@ const Home: React.FC = () => {
           sx={{ width: 150, height: 150, mb: 4 }}
         />
         <Typography variant="h3" component="h2" align="center" gutterBottom>
-          {`Welcome to Itaru Ota's Portfolio! 👋`}
+          {`Itaru OTA`}
         </Typography>
       </Box>
 
