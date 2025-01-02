@@ -29,7 +29,7 @@ const CredlyDeckIcon: React.FC<SvgIconProps> = (props) => (
 const Contact: React.FC = (): JSX.Element => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '16px' }}>
-      <Link href="https://linkedin.com/in/itaru-ota-naist" color="inherit">
+      <Link href="https://www.linkedin.com/in/itaru-ota/" color="inherit">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '50px', height: '50px' }}>
           <LinkedInIcon style={{ width: '100%', height: '100%' }} />
         </div>
