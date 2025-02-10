@@ -25,6 +25,7 @@ const Home: React.FC = () => {
     <Container maxWidth="md" sx={{ mt: 4 }}>
       <Head>
         <title>Itaru OTA</title>
+        <meta name="description" content="Portfolio of Itaru OTA" /> 
       </Head>
 
       <Box
