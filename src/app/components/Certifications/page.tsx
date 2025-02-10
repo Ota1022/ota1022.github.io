@@ -16,9 +16,11 @@ const Certifications: React.FC = () => {
           <li>IPA Fundamental Information Technology Engineer</li>
           <li>IPA Applied Information Technology Engineer</li>
           <li>AWS Certified Cloud Practitioner (CLF-C01)</li>
+          <li>AWS Certified AI Practitioner (AIF-C01)</li>
           <li>AWS Certified Solutions Architect - Associate (SAA-C03)</li>
           <li>AWS Certified Developer - Associate (DVA-C02)</li>
           <li>AWS Certified SysOps Administrator - Associate (SOA-C02)</li>
+          <li>AWS Certified Data Engineer - Associate (DEA-C01)</li>
           <li>AWS Certified Solutions Architect - Professional (SAP-C02)</li>
           <li>AWS Certified Data Analytics - Specialty (DAS-C01)</li>
           <li>AWS Certified Security - Specialty (SCS-C02)</li>
