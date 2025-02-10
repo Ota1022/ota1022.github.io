@@ -25,7 +25,10 @@ const Home: React.FC = () => {
     <Container maxWidth="md" sx={{ mt: 4 }}>
       <Head>
         <title>Itaru OTA</title>
-        <meta name="description" content="Portfolio of Itaru OTA" /> 
+        <meta name="description" content="Portfolio of Itaru OTA" />
+        <meta property="og:title" content="Itaru OTA" />
+        <meta property="og:description" content="Portfolio of Itaru OTA" />
+        <meta property="og:url" content="https://ota1022.github.io/" />
       </Head>
 
       <Box
