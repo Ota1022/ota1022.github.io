@@ -16,7 +16,6 @@ import Contact from "./components/Contact/page";
 import Education from "./components/Education/page";
 import Experience from "./components/Experience/page";
 import Publication from "./components/Publication/page";
-import Skills from "./components/Skills/page";
 
 const Home: React.FC = () => {
   const theme = useTheme();
@@ -53,23 +52,6 @@ const Home: React.FC = () => {
         </IconButton>
       </Box>
 
-      {/* <Box
-        sx={{
-          backgroundColor: "yellow",
-          padding: 2,
-          textAlign: "center",
-          marginBottom: 4,
-        }}
-      >
-        <Typography
-          variant="h6"
-          component="p"
-          sx={{ fontWeight: "bold", color: "black" }}
-        >
-          This site is currently under construction. Stay tuned for updates!
-        </Typography>
-      </Box> */}
-
       <Box
         sx={{
           my: 2,
@@ -93,8 +75,6 @@ const Home: React.FC = () => {
 
       <AboutMe />
 
-      <Skills />
-
       <Experience />
 
       <Education />
@@ -112,7 +92,7 @@ const Home: React.FC = () => {
           gutterBottom
           sx={{ color: "white" }}
         >
-          © 2024 Itaru Ota. All rights reserved.
+          © 2025 Itaru Ota. All rights reserved.
         </Typography>
       </Box>
     </Container>
