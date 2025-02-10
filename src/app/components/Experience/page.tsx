@@ -33,26 +33,22 @@ const Experience: React.FC = () => {
               component="h2"
               sx={{ color: "customColor.main" }}
             >
-              August 2023 – Present
+              January 2025 - Present
             </Typography>
             <Typography
               variant="h6"
               component="h1"
               sx={{ fontWeight: "bold", mt: 1 }}
             >
-              Individual Development
+              FullStack Engineer (Full-time)
             </Typography>
             <Typography variant="body2" sx={{ mt: 1, ml: 3 }}>
-              Technologies Used: TypeScript (Next.js, NestJS, Prisma), Git,
-              Docker, MySQL, Redis
+              Python, TypeScript (Next.js), Google Cloud, AWS
             </Typography>
             <Box sx={{ mt: 1, ml: 3 }}>
               <ul style={{ paddingLeft: 20 }}>
-                <li>
-                  Defined requirements, designed, and implemented the backend
-                  for a web browser application of a city latitude and longitude
-                  guessing board game
-                </li>
+                {/* <li>
+                </li> */}
               </ul>
             </Box>
           </TimelineContent>
@@ -69,7 +65,7 @@ const Experience: React.FC = () => {
               component="h2"
               sx={{ color: "text.secondary" }}
             >
-              April 2023 – Present
+              April 2023 - December 2024
             </Typography>
             <Typography
               variant="h6"
@@ -79,24 +75,21 @@ const Experience: React.FC = () => {
               Application Engineer (Full-time)
             </Typography>
             <Typography variant="body2" sx={{ mt: 1, ml: 3 }}>
-              Technologies Used: AWS, Salesforce, Java (Spring), Python
-              (PyTorch, Pandas)
+              Java (Spring), Python (PyTorch, Pandas), AWS, Azure, Salesforce
             </Typography>
             <Box sx={{ mt: 1, ml: 3 }}>
               <ul style={{ paddingLeft: 20 }}>
                 <li>
-                  Designed and implemented API integration between Salesforce
-                  and AWS for an internal business reporting system renewal
-                  project, including front-end modifications
+                Experienced Application Engineer with expertise in integrating cloud-based platforms and developing AI-powered RAG (Retrieval Augmented Generation) systems.
                 </li>
                 <li>
-                  Designed and implemented APIs for an API expansion project of
-                  a core business system
+                Developed core business systems for facility management and leasing companies.
                 </li>
                 <li>
-                  Designed and implemented a stock price prediction model using
-                  natural language processing for an internal research and
-                  development project
+                Integrated systems with AWS, Azure, Google Cloud, and Salesforce to improve efficiency and scalability.
+                </li>
+                <li>
+                Held the role of Assistant Manager, ensuring timely project delivery and team collaboration.
                 </li>
               </ul>
             </Box>
@@ -114,7 +107,7 @@ const Experience: React.FC = () => {
               component="h2"
               sx={{ color: "text.secondary" }}
             >
-              October 2021 – March 2023
+              October 2021 - March 2023
             </Typography>
             <Typography
               variant="h6"
@@ -124,16 +117,18 @@ const Experience: React.FC = () => {
               Software Engineer (Part-time)
             </Typography>
             <Typography variant="body2" sx={{ mt: 1, ml: 3 }}>
-              Technologies Used: Python (PyTorch, Pandas), Git, Docker, SQLite
+              Python (PyTorch, Pandas)
             </Typography>
             <Box sx={{ mt: 1, ml: 3 }}>
               <ul style={{ paddingLeft: 20 }}>
                 <li>
-                  Implemented feature enhancements for document OCR software
+                Experienced Software Engineer with expertise in developing AI-powered OCR tools and optimizing deep learning models for industrial applications.
                 </li>
                 <li>
-                  Improved model accuracy for image detection software on
-                  factory lines
+                Developed OCR tools using image processing and NLP to convert PDFs into editable documents, enhancing data extraction and digitization.
+                </li>
+                <li>
+                Optimized deep learning models for anomaly detection in factory lines, reducing costs and boosting productivity.
                 </li>
               </ul>
             </Box>
