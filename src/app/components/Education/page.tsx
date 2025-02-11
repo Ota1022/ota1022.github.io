@@ -40,13 +40,12 @@ const Education: React.FC = () => {
               Nara Institute of Science and Technology
             </Typography>
             <Typography variant="body2" sx={{ mt: 1, ml: 3 }}>
-              Master of Engineering, Information Science and Engineering
+              Master of Engineering, Information Science
             </Typography>
             <Box sx={{ mt: 1, ml: 3 }}>
               <ul style={{ paddingLeft: 20 }}>
                 <li>
-                  Interdisciplinary research in NLP, HCI, and Computational
-                  Social Science
+                  Conducted interdisciplinary research in NLP and HCI
                 </li>
                 <li>
                   Contributed to an OSS project for NLP authorship detection
@@ -82,11 +81,7 @@ const Education: React.FC = () => {
             <Box sx={{ mt: 1, ml: 3 }}>
               <ul style={{ paddingLeft: 20 }}>
                 <li>
-                  Participated in seminar on International Macroeconomics and
-                  Econometrics
-                </li>
-                <li>
-                  Studied Descriptive, Inferential, and Bayesian Statistics
+                  Studied International Macroeconomics and Econometrics
                 </li>
               </ul>
             </Box>
