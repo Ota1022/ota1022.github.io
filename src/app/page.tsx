@@ -94,7 +94,7 @@ const Home = (): React.ReactNode => {
           variant="caption"
           display="block"
           gutterBottom
-          sx={{ color: 'white' }}
+          sx={{ color: 'text.secondary' }}
         >
           © {new Date().getFullYear()} Itaru Ota. All rights reserved.
         </Typography>

@@ -25,13 +25,13 @@ const Experience: FC = () => {
               sx={{ bgcolor: 'customColor.main' }}
               variant="outlined"
             />
-            <TimelineConnector sx={{ bgcolor: 'customColor.main' }} />
+            <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
             <Typography
               variant="subtitle2"
               component="h2"
-              sx={{ color: 'customColor.main' }}
+              sx={{ color: 'text.secondary' }}
             >
               January 2025 - Present
             </Typography>
