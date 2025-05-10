@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { ColorModeContext, ToggleColorMode } from "@/contexts/ThemeContext";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import { Inconsolata } from "next/font/google";
-import React from "react";
-import "./globals.css";
+import { ColorModeContext, ToggleColorMode } from '@/contexts/ThemeContext';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
+import { Inconsolata } from 'next/font/google';
+import type React from 'react';
+import './globals.css';
 
 const inconsolata = Inconsolata({
-  subsets: ["latin"],
-  weight: ["400"],
-  display: "swap",
+  subsets: ['latin'],
+  weight: ['400'],
+  display: 'swap',
   adjustFontFallback: false,
 });
 
