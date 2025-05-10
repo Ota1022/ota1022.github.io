@@ -1,6 +1,7 @@
 'use client';
 
-import { type Theme, createTheme } from '@mui/material/styles';
+import baseTheme from '@/theme/theme';
+import type { Theme } from '@mui/material/styles';
 import { createContext, useMemo, useState } from 'react';
 
 interface ColorModeContextType {
@@ -20,14 +21,22 @@ export function ToggleColorMode(): {
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        console.log(mode);
         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
       },
     }),
-    [mode],
+    []
   );
 
-  const theme = useMemo(() => createTheme({ palette: { mode } }), [mode]);
+  const theme = useMemo(
+    () => ({
+      ...baseTheme,
+      palette: {
+        ...baseTheme.palette,
+        mode,
+      },
+    }),
+    [mode]
+  );
 
   return { colorMode, theme };
 }

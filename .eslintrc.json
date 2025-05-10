@@ -3,7 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["standard-with-typescript", "plugin:react/recommended", "prettier"],
+  "extends": ["next/core-web-vitals", "prettier"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
@@ -11,5 +11,6 @@
   "plugins": ["react"],
   "rules": {
     "react/react-in-jsx-scope": "off"
-  }
+  },
+  "ignorePatterns": ["out/**/*", ".next/**/*", "node_modules/**/*"]
 }

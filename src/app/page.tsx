@@ -43,8 +43,16 @@ const Home = (): React.ReactNode => {
           p: 3,
         }}
       >
-        <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-          {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+        <IconButton
+          sx={{ ml: 1 }}
+          onClick={colorMode.toggleColorMode}
+          color="inherit"
+        >
+          {theme.palette.mode === 'dark' ? (
+            <Brightness7Icon />
+          ) : (
+            <Brightness4Icon />
+          )}
         </IconButton>
       </Box>
 
@@ -57,9 +65,13 @@ const Home = (): React.ReactNode => {
           justifyContent: 'center',
         }}
       >
-        <Avatar alt="Itaru Ota" src="/profile.png" sx={{ width: 150, height: 150, mb: 4 }} />
+        <Avatar
+          alt="Itaru Ota"
+          src="/profile.png"
+          sx={{ width: 150, height: 150, mb: 4 }}
+        />
         <Typography variant="h3" component="h2" align="center" gutterBottom>
-          {`Itaru OTA`}
+          {'Itaru OTA'}
         </Typography>
       </Box>
 
@@ -78,7 +90,12 @@ const Home = (): React.ReactNode => {
       <Certifications />
 
       <Box component="footer" sx={{ my: 4, p: 2, textAlign: 'center' }}>
-        <Typography variant="caption" display="block" gutterBottom sx={{ color: 'white' }}>
+        <Typography
+          variant="caption"
+          display="block"
+          gutterBottom
+          sx={{ color: 'white' }}
+        >
           © {new Date().getFullYear()} Itaru Ota. All rights reserved.
         </Typography>
       </Box>

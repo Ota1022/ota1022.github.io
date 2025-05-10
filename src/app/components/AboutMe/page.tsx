@@ -1,9 +1,12 @@
 import { Paper, Typography } from '@mui/material';
-import type React from 'react';
+import type { FC } from 'react';
 
-const AboutMe: React.FC = () => {
+const AboutMe: FC = () => {
   return (
-    <Paper sx={{ mx: 'auto', my: 4, p: 3, maxWidth: 600, overflow: 'hidden' }} elevation={3}>
+    <Paper
+      sx={{ mx: 'auto', my: 4, p: 3, maxWidth: 600, overflow: 'hidden' }}
+      elevation={3}
+    >
       <Typography variant="h4" component="h3" sx={{ marginBottom: 2 }}>
         About Me
       </Typography>
@@ -16,13 +19,15 @@ const AboutMe: React.FC = () => {
           </li>
           <li>
             <Typography variant="subtitle1">
-              Master&rsquo;s in Engineering, focused on enhancing user experiences in audio media
-              through natural language processing and social media data analysis.
+              Master&rsquo;s in Engineering, focused on enhancing user
+              experiences in audio media through natural language processing and
+              social media data analysis.
             </Typography>
           </li>
           <li>
             <Typography variant="subtitle1">
-              AWS-certified: Solutions Architect Professional, Security Specialty, etc.
+              AWS-certified: Solutions Architect Professional, Security
+              Specialty, etc.
             </Typography>
           </li>
         </ul>

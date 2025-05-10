@@ -10,7 +10,14 @@ import { Link } from '@mui/material';
 
 const Contact = (): React.ReactNode => {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '16px' }}>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        gap: '16px',
+      }}
+    >
       <Link href="https://www.linkedin.com/in/itaru-ota/" color="inherit">
         <div
           style={{

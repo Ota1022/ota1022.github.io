@@ -1,11 +1,11 @@
 'use client';
 
 import { ColorModeContext, ToggleColorMode } from '@/contexts/ThemeContext';
+import '@/styles/globals.css';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { Inconsolata } from 'next/font/google';
-import type React from 'react';
-import './globals.css';
+import type { ReactNode } from 'react';
 
 const inconsolata = Inconsolata({
   subsets: ['latin'],
@@ -17,7 +17,7 @@ const inconsolata = Inconsolata({
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>): JSX.Element {
   const { colorMode, theme } = ToggleColorMode();
 
@@ -25,7 +25,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-DKVJZRT90P"></script>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-DKVJZRT90P"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `

@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "format": "biome format --write .",
-    "lint": "biome check .",
-    "lint:fix": "biome check --write .",
+    "format": "prettier --write .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format:biome": "biome format --write .",
+    "lint:biome": "biome check .",
+    "lint:biome:fix": "biome check --write .",
+    "lint:biome:src": "biome check src/",
+    "lint:biome:fix:src": "biome check --write src/",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "npm run build && npm run export",
-    "export": "next export"
+    "deploy": "next build && touch out/.nojekyll && git add out/ && git commit -m \"Deploy to gh-pages\" && git subtree push --prefix out origin gh-pages"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",

@@ -1,9 +1,12 @@
 import { Paper, Typography } from '@mui/material';
-import type React from 'react';
+import type { FC } from 'react';
 
-const Skills: React.FC = () => {
+const Skills: FC = () => {
   return (
-    <Paper sx={{ mx: 'auto', my: 4, p: 3, maxWidth: 600, overflow: 'hidden' }} elevation={3}>
+    <Paper
+      sx={{ mx: 'auto', my: 4, p: 3, maxWidth: 600, overflow: 'hidden' }}
+      elevation={3}
+    >
       <Typography variant="h4" component="h3" sx={{ marginBottom: 2 }}>
         Technical Skills
       </Typography>

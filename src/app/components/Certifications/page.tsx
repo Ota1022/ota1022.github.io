@@ -1,9 +1,12 @@
 import { Box, Paper, Typography } from '@mui/material';
-import type React from 'react';
+import type { FC } from 'react';
 
-const Certifications: React.FC = () => {
+const Certifications: FC = () => {
   return (
-    <Paper sx={{ mx: 'auto', my: 4, p: 3, maxWidth: 600, overflow: 'hidden' }} elevation={3}>
+    <Paper
+      sx={{ mx: 'auto', my: 4, p: 3, maxWidth: 600, overflow: 'hidden' }}
+      elevation={3}
+    >
       <Typography variant="h4" component="h3" sx={{ marginBottom: 2 }}>
         Certifications
       </Typography>
@@ -20,7 +23,9 @@ const Certifications: React.FC = () => {
             <li>AWS Certified Developer - Associate (DVA-C02)</li>
             <li>AWS Certified SysOps Administrator - Associate (SOA-C02)</li>
             <li>AWS Certified Data Engineer - Associate (DEA-C01)</li>
-            <li>AWS Certified Machine Learning Engineer - Associate (MLA-C01)</li>
+            <li>
+              AWS Certified Machine Learning Engineer - Associate (MLA-C01)
+            </li>
             <li>AWS Certified Solutions Architect - Professional (SAP-C02)</li>
             <li>AWS Certified Security - Specialty (SCS-C02)</li>
             <li>AWS Certified Data Analytics - Specialty (DAS-C01)</li>
