@@ -24,9 +24,13 @@
     "@mui/lab": "^5.0.0-alpha.169",
     "@mui/material": "^5.15.18",
     "@mui/material-nextjs": "^5.15.11",
+    "date-fns": "^4.1.0",
+    "gray-matter": "^4.0.3",
     "next": "^14.2.23",
+    "next-mdx-remote": "^5.0.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "rehype-highlight": "^7.0.2"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

@@ -39,6 +39,17 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* Syntax highlighting CSS */}
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+          media="(prefers-color-scheme: dark)"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+          media="(prefers-color-scheme: light)"
+        />
       </head>
       <body className={inconsolata.className}>
         <ColorModeContext.Provider value={colorMode}>
