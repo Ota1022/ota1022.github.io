@@ -2,13 +2,9 @@
 
 import AboutMe from '@/components/AboutMe';
 import Contact from '@/components/Contact';
-import { ColorModeContext } from '@/contexts/ThemeContext';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Header from '@/components/layout/Header';
 import { Box, Container, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import { useTheme } from '@mui/material/styles';
 import Head from 'next/head';
 import React from 'react';
 import Awards from './components/Awards/page';
@@ -18,9 +14,6 @@ import Experience from './components/Experience/page';
 import Publication from './components/Publication/page';
 
 const Home = (): React.ReactNode => {
-  const theme = useTheme();
-  const colorMode = React.useContext(ColorModeContext);
-
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>
       <Head>
@@ -31,30 +24,7 @@ const Home = (): React.ReactNode => {
         <meta property="og:url" content="https://ota1022.github.io/" />
       </Head>
 
-      <Box
-        sx={{
-          display: 'flex',
-          width: '100%',
-          alignItems: 'center',
-          justifyContent: 'flex-end',
-          bgcolor: 'transparent',
-          color: 'text.primary',
-          borderRadius: 1,
-          p: 3,
-        }}
-      >
-        <IconButton
-          sx={{ ml: 1 }}
-          onClick={colorMode.toggleColorMode}
-          color="inherit"
-        >
-          {theme.palette.mode === 'dark' ? (
-            <Brightness7Icon />
-          ) : (
-            <Brightness4Icon />
-          )}
-        </IconButton>
-      </Box>
+      <Header />
 
       <Box
         sx={{
