@@ -8,6 +8,8 @@ import NextLink from 'next/link';
 import { notFound } from 'next/navigation';
 import rehypeHighlight from 'rehype-highlight';
 
+const PLACEHOLDER_SLUG = '__blog-placeholder__';
+
 interface BlogPostPageProps {
   params: {
     slug: string;
@@ -24,7 +26,7 @@ export const generateStaticParams = async () => {
   // Generate a single placeholder page so the export build won't fail
   // even when there are zero blog posts (no slugs to pre-render).
   if (slugs.length === 0) {
-    return [{ slug: 'coming-soon' }];
+    return [{ slug: PLACEHOLDER_SLUG }];
   }
   return slugs.map((slug) => ({
     slug,
@@ -32,10 +34,14 @@ export const generateStaticParams = async () => {
 };
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
+  const hasAnyPosts = getAllPostSlugs().length > 0;
   const post = getPostBySlug(params.slug);
 
   if (!post) {
-    if (params.slug === 'coming-soon') {
+    // Only show the placeholder page when there are zero posts.
+    // This prevents conflicts if someone ever creates a real post whose slug
+    // happens to match the placeholder.
+    if (!hasAnyPosts && params.slug === PLACEHOLDER_SLUG) {
       return (
         <Container maxWidth="md" sx={{ mt: 4 }}>
           <Header />
