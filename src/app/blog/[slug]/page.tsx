@@ -14,17 +14,50 @@ interface BlogPostPageProps {
   };
 }
 
-export function generateStaticParams() {
+// For Static Export (output: 'export'), dynamic routes must:
+// - enumerate all params to pre-render, and
+// - disable fallback (no runtime generation).
+export const dynamicParams = false;
+
+export const generateStaticParams = async () => {
   const slugs = getAllPostSlugs();
+  // Generate a single placeholder page so the export build won't fail
+  // even when there are zero blog posts (no slugs to pre-render).
+  if (slugs.length === 0) {
+    return [{ slug: 'coming-soon' }];
+  }
   return slugs.map((slug) => ({
     slug,
   }));
-}
+};
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
   const post = getPostBySlug(params.slug);
 
   if (!post) {
+    if (params.slug === 'coming-soon') {
+      return (
+        <Container maxWidth="md" sx={{ mt: 4 }}>
+          <Header />
+          <Box sx={{ my: 4 }}>
+            <Link
+              component={NextLink}
+              href="/blog"
+              underline="hover"
+              sx={{ mb: 2, display: 'inline-block' }}
+            >
+              ← Back to Blog
+            </Link>
+            <Typography variant="h4" component="h1" gutterBottom>
+              Coming soon
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Blog posts are coming soon.
+            </Typography>
+          </Box>
+        </Container>
+      );
+    }
     notFound();
   }
 
