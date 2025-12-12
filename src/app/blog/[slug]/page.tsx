@@ -8,23 +8,62 @@ import NextLink from 'next/link';
 import { notFound } from 'next/navigation';
 import rehypeHighlight from 'rehype-highlight';
 
+const PLACEHOLDER_SLUG = '__blog-placeholder__';
+
 interface BlogPostPageProps {
   params: {
     slug: string;
   };
 }
 
-export function generateStaticParams() {
+// For Static Export (output: 'export'), dynamic routes must:
+// - enumerate all params to pre-render, and
+// - disable fallback (no runtime generation).
+export const dynamicParams = false;
+
+export const generateStaticParams = async () => {
   const slugs = getAllPostSlugs();
+  // Generate a single placeholder page so the export build won't fail
+  // even when there are zero blog posts (no slugs to pre-render).
+  if (slugs.length === 0) {
+    return [{ slug: PLACEHOLDER_SLUG }];
+  }
   return slugs.map((slug) => ({
     slug,
   }));
-}
+};
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
+  const hasAnyPosts = getAllPostSlugs().length > 0;
   const post = getPostBySlug(params.slug);
 
   if (!post) {
+    // Only show the placeholder page when there are zero posts.
+    // This prevents conflicts if someone ever creates a real post whose slug
+    // happens to match the placeholder.
+    if (!hasAnyPosts && params.slug === PLACEHOLDER_SLUG) {
+      return (
+        <Container maxWidth="md" sx={{ mt: 4 }}>
+          <Header />
+          <Box sx={{ my: 4 }}>
+            <Link
+              component={NextLink}
+              href="/blog"
+              underline="hover"
+              sx={{ mb: 2, display: 'inline-block' }}
+            >
+              ← Back to Blog
+            </Link>
+            <Typography variant="h4" component="h1" gutterBottom>
+              Coming soon
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Blog posts are coming soon.
+            </Typography>
+          </Box>
+        </Container>
+      );
+    }
     notFound();
   }
 
