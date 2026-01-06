@@ -1,12 +1,13 @@
 import { mdxComponents } from '@/components/blog/MDXComponents';
 import Header from '@/components/layout/Header';
 import { getAllPostSlugs, getPostBySlug } from '@/lib/blog';
-import { Box, Chip, Container, Link, Typography } from '@mui/material';
+import { Box, Chip, Container, Link, Paper, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import NextLink from 'next/link';
 import { notFound } from 'next/navigation';
 import rehypeHighlight from 'rehype-highlight';
+import remarkGfm from 'remark-gfm';
 
 const PLACEHOLDER_SLUG = '__blog-placeholder__';
 
@@ -95,56 +96,54 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           ← Back to Blog
         </Link>
 
-        <Box sx={{ mb: 3 }}>
-          <Chip
-            label={frontmatter.category}
-            color={getCategoryColor(frontmatter.category) as 'primary' | 'secondary' | 'default'}
-            size="small"
-            sx={{ mb: 2 }}
-          />
-          <Typography variant="h3" component="h1" gutterBottom>
-            {frontmatter.title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary" paragraph>
-            {formattedDate}
-          </Typography>
-          {frontmatter.tags && frontmatter.tags.length > 0 && (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 3 }}>
-              {frontmatter.tags.map((tag) => (
-                <Chip
-                  key={tag}
-                  label={tag}
-                  size="small"
-                  variant="outlined"
-                />
-              ))}
-            </Box>
-          )}
-        </Box>
+        <Paper elevation={2} sx={{ p: 4, mt: 2 }}>
+          <Box sx={{ mb: 3 }}>
+            <Chip
+              label={frontmatter.category}
+              color={getCategoryColor(frontmatter.category) as 'primary' | 'secondary' | 'default'}
+              size="small"
+              sx={{ mb: 2 }}
+            />
+            <Typography variant="h3" component="h1" gutterBottom>
+              {frontmatter.title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" paragraph>
+              {formattedDate}
+            </Typography>
+            {frontmatter.tags && frontmatter.tags.length > 0 && (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 3 }}>
+                {frontmatter.tags.map((tag) => (
+                  <Chip
+                    key={tag}
+                    label={tag}
+                    size="small"
+                    variant="outlined"
+                  />
+                ))}
+              </Box>
+            )}
+          </Box>
 
-        <Box
-          sx={{
-            '& pre': {
-              bgcolor: 'action.selected',
-              p: 2,
-              borderRadius: 1,
-              overflow: 'auto',
-            },
-            '& code': {
-              fontFamily: 'monospace',
-            },
-          }}
-        >
-          <MDXRemote
-            source={content}
-            components={mdxComponents}
-            options={{
-              mdxOptions: {
-                rehypePlugins: [rehypeHighlight],
+          <Box
+            sx={{
+              '& code': {
+                fontFamily: 'Menlo, Monaco, "Courier New", monospace',
+                fontSize: '0.95em',
               },
             }}
-          />
-        </Box>
+          >
+            <MDXRemote
+              source={content}
+              components={mdxComponents}
+              options={{
+                mdxOptions: {
+                  remarkPlugins: [remarkGfm],
+                  rehypePlugins: [rehypeHighlight],
+                },
+              }}
+            />
+          </Box>
+        </Paper>
       </Box>
     </Container>
   );

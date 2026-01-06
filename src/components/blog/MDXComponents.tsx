@@ -1,5 +1,16 @@
-import { Box, Link as MuiLink, Typography } from '@mui/material';
+import {
+  Box,
+  Link as MuiLink,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from '@mui/material';
 import type { MDXComponents } from 'mdx/types';
+import { CodeBlock } from './CodeBlock';
 
 /**
  * Custom components for MDX
@@ -74,51 +85,31 @@ export const mdxComponents: MDXComponents = {
         <Box
           component="code"
           sx={{
-            bgcolor: 'action.selected',
-            px: 0.5,
+            bgcolor: 'rgba(255, 255, 255, 0.1)',
+            px: 0.75,
             py: 0.25,
             borderRadius: 0.5,
-            fontFamily: 'monospace',
+            fontFamily: 'Menlo, Monaco, "Courier New", monospace',
             fontSize: '0.9em',
+            color: '#ff6b6b',
           }}
         >
           {children}
         </Box>
       );
     }
-    return (
-      <Box
-        component="code"
-        className={className}
-        sx={{
-          display: 'block',
-          bgcolor: 'action.selected',
-          p: 2,
-          borderRadius: 1,
-          overflow: 'auto',
-          fontFamily: 'monospace',
-          fontSize: '0.9em',
-          my: 2,
-        }}
-      >
-        {children}
-      </Box>
-    );
+    // For code blocks, return just the children without wrapper
+    // The pre component will handle the styling and copy button
+    return <>{children}</>;
   },
-  pre: ({ children }) => (
-    <Box
-      component="pre"
-      sx={{
-        bgcolor: 'action.selected',
-        p: 2,
-        borderRadius: 1,
-        overflow: 'auto',
-        my: 2,
-      }}
-    >
-      {children}
-    </Box>
-  ),
+  pre: ({ children }) => {
+    // Extract className from code element if it exists
+    const codeElement = children as any;
+    const className = codeElement?.props?.className;
+    const codeContent = codeElement?.props?.children;
+
+    return <CodeBlock className={className}>{codeContent}</CodeBlock>;
+  },
   hr: () => (
     <Box
       component="hr"
@@ -130,18 +121,56 @@ export const mdxComponents: MDXComponents = {
       }}
     />
   ),
-  img: ({ src, alt }) => (
-    <Box
-      component="img"
-      src={src}
-      alt={alt}
+  img: ({ src, alt }) => {
+    // Amazon ECS icon should remain transparent
+    const isTransparent = alt === 'Amazon ECS';
+
+    return (
+      <Box
+        sx={{
+          bgcolor: isTransparent ? 'transparent' : '#ffffff',
+          p: 2,
+          borderRadius: 1,
+          my: 2,
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <Box
+          component="img"
+          src={src}
+          alt={alt}
+          sx={{
+            maxWidth: '100%',
+            height: 'auto',
+            display: 'block',
+          }}
+        />
+      </Box>
+    );
+  },
+  table: ({ children }) => (
+    <TableContainer sx={{ my: 3, overflowX: 'auto' }}>
+      <Table sx={{ minWidth: 650, border: 1, borderColor: 'divider' }}>{children}</Table>
+    </TableContainer>
+  ),
+  thead: ({ children }) => <TableHead>{children}</TableHead>,
+  tbody: ({ children }) => <TableBody>{children}</TableBody>,
+  tr: ({ children }) => <TableRow>{children}</TableRow>,
+  th: ({ children }) => (
+    <TableCell
+      component="th"
       sx={{
-        maxWidth: '100%',
-        height: 'auto',
-        display: 'block',
-        my: 2,
-        borderRadius: 1,
+        fontWeight: 'bold',
+        bgcolor: 'rgba(255, 255, 255, 0.05)',
+        borderBottom: 2,
+        borderColor: 'divider',
       }}
-    />
+    >
+      {children}
+    </TableCell>
+  ),
+  td: ({ children }) => (
+    <TableCell sx={{ borderBottom: 1, borderColor: 'divider' }}>{children}</TableCell>
   ),
 };
