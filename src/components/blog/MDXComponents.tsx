@@ -98,9 +98,9 @@ export const mdxComponents: MDXComponents = {
         </Box>
       );
     }
-    // For fenced code blocks, return code element with className preserved
-    // The pre component will extract props from this element
-    return <code className={className}>{children}</code>;
+    // For code blocks, return just the children without wrapper
+    // The pre component will handle the styling and copy button
+    return <>{children}</>;
   },
   pre: ({ children }) => {
     // Extract className from code element if it exists
