@@ -43,7 +43,7 @@ const Experience: FC = () => {
               FullStack Engineer (Full-time)
             </Typography>
             <Typography variant="body2" sx={{ mt: 1, ml: 3 }}>
-              Python, TypeScript (Next.js), Google Cloud, AWS
+              Python, TypeScript (Next.js), Terraform, Google Cloud, AWS
             </Typography>
             <Box sx={{ mt: 1, ml: 3 }}>
               <ul style={{ paddingLeft: 20 }}>
