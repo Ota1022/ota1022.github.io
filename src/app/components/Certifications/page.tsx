@@ -25,6 +25,7 @@ const Certifications: FC = () => {
             <li>AWS Certified Data Engineer - Associate (DEA-C01)</li>
             <li>AWS Certified Machine Learning Engineer - Associate (MLA-C01)</li>
             <li>AWS Certified Solutions Architect - Professional (SAP-C02)</li>
+            <li>AWS Certified DevOps Engineer – Professional (DOP-C02)</li>
             <li>AWS Certified Security - Specialty (SCS-C02)</li>
             <li>AWS Certified Data Analytics - Specialty (DAS-C01)</li>
             <li>AWS Certified Machine Learning - Specialty (MLS-C01)</li>
