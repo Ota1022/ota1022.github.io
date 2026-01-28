@@ -44,7 +44,7 @@ export default function BlogList({ initialPosts }: BlogListProps) {
               <MenuItem value="blog">Blog</MenuItem>
               <MenuItem value="zenn">Zenn</MenuItem>
               <MenuItem value="speakerdeck">SpeakerDeck</MenuItem>
-              <MenuItem value="award">Award</MenuItem>
+              <MenuItem value="announcement">Announcement</MenuItem>
               <MenuItem value="activity">Activity</MenuItem>
               <MenuItem value="other">Other</MenuItem>
             </Select>

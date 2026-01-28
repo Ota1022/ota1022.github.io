@@ -23,7 +23,7 @@ export default function BlogCard({ post }: BlogCardProps) {
         return 'success';
       case 'activity':
         return 'secondary';
-      case 'award':
+      case 'announcement':
         return 'warning';
       default:
         return 'default';
