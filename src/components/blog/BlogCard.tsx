@@ -16,13 +16,15 @@ export default function BlogCard({ post }: BlogCardProps) {
   const getCategoryColor = (category: string) => {
     switch (category) {
       case 'blog':
-        return 'info';
+        return 'default';
       case 'zenn':
         return 'primary';
       case 'speakerdeck':
         return 'success';
       case 'activity':
         return 'secondary';
+      case 'award':
+        return 'warning';
       default:
         return 'default';
     }
@@ -43,7 +45,7 @@ export default function BlogCard({ post }: BlogCardProps) {
         <Box sx={{ mb: 1 }}>
           <Chip
             label={frontmatter.category}
-            color={getCategoryColor(frontmatter.category) as 'primary' | 'secondary' | 'success' | 'info' | 'default'}
+            color={getCategoryColor(frontmatter.category) as 'primary' | 'secondary' | 'success' | 'warning' | 'default'}
             size="small"
             sx={{ mb: 1 }}
           />

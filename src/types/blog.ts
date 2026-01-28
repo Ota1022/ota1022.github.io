@@ -1,4 +1,4 @@
-export type BlogCategory = 'blog' | 'zenn' | 'speakerdeck' | 'activity' | 'other';
+export type BlogCategory = 'blog' | 'zenn' | 'speakerdeck' | 'award' | 'activity' | 'other';
 
 export interface BlogPostFrontmatter {
   title: string;
