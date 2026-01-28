@@ -1,4 +1,4 @@
-export type BlogCategory = 'tech' | 'activity' | 'other';
+export type BlogCategory = 'blog' | 'zenn' | 'speakerdeck' | 'activity' | 'other';
 
 export interface BlogPostFrontmatter {
   title: string;
@@ -6,6 +6,7 @@ export interface BlogPostFrontmatter {
   date: string;
   category: BlogCategory;
   tags?: string[];
+  externalUrl?: string;
 }
 
 export interface BlogPost {

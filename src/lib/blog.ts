@@ -58,6 +58,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
 
 /**
  * Get all post slugs (for generateStaticParams)
+ * Excludes posts with externalUrl since they don't need individual pages
  */
 export function getAllPostSlugs(): string[] {
   if (!fs.existsSync(postsDirectory)) {
@@ -67,5 +68,11 @@ export function getAllPostSlugs(): string[] {
   const fileNames = fs.readdirSync(postsDirectory);
   return fileNames
     .filter((fileName) => fileName.endsWith('.mdx'))
+    .filter((fileName) => {
+      const fullPath = path.join(postsDirectory, fileName);
+      const fileContents = fs.readFileSync(fullPath, 'utf8');
+      const { data } = matter(fileContents);
+      return !data.externalUrl;
+    })
     .map((fileName) => fileName.replace(/\.mdx$/, ''));
 }
