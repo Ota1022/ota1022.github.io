@@ -41,7 +41,10 @@ export default function BlogList({ initialPosts }: BlogListProps) {
               onChange={(e) => setSelectedCategory(e.target.value as BlogCategory | 'all')}
             >
               <MenuItem value="all">All</MenuItem>
-              <MenuItem value="tech">Tech</MenuItem>
+              <MenuItem value="blog">Blog</MenuItem>
+              <MenuItem value="zenn">Zenn</MenuItem>
+              <MenuItem value="speakerdeck">SpeakerDeck</MenuItem>
+              <MenuItem value="announcement">Announcement</MenuItem>
               <MenuItem value="activity">Activity</MenuItem>
               <MenuItem value="other">Other</MenuItem>
             </Select>
