@@ -73,10 +73,16 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'tech':
+      case 'blog':
+        return { bg: '#26a69a', text: '#fff' }; // teal
+      case 'zenn':
         return 'primary';
+      case 'speakerdeck':
+        return 'success';
       case 'activity':
         return 'secondary';
+      case 'announcement':
+        return 'warning';
       default:
         return 'default';
     }
@@ -98,12 +104,24 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
         <Paper elevation={2} sx={{ p: 4, mt: 2 }}>
           <Box sx={{ mb: 3 }}>
-            <Chip
-              label={frontmatter.category}
-              color={getCategoryColor(frontmatter.category) as 'primary' | 'secondary' | 'default'}
-              size="small"
-              sx={{ mb: 2 }}
-            />
+            {(() => {
+              const colorValue = getCategoryColor(frontmatter.category);
+              const isCustomColor = typeof colorValue === 'object';
+              return (
+                <Chip
+                  label={frontmatter.category}
+                  color={isCustomColor ? 'default' : colorValue as 'primary' | 'secondary' | 'success' | 'warning' | 'default'}
+                  size="small"
+                  sx={{
+                    mb: 2,
+                    ...(isCustomColor && {
+                      backgroundColor: colorValue.bg,
+                      color: colorValue.text,
+                    }),
+                  }}
+                />
+              );
+            })()}
             <Typography variant="h3" component="h1" gutterBottom>
               {frontmatter.title}
             </Typography>

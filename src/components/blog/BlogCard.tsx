@@ -16,7 +16,7 @@ export default function BlogCard({ post }: BlogCardProps) {
   const getCategoryColor = (category: string) => {
     switch (category) {
       case 'blog':
-        return 'default';
+        return { bg: '#26a69a', text: '#fff' }; // teal
       case 'zenn':
         return 'primary';
       case 'speakerdeck':
@@ -43,12 +43,24 @@ export default function BlogCard({ post }: BlogCardProps) {
     >
       <CardContent>
         <Box sx={{ mb: 1 }}>
-          <Chip
-            label={frontmatter.category}
-            color={getCategoryColor(frontmatter.category) as 'primary' | 'secondary' | 'success' | 'warning' | 'default'}
-            size="small"
-            sx={{ mb: 1 }}
-          />
+          {(() => {
+            const colorValue = getCategoryColor(frontmatter.category);
+            const isCustomColor = typeof colorValue === 'object';
+            return (
+              <Chip
+                label={frontmatter.category}
+                color={isCustomColor ? 'default' : colorValue as 'primary' | 'secondary' | 'success' | 'warning' | 'default'}
+                size="small"
+                sx={{
+                  mb: 1,
+                  ...(isCustomColor && {
+                    backgroundColor: colorValue.bg,
+                    color: colorValue.text,
+                  }),
+                }}
+              />
+            );
+          })()}
           <Typography variant="caption" color="text.secondary" sx={{ ml: 1 }}>
             {formattedDate}
           </Typography>
