@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Link, Paper, Typography } from '@mui/material';
 import type { FC } from 'react';
 
 const Certifications: FC = () => {
@@ -7,8 +7,19 @@ const Certifications: FC = () => {
       sx={{ mx: 'auto', my: 4, p: 3, maxWidth: 600, overflow: 'hidden' }}
       elevation={3}
     >
-      <Typography variant="h4" component="h3" sx={{ marginBottom: 2 }}>
+      <Typography variant="h4" component="h3" sx={{ marginBottom: 0.5 }}>
         Certifications
+      </Typography>
+      <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
+        <Link
+          href="https://www.credly.com/users/itaru-ota"
+          target="_blank"
+          rel="noopener noreferrer"
+          color="primary"
+          underline="hover"
+        >
+          View verified badges on Credly
+        </Link>
       </Typography>
 
       <Box sx={{ mb: 3 }}>
