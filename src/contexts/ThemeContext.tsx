@@ -2,7 +2,7 @@
 
 import baseTheme from '@/theme/theme';
 import type { Theme } from '@mui/material/styles';
-import { createTheme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 import { createContext, useEffect, useMemo, useState } from 'react';
 
 type ThemeMode = 'light' | 'dark';
@@ -48,7 +48,7 @@ export function ToggleColorMode(): {
   const theme = useMemo(() => {
     // Create theme according to mode
     if (mode === 'light') {
-      return createTheme({
+      return responsiveFontSizes(createTheme({
         ...baseTheme,
         palette: {
           ...baseTheme.palette,
@@ -79,16 +79,16 @@ export function ToggleColorMode(): {
             },
           },
         },
-      });
+      }));
     }
     // For dark mode, use baseTheme as is
-    return createTheme({
+    return responsiveFontSizes(createTheme({
       ...baseTheme,
       palette: {
         ...baseTheme.palette,
         mode,
       },
-    });
+    }));
   }, [mode]);
 
   return { colorMode, theme };

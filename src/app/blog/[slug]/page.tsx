@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import NextLink from 'next/link';
 import { notFound } from 'next/navigation';
-import rehypeHighlight from 'rehype-highlight';
+import rehypePrettyCode from 'rehype-pretty-code';
 import remarkGfm from 'remark-gfm';
 
 const PLACEHOLDER_SLUG = '__blog-placeholder__';
@@ -102,7 +102,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           ← Back to Blog
         </Link>
 
-        <Paper elevation={2} sx={{ p: 4, mt: 2 }}>
+        <Paper elevation={2} sx={{ p: { xs: 2, sm: 3, md: 4 }, mt: 2 }}>
           <Box sx={{ mb: 3 }}>
             {(() => {
               const colorValue = getCategoryColor(frontmatter.category);
@@ -156,7 +156,9 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               options={{
                 mdxOptions: {
                   remarkPlugins: [remarkGfm],
-                  rehypePlugins: [rehypeHighlight],
+                  rehypePlugins: [
+                    [rehypePrettyCode, { theme: 'github-dark', keepBackground: true }],
+                  ],
                 },
               }}
             />

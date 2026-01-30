@@ -49,17 +49,10 @@ Let's say you're building an e-commerce site. With microservices, you might spli
 
 This separation gives you powerful advantages:
 
-**Independent Scaling**
-When you run a flash sale, you can scale up just the Order Service without touching the Recommendation or Product services.
-
-**Better Performance Through Separation**
-The Order Service can respond immediately after an order is placed, while heavy tasks like image processing or report generation run asynchronously in separate services. Since each service scales independently, one service's heavy workload won't impact the others.
-
-**Limited Blast Radius**
-If the Recommendation Service crashes, customers can still place orders. Failures are isolated to individual services.
-
-**Technology Flexibility**
-Use the right tool for each job: Next.js for the frontend, Python for ML-heavy recommendations, and Go for high-performance backend services.
+* **Independent Scaling**: When you run a flash sale, you can scale up just the Order Service without touching the Recommendation or Product services.
+* **Better Performance Through Separation**: The Order Service can respond immediately after an order is placed, while heavy tasks like image processing or report generation run asynchronously in separate services. Since each service scales independently, one service's heavy workload won't impact the others.
+* **Limited Blast Radius**: If the Recommendation Service crashes, customers can still place orders. Failures are isolated to individual services.
+* **Technology Flexibility**: Use the right tool for each job — Next.js for the frontend, Python for ML-heavy recommendations, and Go for high-performance backend services.
 
 ### How ECS Fits In
 
@@ -120,14 +113,9 @@ Service Connect works by automatically injecting an **Envoy sidecar** (a proxy c
 
 Here's what makes it powerful:
 
-**Name-Based Routing**
-Your application containers don't need IP addresses. They connect to other services using simple endpoint names like `my-app:8080`.
-
-**Automatic Traffic Routing**
-When a container tries to connect to a service name, the Envoy sidecar intercepts the request and routes it to the correct destination IP and port.
-
-**Built-In Observability**
-Envoy automatically collects metrics like request counts, latency, and error rates, sending them to CloudWatch. You get visibility into inter-service communication without instrumenting your code.
+* **Name-Based Routing**: Your application containers don't need IP addresses. They connect to other services using simple endpoint names like `my-app:8080`.
+* **Automatic Traffic Routing**: When a container tries to connect to a service name, the Envoy sidecar intercepts the request and routes it to the correct destination IP and port.
+* **Built-In Observability**: Envoy automatically collects metrics like request counts, latency, and error rates, sending them to CloudWatch. You get visibility into inter-service communication without instrumenting your code.
 
 ### Important Limitation
 
@@ -157,14 +145,9 @@ ECS Service Discovery uses the DNS-based approach. When a task starts, it's auto
 
 ### Key Benefits
 
-**Universal Access**
-Any service within your VPC can access ECS tasks using DNS names—Lambda functions, EC2 instances, other ECS services, or internal systems.
-
-**Standard DNS Resolution**
-No special client configuration needed. Services use standard DNS lookups to find endpoints.
-
-**Automatic Registration**
-Tasks are registered and deregistered automatically as they start and stop.
+* **Universal Access**: Any service within your VPC can access ECS tasks using DNS names — Lambda functions, EC2 instances, other ECS services, or internal systems.
+* **Standard DNS Resolution**: No special client configuration needed. Services use standard DNS lookups to find endpoints.
+* **Automatic Registration**: Tasks are registered and deregistered automatically as they start and stop.
 
 ---
 

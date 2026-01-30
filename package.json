@@ -30,7 +30,7 @@
     "next-mdx-remote": "^5.0.0",
     "react": "^18",
     "react-dom": "^18",
-    "rehype-highlight": "^7.0.2",
+    "rehype-pretty-code": "^0.14.1",
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
