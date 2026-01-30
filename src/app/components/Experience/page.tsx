@@ -40,15 +40,28 @@ const Experience: FC = () => {
               component="h1"
               sx={{ fontWeight: 'bold', mt: 1 }}
             >
-              FullStack Engineer (Full-time)
+              FullStack Engineer
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ color: 'text.secondary', ml: 1 }}
+            >
+              Full-time
             </Typography>
             <Typography variant="body2" sx={{ mt: 1, ml: 3 }}>
-              Python, TypeScript (Next.js), Terraform, Google Cloud, AWS
+              Python, TypeScript, Next.js, Terraform, Google Cloud, AWS
             </Typography>
             <Box sx={{ mt: 1, ml: 3 }}>
               <ul style={{ paddingLeft: 20 }}>
-                {/* <li>
-                </li> */}
+                <li>
+                  Own features end-to-end from design through implementation
+                  to release in a product-driven team.
+                </li>
+                <li>
+                  Primarily designing and building APIs and data models,
+                  along with infrastructure work including Terraform and
+                  CI/CD on AWS.
+                </li>
               </ul>
             </Box>
           </TimelineContent>
@@ -72,29 +85,25 @@ const Experience: FC = () => {
               component="h1"
               sx={{ fontWeight: 'bold', mt: 1 }}
             >
-              Application Engineer (Full-time)
+              Application Engineer
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ color: 'text.secondary', ml: 1 }}
+            >
+              Full-time
             </Typography>
             <Typography variant="body2" sx={{ mt: 1, ml: 3 }}>
-              Java (Spring), Python (PyTorch, Pandas), AWS, Azure, Salesforce
+              Java, Spring, Python, PyTorch, Pandas, AWS, Azure, Salesforce
             </Typography>
             <Box sx={{ mt: 1, ml: 3 }}>
               <ul style={{ paddingLeft: 20 }}>
                 <li>
-                  Experienced Application Engineer with expertise in integrating
-                  cloud-based platforms and developing AI-powered RAG (Retrieval
-                  Augmented Generation) systems.
+                  Built and integrated core business systems across AWS and
+                  Salesforce for facility management and leasing domains.
                 </li>
                 <li>
-                  Developed core business systems for facility management and
-                  leasing companies.
-                </li>
-                <li>
-                  Integrated systems with AWS, Azure, Google Cloud, and
-                  Salesforce to improve efficiency and scalability.
-                </li>
-                <li>
-                  Held the role of Assistant Manager, ensuring timely project
-                  delivery and team collaboration.
+                  Developed AI-powered RAG systems using Python and Azure.
                 </li>
               </ul>
             </Box>
@@ -119,26 +128,26 @@ const Experience: FC = () => {
               component="h1"
               sx={{ fontWeight: 'bold', mt: 1 }}
             >
-              Software Engineer (Part-time)
+              Software Engineer
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ color: 'text.secondary', ml: 1 }}
+            >
+              Part-time
             </Typography>
             <Typography variant="body2" sx={{ mt: 1, ml: 3 }}>
-              Python (PyTorch, Pandas)
+              Python, PyTorch, Pandas
             </Typography>
             <Box sx={{ mt: 1, ml: 3 }}>
               <ul style={{ paddingLeft: 20 }}>
                 <li>
-                  Experienced Software Engineer with expertise in developing
-                  AI-powered OCR tools and optimizing deep learning models for
-                  industrial applications.
+                  Built OCR tools using image processing and NLP to convert
+                  PDFs into editable documents.
                 </li>
                 <li>
-                  Developed OCR tools using image processing and NLP to convert
-                  PDFs into editable documents, enhancing data extraction and
-                  digitization.
-                </li>
-                <li>
-                  Optimized deep learning models for anomaly detection in
-                  factory lines, reducing costs and boosting productivity.
+                  Developed and optimized deep learning models for anomaly
+                  detection on factory production lines.
                 </li>
               </ul>
             </Box>

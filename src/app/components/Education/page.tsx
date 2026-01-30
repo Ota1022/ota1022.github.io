@@ -4,7 +4,7 @@ import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Link, Paper, Typography } from '@mui/material';
 import type { FC } from 'react';
 
 const Education: FC = () => {
@@ -42,11 +42,32 @@ const Education: FC = () => {
             <Typography variant="body2" sx={{ mt: 1, ml: 3 }}>
               Master of Engineering, Information Science
             </Typography>
+            <Typography variant="body2" sx={{ ml: 3 }}>
+              <Link
+                href="https://sociocom.naist.jp/"
+                target="_blank"
+                rel="noopener noreferrer"
+                color="primary"
+                underline="hover"
+              >
+                Social Computing Lab
+              </Link>
+            </Typography>
             <Box sx={{ mt: 1, ml: 3 }}>
               <ul style={{ paddingLeft: 20 }}>
                 <li>Conducted interdisciplinary research in NLP and HCI</li>
                 <li>
-                  Contributed to an OSS project for NLP authorship detection
+                  Contributed to an{' '}
+                  <Link
+                    href="https://github.com/sociocom/limco"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    color="primary"
+                    underline="hover"
+                  >
+                    OSS project
+                  </Link>
+                  {' '}for NLP authorship detection
                 </li>
                 <li>Teaching Assistant for Social Computing class</li>
               </ul>
