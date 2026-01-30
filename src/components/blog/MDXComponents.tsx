@@ -23,7 +23,7 @@ export const mdxComponents: MDXComponents = {
     </Typography>
   ),
   h2: ({ children }) => (
-    <Typography variant="h4" component="h2" gutterBottom sx={{ mt: 3, mb: 2 }}>
+    <Typography variant="h4" component="h2" gutterBottom sx={{ mt: 4, mb: 2, pb: 1, borderBottom: 1, borderColor: 'grey.600' }}>
       {children}
     </Typography>
   ),
@@ -38,7 +38,7 @@ export const mdxComponents: MDXComponents = {
     </Typography>
   ),
   p: ({ children }) => (
-    <Typography variant="body1" paragraph>
+    <Typography variant="body1" paragraph sx={{ lineHeight: 1.8 }}>
       {children}
     </Typography>
   ),
@@ -58,7 +58,7 @@ export const mdxComponents: MDXComponents = {
     </Box>
   ),
   li: ({ children }) => (
-    <Typography component="li" variant="body1" sx={{ mb: 0.5 }}>
+    <Typography component="li" variant="body1" sx={{ mb: 0.5, lineHeight: 1.8 }}>
       {children}
     </Typography>
   ),
@@ -78,8 +78,9 @@ export const mdxComponents: MDXComponents = {
       {children}
     </Box>
   ),
-  code: ({ children, className }) => {
-    const isInline = !className;
+  code: ({ children, className, ...props }) => {
+    // rehype-pretty-code uses data-language for fenced code blocks
+    const isInline = !className && !(props as Record<string, unknown>)['data-language'];
     if (isInline) {
       return (
         <Box
@@ -98,17 +99,11 @@ export const mdxComponents: MDXComponents = {
         </Box>
       );
     }
-    // For fenced code blocks, return code element with className preserved
-    // The pre component will extract props from this element
-    return <code className={className}>{children}</code>;
+    // For fenced code blocks, preserve all props from rehype-pretty-code
+    return <code className={className} {...props}>{children}</code>;
   },
-  pre: ({ children }) => {
-    // Extract className from code element if it exists
-    const codeElement = children as any;
-    const className = codeElement?.props?.className;
-    const codeContent = codeElement?.props?.children;
-
-    return <CodeBlock className={className}>{codeContent}</CodeBlock>;
+  pre: ({ children, ...rest }) => {
+    return <CodeBlock {...rest}>{children}</CodeBlock>;
   },
   hr: () => (
     <Box
@@ -127,12 +122,13 @@ export const mdxComponents: MDXComponents = {
 
     return (
       <Box
+        component="span"
         sx={{
+          display: 'flex',
           bgcolor: isTransparent ? 'transparent' : '#ffffff',
           p: 2,
           borderRadius: 1,
           my: 2,
-          display: 'flex',
           justifyContent: 'center',
         }}
       >
@@ -151,7 +147,7 @@ export const mdxComponents: MDXComponents = {
   },
   table: ({ children }) => (
     <TableContainer sx={{ my: 3, overflowX: 'auto' }}>
-      <Table sx={{ minWidth: 650, border: 1, borderColor: 'divider' }}>{children}</Table>
+      <Table sx={{ border: 1, borderColor: 'divider' }}>{children}</Table>
     </TableContainer>
   ),
   thead: ({ children }) => <TableHead>{children}</TableHead>,

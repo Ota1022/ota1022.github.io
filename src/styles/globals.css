@@ -69,6 +69,19 @@ a {
   text-decoration: none;
 }
 
+/* rehype-pretty-code */
+figure[data-rehype-pretty-code-figure] {
+  margin: 0;
+}
+
+[data-rehype-pretty-code-figure] code {
+  display: grid;
+}
+
+[data-rehype-pretty-code-figure] [data-line] {
+  padding: 0 0.5rem;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
