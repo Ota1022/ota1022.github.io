@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import type { MDXComponents } from 'mdx/types';
 import { CodeBlock } from './CodeBlock';
+import { GitHubRepoCard } from './GitHubRepoCard';
 
 /**
  * Custom components for MDX
@@ -169,4 +170,5 @@ export const mdxComponents: MDXComponents = {
   td: ({ children }) => (
     <TableCell sx={{ borderBottom: 1, borderColor: 'divider' }}>{children}</TableCell>
   ),
+  GitHubRepo: GitHubRepoCard,
 };
