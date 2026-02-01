@@ -13,7 +13,7 @@
     "lint:biome:fix:src": "biome check --write src/",
     "dev": "next dev",
     "generate:og": "npx tsx scripts/generate-og-images.mts",
-    "prebuild": "npm run generate:og",
+    "prebuild": "node scripts/prebuild.mjs",
     "build": "next build",
     "start": "next start",
     "deploy": "next build && touch out/.nojekyll && git add out/ && git commit -m \"Deploy to gh-pages\" && git subtree push --prefix out origin gh-pages"
