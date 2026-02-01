@@ -16,7 +16,7 @@
     "prebuild": "npm run generate:og",
     "build": "next build",
     "start": "next start",
-    "deploy": "next build && touch out/.nojekyll && git add out/ && git commit -m \"Deploy to gh-pages\" && git subtree push --prefix out origin gh-pages"
+    "deploy": "npm run build && touch out/.nojekyll && git add out/ && git commit -m \"Deploy to gh-pages\" && git subtree push --prefix out origin gh-pages"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
@@ -33,7 +33,10 @@
     "react": "^18",
     "react-dom": "^18",
     "rehype-pretty-code": "^0.14.1",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "satori": "^0.19.1",
+    "sharp": "^0.34.5",
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
@@ -51,9 +54,6 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.34.1",
     "prettier": "^3.2.5",
-    "satori": "^0.19.1",
-    "sharp": "^0.34.5",
-    "tsx": "^4.21.0",
     "typescript": "^5.4.3"
   }
 }
