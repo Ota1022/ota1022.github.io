@@ -1,0 +1,291 @@
+---
+title: "Migrating AWS Resources to IaC with Terraformer"
+description: "A practical guide to using Terraformer for converting existing AWS resources into Terraform-managed Infrastructure as Code, covering a four-step workflow and best practices for handling secrets and state files."
+date: "2026-01-31"
+category: "blog"
+tags: ["AWS", "Terraform", "IaC"]
+---
+
+I recently had the opportunity to use Terraformer at work to migrate existing AWS resources under Terraform management. With guidance from team members experienced in infrastructure, I learned a great deal throughout the process, so I'm documenting it here for future reference.
+
+<GitHubRepo url="https://github.com/GoogleCloudPlatform/terraformer" description="A CLI tool that generates tf/json and tfstate files based on existing infrastructure (reverse Terraform)." />
+
+## 1. What Is Terraformer?
+
+Many people have experienced the frustration of finding unmanaged resources lingering in their cloud accounts:
+
+- Resources created experimentally before Terraform was adopted
+- Resources manually created through the console that are difficult to track
+- Resources inherited from other teams that were left unmanaged
+
+Terraformer is the tool that helps bring these existing resources under Terraform management.
+
+### Overview
+
+Terraformer is a CLI tool that generates both Terraform code (HCL) and state files from existing cloud resources. It's published as an OSS project under GoogleCloudPlatform on GitHub.
+
+Terraform has its own `import` command, but it requires importing resources one by one into state and manually writing the corresponding HCL code. This isn't practical for IaC-ifying a large number of resources at once. Terraformer was developed to handle this bulk operation, generating HCL code and state files together.
+
+It supports many providers beyond AWS, including GCP, Azure, Kubernetes, and Datadog. As a Go-based single binary, it can be installed simply via `brew install` or binary download.
+
+### Terraformer's Role
+
+Terraformer is often thought of as "a tool that automatically generates Terraform code," but in reality, it's a tool that transcribes the structure of existing resources into a format Terraform can read.
+
+Internally, it queries each cloud provider's API to retrieve resource information, writes it into state files via Terraform provider plugins, and reverse-generates HCL code from the state contents. In other words, it simply dumps API responses into code, so Terraform best practices (variable extraction, inter-resource references, module composition, etc.) are not reflected.
+
+In fact, if you run `terraform plan` immediately after import, you'll see a massive number of diffs. Differences between console representations and Terraform representations, default value handling discrepancies, presence or absence of sensitive information—structural diffs are unavoidable.
+
+Import is just the starting point for IaC migration. The real work begins with organizing the code and stabilizing the plan. This article covers the Terraformer-based IaC migration workflow targeting AWS.
+
+## 2. What to Consider Before Using Terraformer
+
+Terraformer doesn't support all AWS services. Check the [list of supported services](https://github.com/GoogleCloudPlatform/terraformer/blob/master/docs/aws.md) beforehand to avoid wasting time trying to import unsupported services.
+
+### Assumptions About Existing Resources
+
+Existing AWS resources often contain implicit assumptions that don't appear in code:
+
+- Security group rules configured manually through the console
+- Configurations dependent on the default VPC or default subnets
+- IAM policies incrementally attached by hand
+- Resources without tags or with inconsistent naming conventions
+
+Even after importing these with Terraformer, you won't be able to understand their intent just by reading the code. It's important to understand *why* each resource is in its current state before importing.
+
+### What's Suited for Terraform Management—and What Isn't
+
+Not every resource needs to be migrated to Terraform management.
+
+**Well-suited:**
+- Network resources like VPCs, subnets, and security groups
+- Permission management resources like IAM roles and policies
+- Application infrastructure resources like ECS, Lambda, and RDS
+
+**Not well-suited:**
+- Temporary test resources (faster to just delete them)
+- Resources whose lifecycle is managed by other tools (e.g., CDK or SAM)
+- Resources that undergo frequent manual changes (diffs will keep appearing under Terraform management)
+
+### Guidelines to Establish Upfront
+
+Before running Terraformer, deciding on these three points helps keep the work focused:
+
+1. **Scope**: Which services and resources to import
+2. **Exclusions**: What to explicitly exclude from Terraform management (security credentials, compiled Lambda code, S3 buckets storing state files, etc.)
+3. **Goal**: Whether to aim for zero plan diffs or just manage the key resources
+
+Aiming for zero diffs across all resources inflates the workload, so a phased approach—gradually expanding the management scope rather than targeting perfection from the start—is more realistic.
+
+## 3. Terraformer Execution Flow
+
+The migration work with Terraformer can be organized into four major steps.
+
+### Step 1: Inventory
+
+Before running Terraformer, take stock of what resources exist in the target AWS account.
+
+- Use the AWS Console or AWS CLI to enumerate current resources
+- Identify resources where nobody knows who created them or why
+- Sort resources into those to include and exclude from Terraform management
+
+Skipping the inventory because it feels tedious leads to unnecessary resources sneaking into Terraform management, creating extra work to remove them later.
+
+### Step 2: Import
+
+Based on the inventory results, run the Terraformer import. Specify target services and regions to generate HCL files and state files.
+
+```bash
+terraformer import aws \
+  --resources=vpc,subnet,security_group \
+  --regions=ap-northeast-1 \
+  --profile=your-profile
+```
+
+I encountered an issue where some resources weren't captured when importing multiple services in a comma-separated list. Similar reports exist on GitHub ([#1886](https://github.com/GoogleCloudPlatform/terraformer/issues/1886)), but since identifying the problematic resource is difficult, running imports separately per service is the safer approach when things don't work.
+
+```bash
+# Import services separately
+terraformer import aws --resources=vpc --regions=ap-northeast-1 --profile=your-profile
+terraformer import aws --resources=ecs --regions=ap-northeast-1 --profile=your-profile
+```
+
+However, separating by service means each import generates a separate state file, requiring consolidation into a single state later. This is covered in Step 3.
+
+Note that while Terraformer imports by service unit (vpc, ecs, iam, etc.), Terraform projects are typically organized by responsibility (networking, application infrastructure, monitoring, etc.). Import by service first, then reorganize by responsibility in the next step—this two-phase approach makes progress smoother.
+
+At this point, think of the generated code as raw material.
+
+### Step 3: Integration
+
+Organize the generated HCL code to match your actual Terraform project structure. This is the most labor-intensive step.
+
+The code Terraformer generates has these characteristics, making it unreadable and hard to maintain as-is:
+
+- Resource names have auto-generated `tfer--` prefixes
+- All attributes are written out explicitly (including values identical to defaults)
+- IDs and ARNs are hardcoded
+- Inter-resource references are broken, defaulting to raw ID/ARN strings
+
+Treat the generated code as a draft for understanding "what resources exist" and "what attributes they have," then rewrite with these considerations:
+
+- **Naming**: Change names like `tfer--sg-0123456789abcdef0` to meaningful names like `web_app_sg`
+- **File splitting**: Don't cram everything into one file—split by responsibility and resource relationships (e.g., `network.tf`, `iam.tf`, `ecs.tf`)
+- **Reference rewriting**: Replace hardcoded IDs with resource references like `aws_vpc.main.id`
+- **Remove unnecessary attributes**: Delete attributes identical to defaults and computed attributes unnecessary in Terraform
+- **Check for secrets**: Verify that no sensitive information exists in code or state
+
+This is tedious work, but it directly impacts readability for other team members later. AI assistance can help with code formatting and renaming, but decisions about what to keep, what to remove, and how to structure things require human judgment.
+
+Also, avoid rushing into module creation right after migration. If you have to modify the module interface every time you adjust the code, it creates churn. Start with a flat structure, stabilize the plan first, then consider modularization when you actually need to reuse the same pattern across multiple environments.
+
+#### State Consolidation
+
+Terraformer generates `generated/aws/<service>/terraform.tfstate` per service. There are two main approaches to consolidating these into your production Terraform project:
+
+1. **Discard the generated state, extract only the code, and redo with `terraform import`**
+2. **Use `terraform state mv` to move resources from the generated state to production state**
+
+Approach 2 looks more efficient, but `state mv` requires careful consideration of resource name changes and backend differences, with risk of operational mistakes. Since the generated code will be substantially rewritten anyway, reorganizing the code and redoing with `terraform import` is ultimately safer. Think of the generated state as "reference material for looking up original resource IDs."
+
+### Step 4: Plan Stabilization
+
+After organizing the code, run `terraform plan` and review the diffs. It's normal to see a large number of diffs initially.
+
+- Review each diff to determine whether it's a harmless representation difference or a real change
+- Identify what should be controlled with `lifecycle`'s `ignore_changes`
+- Handle cases requiring state operations (`state rm` or `state mv`)
+
+Migration is complete when plan diffs disappear or only intended diffs remain.
+
+## 4. Points to Consider During Import
+
+### Avoid `resources=*`
+
+Terraformer offers a `--resources=*` option to bulk-import all services. While it looks convenient, it causes problems in practice:
+
+- Everything in the AWS account becomes an import target, pulling in masses of unnecessary resources (default VPCs, unused IAM roles, etc.)
+- The number of generated files becomes overwhelming, making it unclear where to start
+- API rate limits may cause the import itself to fail midway
+
+Explicitly specify target services from your inventory, like `--resources=vpc,ecs,iam`.
+
+### Global vs. Regional Resources
+
+AWS has region-bound resources (EC2, RDS, ECS, etc.) and global resources (IAM, Route 53, CloudFront, etc.). Terraformer's `--regions` option only applies to regional resources; global resources are imported regardless of region specification.
+
+Additionally, some resources like ACM certificates for CloudFront must be created in `us-east-1`. Handling these in Terraform requires provider alias design, so if you don't pay attention to which region a resource belongs to during import, you'll face extra work reconfiguring providers later.
+
+For managing resources across regions, you can either separate directories by region (`regions/ap-northeast-1/`, `regions/global/`, etc.) or use provider aliases within the same directory. Provider aliases suffice for small-scale projects, but directory separation prevents state bloat as resources grow.
+
+```hcl
+provider "aws" {
+  region = "ap-northeast-1"
+}
+
+provider "aws" {
+  alias  = "global"
+  region = "us-east-1"
+}
+```
+
+## 5. Handling Secrets and Terraform State
+
+### How Secrets End Up in State
+
+Terraform's state file records all attributes of managed resources in plaintext. This means database passwords, API keys, and other secrets managed through Terraform are written directly to state.
+
+Even when state is stored in a remote backend like S3, anyone with access permissions can view the contents via `terraform state pull`. When importing with Terraformer, secrets configured on the original resources are pulled directly into state, creating a risk of unintended secret exposure.
+
+### Handling Environment Variables and Secrets
+
+Cases that are particularly problematic after Terraformer import:
+
+- **Lambda environment variables**: If environment variables contain API keys or DB connection strings, they're output in plaintext in both HCL code and state
+- **SSM Parameter Store**: Values stored as `SecureString` are recorded in state
+- **Secrets Manager**: Secret values themselves end up in state
+
+This isn't something Terraformer does on its own—it happens because Terraform's specification saves all attributes to state. If you unknowingly commit state to a repository after import, it can lead to secret leaks.
+
+The standard approach is to manage secrets through Parameter Store (SecureString) or Secrets Manager, and only reference them by ARN or name on the Terraform side.
+
+### Lambda Code Management
+
+Terraformer's import primarily generates Lambda function settings (memory, timeout, environment variables, IAM role, etc.)—code delivery (zipping, S3 upload, build pipeline, etc.) must be designed separately.
+
+Without deciding whether to use a CI/CD pipeline for build → zip → S3 upload → Terraform deploy, or have developers build locally, `source_code_hash` will change every time and the plan won't stabilize.
+
+### The Option of Not Managing with Terraform
+
+As mentioned at the beginning, not everything needs to be pulled into Terraform. Resources with heavy secret content or resources whose code lifecycle differs from infrastructure (like Lambda code) may be safer to intentionally exclude from Terraform management.
+
+For resources you decide not to manage, remove them from state with `terraform state rm` and delete the corresponding code. Terraform will no longer track them. Just because you imported something doesn't mean you're obligated to keep it—make decisions based on the balance of management cost and risk.
+
+## 6. Dealing with Plan Diffs
+
+Running `terraform plan` immediately after a Terraformer import will display a massive number of diffs that can feel overwhelming. However, most of these diffs don't indicate broken infrastructure—they're just mismatches between AWS's internal representation and Terraform's representation.
+
+For example, an attribute set to an empty string in the AWS Console might be treated as `null` on the Terraform side. Many such cases are purely representational differences where applying would produce no actual change. However, depending on the provider implementation, even seemingly representational diffs can trigger Update/Replace operations, so plan output must be read carefully.
+
+### Common Diff Patterns
+
+Diffs generally fall into these categories:
+
+- **Default value diffs**: Attributes output by Terraformer that match Terraform defaults and produce the same result whether included or not (e.g., `enable_dns_support = true` is the VPC default)
+- **Empty string vs. null**: AWS returns empty strings, but Terraform expects `null`
+- **Ordering differences**: Security group rules or IAM policy Statement ordering differs, but content is identical
+- **Computed attribute diffs**: Auto-generated attributes like `arn` or `id` included in code appear as diffs
+- **Actual changes**: Attributes Terraformer couldn't capture, or genuine diffs from code modifications
+
+The approaches for these diffs are: **fix the code**, **ignore with `ignore_changes`**, or **remove from state**. Not everything needs to be resolved through code changes—judge the appropriate approach for each diff.
+
+### Fixing Through Code Changes
+
+Removing attributes identical to defaults, aligning ordering, and deleting unnecessary computed attributes—diffs that can be resolved through code-side adjustments should be handled this way first. The majority of diffs fall into this category.
+
+### Using ignore_changes
+
+The `ignore_changes` option in Terraform's `lifecycle` block tells Terraform to ignore changes to specified attributes.
+
+For example, ECS service `desired_count` changes dynamically with Auto Scaling. Fixing it in Terraform means scaling gets reset every time you apply.
+
+```hcl
+resource "aws_ecs_service" "app" {
+  # ...
+
+  lifecycle {
+    ignore_changes = [
+      # Auto Scaling dynamically changes desired_count
+      desired_count,
+    ]
+  }
+}
+```
+
+On the other hand, avoid blindly adding to `ignore_changes` without investigating the cause of diffs. Don't use it for diffs that can be resolved through code changes (explicit defaults, ordering fixes, etc.) or for attributes like security group rules where you want to detect changes.
+
+For operational sustainability: leave comments explaining *why* something is ignored, and avoid `ignore_changes = all` (if you're ignoring all attributes, you should remove the resource from state instead).
+
+### State Adjustments
+
+State is Terraform's record of which resources it manages. During migration from Terraformer, state operations may be needed in cases like:
+
+- **Resource name changes**: When changing `tfer--` prefixed names to meaningful names, reflect this with `state mv`
+- **Removing from management**: Remove resources excluded from Terraform management with `state rm`
+- **Structural changes**: When moving resources to different files or modules, align state addresses with `state mv`
+
+State operations don't directly modify cloud resources, but if code and state fall out of sync, the next `apply` can cause destructive changes. For example, if you `state rm` but forget to remove the code, the next `apply` will recreate the resource. If `state mv` targets the wrong destination, it'll be treated as a different resource, triggering a recreate. Back up with `terraform state pull > backup.tfstate` before operations, and always run `plan` afterward to verify no unintended diffs appeared.
+
+```bash
+# Rename a resource
+terraform state mv aws_security_group.tfer--sg-xxxxx aws_security_group.web_app
+
+# Remove from management
+terraform state rm aws_lambda_function.legacy_function
+```
+
+## 7. Summary
+
+Terraformer generates HCL and state for existing resources with a single import command, making it look like migration is complete. In reality, that's where the real work begins: code cleanup, diff resolution, secret separation, and state consolidation—all painstaking but necessary tasks.
+
+It's demanding work, but once complete, infrastructure visibility and reproducibility improve significantly. I hope this article serves as a useful reference for those about to start using Terraformer.
