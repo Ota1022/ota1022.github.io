@@ -1,11 +1,9 @@
-'use client';
-
-import { ColorModeContext, ToggleColorMode } from '@/contexts/ThemeContext';
 import '@/styles/globals.css';
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
+import type { Metadata } from 'next';
 import { Inconsolata } from 'next/font/google';
+import Script from 'next/script';
 import type { ReactNode } from 'react';
+import ClientProviders from './providers';
 
 const inconsolata = Inconsolata({
   subsets: ['latin'],
@@ -14,41 +12,41 @@ const inconsolata = Inconsolata({
   adjustFontFallback: false,
 });
 
+export const metadata: Metadata = {
+  metadataBase: new URL('https://ota1022.github.io'),
+  title: { default: 'Itaru OTA', template: '%s | Itaru OTA' },
+  description: 'Portfolio of Itaru OTA',
+  openGraph: {
+    type: 'website',
+    siteName: 'Itaru OTA',
+    images: [{ url: '/og/default.png', width: 1200, height: 630 }],
+  },
+  twitter: { card: 'summary_large_image' },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>): JSX.Element {
-  const { colorMode, theme } = ToggleColorMode();
-
   return (
     <html lang="en">
       <head>
-        {/* Google Analytics */}
-        <script
-          async
+        <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-DKVJZRT90P"
+          strategy="afterInteractive"
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-DKVJZRT90P');
-            `,
-          }}
-        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DKVJZRT90P');
+          `}
+        </Script>
       </head>
       <body className={inconsolata.className}>
-        <ColorModeContext.Provider value={colorMode}>
-          <AppRouterCacheProvider>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              {children}
-            </ThemeProvider>
-          </AppRouterCacheProvider>
-        </ColorModeContext.Provider>
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );
