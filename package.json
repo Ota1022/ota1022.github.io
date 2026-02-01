@@ -12,6 +12,8 @@
     "lint:biome:src": "biome check src/",
     "lint:biome:fix:src": "biome check --write src/",
     "dev": "next dev",
+    "generate:og": "npx tsx scripts/generate-og-images.mts",
+    "prebuild": "npm run generate:og",
     "build": "next build",
     "start": "next start",
     "deploy": "next build && touch out/.nojekyll && git add out/ && git commit -m \"Deploy to gh-pages\" && git subtree push --prefix out origin gh-pages"
@@ -38,6 +40,7 @@
     "@types/node": "^20",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
+    "@types/sharp": "^0.31.1",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.1.4",
@@ -48,6 +51,9 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.34.1",
     "prettier": "^3.2.5",
+    "satori": "^0.19.1",
+    "sharp": "^0.34.5",
+    "tsx": "^4.21.0",
     "typescript": "^5.4.3"
   }
 }

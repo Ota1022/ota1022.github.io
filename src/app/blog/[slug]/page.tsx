@@ -3,6 +3,7 @@ import Header from '@/components/layout/Header';
 import { getAllPostSlugs, getPostBySlug } from '@/lib/blog';
 import { Box, Chip, Container, Link, Paper, Typography } from '@mui/material';
 import { format } from 'date-fns';
+import type { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import NextLink from 'next/link';
 import { notFound } from 'next/navigation';
@@ -14,6 +15,34 @@ const PLACEHOLDER_SLUG = '__blog-placeholder__';
 interface BlogPostPageProps {
   params: {
     slug: string;
+  };
+}
+
+export async function generateMetadata({
+  params,
+}: BlogPostPageProps): Promise<Metadata> {
+  const post = getPostBySlug(params.slug);
+  if (!post) {
+    return {};
+  }
+  const { frontmatter } = post;
+  return {
+    title: frontmatter.title,
+    description: frontmatter.description,
+    openGraph: {
+      type: 'article',
+      title: frontmatter.title,
+      description: frontmatter.description,
+      images: [{ url: `/og/${params.slug}.png`, width: 1200, height: 630 }],
+      publishedTime: frontmatter.date,
+      tags: frontmatter.tags,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: frontmatter.title,
+      description: frontmatter.description,
+      images: [`/og/${params.slug}.png`],
+    },
   };
 }
 

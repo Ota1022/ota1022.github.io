@@ -5,7 +5,6 @@ import Contact from '@/components/Contact';
 import Header from '@/components/layout/Header';
 import { Box, Container, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import Head from 'next/head';
 import React from 'react';
 import Awards from './components/Awards/page';
 import Certifications from './components/Certifications/page';
@@ -16,14 +15,6 @@ import Publication from './components/Publication/page';
 const Home = (): React.ReactNode => {
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Head>
-        <title>Itaru OTA</title>
-        <meta name="description" content="Portfolio of Itaru OTA" />
-        <meta property="og:title" content="Itaru OTA" />
-        <meta property="og:description" content="Portfolio of Itaru OTA" />
-        <meta property="og:url" content="https://ota1022.github.io/" />
-      </Head>
-
       <Header />
 
       <Box
