@@ -16,7 +16,7 @@
     "prebuild": "npm run generate:og",
     "build": "next build",
     "start": "next start",
-    "deploy": "next build && touch out/.nojekyll && git add out/ && git commit -m \"Deploy to gh-pages\" && git subtree push --prefix out origin gh-pages"
+    "deploy": "npm run build && touch out/.nojekyll && git add out/ && git commit -m \"Deploy to gh-pages\" && git subtree push --prefix out origin gh-pages"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
