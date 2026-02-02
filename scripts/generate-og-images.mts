@@ -12,8 +12,8 @@ const AVATAR_PATH = path.join(process.cwd(), 'src', 'assets', 'images', 'avatar.
 const WIDTH = 1200;
 const HEIGHT = 630;
 
-const ACCENT_COLOR = '#3b82f6';
-const ACCENT_SECONDARY = '#8b5cf6';
+const ACCENT_COLOR = '#D4A520';
+const ACCENT_SECONDARY = '#B8860B';
 
 interface Frontmatter {
   title: string;
@@ -27,14 +27,6 @@ interface Frontmatter {
 function buildOgImage(title: string, tags: string[] = [], date?: string, avatarDataUri?: string) {
   const displayTags = tags.slice(0, 4);
 
-  // Background decorative circles
-  const circles = [
-    { top: -60, right: -40, size: 280, opacity: 0.07 },
-    { top: 300, right: 100, size: 180, opacity: 0.05 },
-    { top: 400, left: -60, size: 220, opacity: 0.06 },
-    { top: -30, left: 200, size: 120, opacity: 0.04 },
-  ];
-
   return {
     type: 'div',
     props: {
@@ -44,29 +36,12 @@ function buildOgImage(title: string, tags: string[] = [], date?: string, avatarD
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundImage: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)',
+        backgroundImage: 'linear-gradient(135deg, #2c2c2c 0%, #4a4a4a 40%, #6b6b6b 60%, #4a4a4a 80%, #2c2c2c 100%)',
         fontFamily: 'Noto Sans JP, Inconsolata',
         position: 'relative',
         overflow: 'hidden',
       },
       children: [
-        // Decorative circles
-        ...circles.map((c) => ({
-          type: 'div',
-          props: {
-            style: {
-              position: 'absolute',
-              top: c.top,
-              ...(c.left !== undefined ? { left: c.left } : {}),
-              ...(c.right !== undefined ? { right: c.right } : {}),
-              width: c.size,
-              height: c.size,
-              borderRadius: c.size / 2,
-              border: `2px solid rgba(59, 130, 246, ${c.opacity * 3})`,
-              backgroundColor: `rgba(59, 130, 246, ${c.opacity})`,
-            },
-          },
-        })),
         // Card
         {
           type: 'div',
@@ -76,9 +51,10 @@ function buildOgImage(title: string, tags: string[] = [], date?: string, avatarD
               flexDirection: 'column',
               width: 1100,
               height: 540,
-              backgroundColor: 'rgba(30, 41, 59, 0.95)',
+              backgroundColor: '#FFFFFF',
               borderRadius: 24,
-              border: '1px solid rgba(148, 163, 184, 0.15)',
+              border: '1.5px solid rgba(184, 134, 11, 0.5)',
+              boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
               overflow: 'hidden',
             },
             children: [
@@ -88,7 +64,7 @@ function buildOgImage(title: string, tags: string[] = [], date?: string, avatarD
                 props: {
                   style: {
                     width: '100%',
-                    height: 6,
+                    height: 8,
                     backgroundImage: `linear-gradient(90deg, ${ACCENT_COLOR}, ${ACCENT_SECONDARY})`,
                   },
                 },
@@ -123,7 +99,7 @@ function buildOgImage(title: string, tags: string[] = [], date?: string, avatarD
                                   props: {
                                     style: {
                                       fontSize: 26,
-                                      color: 'rgba(148, 163, 184, 0.8)',
+                                      color: 'rgba(107, 114, 128, 0.85)',
                                       letterSpacing: 1,
                                     },
                                     children: date,
@@ -138,7 +114,7 @@ function buildOgImage(title: string, tags: string[] = [], date?: string, avatarD
                               style: {
                                 fontSize: title.length > 50 ? 52 : title.length > 35 ? 58 : 64,
                                 fontWeight: 700,
-                                color: '#f1f5f9',
+                                color: '#1a1a2e',
                                 lineHeight: 1.3,
                                 overflow: 'hidden',
                                 display: '-webkit-box',
@@ -165,9 +141,9 @@ function buildOgImage(title: string, tags: string[] = [], date?: string, avatarD
                                       props: {
                                         style: {
                                           fontSize: 26,
-                                          color: '#93c5fd',
-                                          backgroundColor: 'rgba(59, 130, 246, 0.12)',
-                                          border: '1px solid rgba(59, 130, 246, 0.25)',
+                                          color: '#7a5c00',
+                                          backgroundColor: 'rgba(212, 165, 32, 0.15)',
+                                          border: '1px solid rgba(212, 165, 32, 0.4)',
                                           borderRadius: 12,
                                           padding: '6px 20px',
                                         },
@@ -189,7 +165,7 @@ function buildOgImage(title: string, tags: string[] = [], date?: string, avatarD
                           display: 'flex',
                           justifyContent: 'space-between',
                           alignItems: 'center',
-                          borderTop: '1px solid rgba(148, 163, 184, 0.12)',
+                          borderTop: '1.5px solid rgba(184, 134, 11, 0.4)',
                           paddingTop: 22,
                         },
                         children: [
@@ -233,7 +209,7 @@ function buildOgImage(title: string, tags: string[] = [], date?: string, avatarD
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            color: '#ffffff',
+                                            color: '#1a1a2e',
                                             fontSize: 24,
                                             fontWeight: 700,
                                           },
@@ -247,7 +223,7 @@ function buildOgImage(title: string, tags: string[] = [], date?: string, avatarD
                                     style: {
                                       fontSize: 36,
                                       fontWeight: 700,
-                                      color: '#e2e8f0',
+                                      color: '#1a1a2e',
                                     },
                                     children: 'Itaru OTA',
                                   },
@@ -261,7 +237,7 @@ function buildOgImage(title: string, tags: string[] = [], date?: string, avatarD
                             props: {
                               style: {
                                 fontSize: 28,
-                                color: 'rgba(148, 163, 184, 0.7)',
+                                color: 'rgba(107, 114, 128, 0.7)',
                               },
                               children: 'ota1022.github.io',
                             },
