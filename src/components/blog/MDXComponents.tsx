@@ -39,7 +39,7 @@ export const mdxComponents: MDXComponents = {
     </Typography>
   ),
   p: ({ children }) => (
-    <Typography variant="body1" paragraph sx={{ lineHeight: 1.8 }}>
+    <Typography variant="body1" paragraph sx={{ lineHeight: 1.8, textAlign: 'justify' }}>
       {children}
     </Typography>
   ),
@@ -59,7 +59,7 @@ export const mdxComponents: MDXComponents = {
     </Box>
   ),
   li: ({ children }) => (
-    <Typography component="li" variant="body1" sx={{ mb: 0.5, lineHeight: 1.8 }}>
+    <Typography component="li" variant="body1" sx={{ mb: 0.5, lineHeight: 1.8, textAlign: 'justify' }}>
       {children}
     </Typography>
   ),
