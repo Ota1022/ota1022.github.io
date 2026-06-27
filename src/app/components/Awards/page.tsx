@@ -13,7 +13,7 @@ const Awards: FC = () => {
       <Typography variant="body1" component="div" sx={{ marginLeft: 2 }}>
         <ul>
           <li>
-            2026 Japan AWS Jr. Champion, AWS,{' '}
+            2026 Japan AWS Jr. Champion, AWS{' '}
             <Link
               href="https://aws.amazon.com/jp/blogs/psa/2026-japan-aws-jr-champions/"
               target="_blank"
@@ -23,7 +23,7 @@ const Awards: FC = () => {
             </Link>
           </li>
           <li>
-            Student Presentation Award, DEIM2022,{' '}
+            Student Presentation Award, DEIM2022{' '}
             <Link
               href="https://event.dbsj.org/deim2022/post/awards.html"
               target="_blank"
@@ -43,7 +43,7 @@ const Awards: FC = () => {
             </Link>
           </li>
           <li>
-            1st Prize, GEIOT2021 in NAIST,{' '}
+            1st Prize, GEIOT2021 in NAIST{' '}
             <Link
               href="https://x.com/NAIST_MAIN/status/1429671012770009093?s=20&t=TW6BTHQ4EXVxJPVso1mbLg"
               target="_blank"
