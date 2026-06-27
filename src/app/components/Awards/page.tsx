@@ -17,7 +17,8 @@ const Awards: FC = () => {
             <Link
               href="https://aws.amazon.com/jp/blogs/psa/2026-japan-aws-jr-champions/"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
+              aria-label="2026 Japan AWS Jr. Champions announcement"
             >
               [URL]
             </Link>
@@ -27,7 +28,8 @@ const Awards: FC = () => {
             <Link
               href="https://event.dbsj.org/deim2022/post/awards.html"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
+              aria-label="DEIM2022 Student Presentation Award details"
             >
               [URL]
             </Link>
@@ -37,7 +39,8 @@ const Awards: FC = () => {
             <Link
               href="https://sites.google.com/view/imedia-ws/imedia2021"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
+              aria-label="imedia2021 Data Broad Award details"
             >
               [URL]
             </Link>
@@ -47,7 +50,8 @@ const Awards: FC = () => {
             <Link
               href="https://x.com/NAIST_MAIN/status/1429671012770009093?s=20&t=TW6BTHQ4EXVxJPVso1mbLg"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
+              aria-label="GEIOT2021 in NAIST 1st Prize details"
             >
               [URL]
             </Link>
