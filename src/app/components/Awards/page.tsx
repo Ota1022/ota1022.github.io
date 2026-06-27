@@ -13,6 +13,16 @@ const Awards: FC = () => {
       <Typography variant="body1" component="div" sx={{ marginLeft: 2 }}>
         <ul>
           <li>
+            2026 Japan AWS Jr. Champion, AWS,{' '}
+            <Link
+              href="https://aws.amazon.com/jp/blogs/psa/2026-japan-aws-jr-champions/"
+              target="_blank"
+              rel="noopener"
+            >
+              [URL]
+            </Link>
+          </li>
+          <li>
             Student Presentation Award, DEIM2022,{' '}
             <Link
               href="https://event.dbsj.org/deim2022/post/awards.html"

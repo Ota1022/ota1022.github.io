@@ -31,6 +31,12 @@ const AboutMe = (): React.ReactNode => {
               Specialty, etc.
             </Typography>
           </li>
+          <li>
+            <Typography variant="subtitle1">
+              Named a 2026 Japan AWS Jr. Champion, one of just 114 engineers
+              recognized nationwide by AWS.
+            </Typography>
+          </li>
         </ul>
       </Typography>
     </Paper>
