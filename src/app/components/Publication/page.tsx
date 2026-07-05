@@ -13,7 +13,7 @@ const Publication: FC = () => {
       <Typography variant="body1" component="div" sx={{ marginLeft: 2 }}>
         <ul>
           <li>
-            Improving the Listening Experience for Broadcast Programs Using
+            Improving the Experience of Listening Broadcast Programs Using
             Social Media Data (Japanese), Master&rsquo;s thesis{' '}
             <Link
               href="https://library.naist.jp/opac/en/book/106760"
