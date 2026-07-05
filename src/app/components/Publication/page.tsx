@@ -18,7 +18,8 @@ const Publication: FC = () => {
             <Link
               href="https://library.naist.jp/opac/en/book/106760"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
+              aria-label="Library record for master's thesis"
             >
               [Record]
             </Link>
@@ -31,7 +32,8 @@ const Publication: FC = () => {
             <Link
               href="https://proceedings-of-deim.github.io/DEIM2023/4a-3-2.pdf"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
+              aria-label="PDF for DEIM2023 paper on tweet uniformity rate for broadcast programs"
             >
               [PDF]
             </Link>
@@ -44,7 +46,8 @@ const Publication: FC = () => {
             <Link
               href="https://proceedings-of-deim.github.io/DEIM2022/papers/C21-2.pdf"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
+              aria-label="PDF for DEIM2022 paper on radio program compression using Twitter"
             >
               [PDF]
             </Link>
