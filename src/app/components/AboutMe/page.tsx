@@ -14,7 +14,8 @@ const AboutMe: FC = () => {
         <ul style={{ paddingLeft: 20 }}>
           <li>
             <Typography variant="subtitle1">
-              A Software Engineer with 3+ years of experience in developing.
+              A Software Engineer with 3+ years of experience in software
+              development.
             </Typography>
           </li>
           <li>
@@ -26,8 +27,14 @@ const AboutMe: FC = () => {
           </li>
           <li>
             <Typography variant="subtitle1">
-              AWS-certified: Solutions Architect Professional, Security
-              Specialty, etc.
+              AWS certified in Solutions Architect Professional, Security
+              Specialty, and related areas.
+            </Typography>
+          </li>
+          <li>
+            <Typography variant="subtitle1">
+              Named a 2026 Japan AWS Jr. Champion, one of just 114 engineers
+              recognized nationwide by AWS.
             </Typography>
           </li>
         </ul>
