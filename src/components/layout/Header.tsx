@@ -56,6 +56,22 @@ export default function Header() {
             Blog
           </Typography>
         </Link>
+        <Link
+          href="/cv.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          underline="none"
+          color="inherit"
+          sx={{
+            '&:hover': {
+              opacity: 0.8,
+            },
+          }}
+        >
+          <Typography variant="h6" component="span">
+            CV
+          </Typography>
+        </Link>
       </Box>
 
       <IconButton

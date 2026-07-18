@@ -25,7 +25,7 @@ const Publication: FC = () => {
             </Link>
           </li>
           <li>
-            Analysis of the Uniformity Rate of Tweets for Broadcast Programs
+            Analysis of the &lsquo;Uniformity Rate&rsquo; of Tweets on Broadcast Content
             (Japanese),
             The 15th Forum on Data Engineering and Information Management
             (DEIM2023), 4a-3-2, 2023 (2023/3/5, Gifu, Japan){' '}
@@ -33,7 +33,7 @@ const Publication: FC = () => {
               href="https://proceedings-of-deim.github.io/DEIM2023/4a-3-2.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="PDF for DEIM2023 paper on tweet uniformity rate for broadcast programs"
+              aria-label="PDF for DEIM2023 paper on tweet uniformity rate on broadcast content"
             >
               [PDF]
             </Link>
