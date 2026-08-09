@@ -18,7 +18,7 @@ export default function Experience() {
         Experience
       </Typography>
       <PortfolioTimeline>
-        <PortfolioTimelineItem>
+        <PortfolioTimelineItem current>
           <Box sx={{ py: 1 }}>
             <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
               January 2025 - Present
