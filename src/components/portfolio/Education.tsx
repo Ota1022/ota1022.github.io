@@ -1,10 +1,5 @@
-import Timeline from '@mui/lab/Timeline';
-import TimelineConnector from '@mui/lab/TimelineConnector';
-import TimelineContent from '@mui/lab/TimelineContent';
-import TimelineDot from '@mui/lab/TimelineDot';
-import TimelineItem from '@mui/lab/TimelineItem';
-import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import { Box, Link, Paper, Typography } from '@mui/material';
+import { PortfolioTimeline, PortfolioTimelineItem } from './PortfolioTimeline';
 
 export default function Education() {
   return (
@@ -22,15 +17,9 @@ export default function Education() {
       >
         Education
       </Typography>
-      <Timeline
-        sx={{ '& .MuiTimelineItem-root:before': { flex: 0, padding: 0 } }}
-      >
-        <TimelineItem sx={{ '&:before': { display: 'none' } }}>
-          <TimelineSeparator>
-            <TimelineDot color="primary" variant="outlined" />
-            <TimelineConnector />
-          </TimelineSeparator>
-          <TimelineContent sx={{ py: '12px', px: 2 }}>
+      <PortfolioTimeline>
+        <PortfolioTimelineItem>
+          <Box sx={{ py: 1 }}>
             <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
               April 2021 - March 2023
             </Typography>
@@ -74,14 +63,10 @@ export default function Education() {
                 <li>Teaching Assistant for Social Computing class</li>
               </ul>
             </Box>
-          </TimelineContent>
-        </TimelineItem>
-        <TimelineItem sx={{ '&:before': { display: 'none' } }}>
-          <TimelineSeparator>
-            <TimelineDot color="secondary" variant="outlined" />
-            <TimelineConnector />
-          </TimelineSeparator>
-          <TimelineContent sx={{ py: '12px', px: 2 }}>
+          </Box>
+        </PortfolioTimelineItem>
+        <PortfolioTimelineItem>
+          <Box sx={{ py: 1 }}>
             <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
               April 2017 - March 2021
             </Typography>
@@ -100,9 +85,9 @@ export default function Education() {
                 <li>Studied International Macroeconomics and Econometrics</li>
               </ul>
             </Box>
-          </TimelineContent>
-        </TimelineItem>
-      </Timeline>
+          </Box>
+        </PortfolioTimelineItem>
+      </PortfolioTimeline>
     </Paper>
   );
 }
