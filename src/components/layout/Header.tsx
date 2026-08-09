@@ -6,13 +6,27 @@ import { Box, IconButton, Link, Tooltip, Typography } from '@mui/material';
 import { useColorScheme } from '@mui/material/styles';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSyncExternalStore } from 'react';
+
+const subscribeToHydration = () => () => {};
+const getClientHydrationSnapshot = () => true;
+const getServerHydrationSnapshot = () => false;
 
 export default function Header() {
   const pathname = usePathname();
   const { mode, systemMode, setMode } = useColorScheme();
+  const isHydrated = useSyncExternalStore(
+    subscribeToHydration,
+    getClientHydrationSnapshot,
+    getServerHydrationSnapshot
+  );
+
   const resolvedMode = mode === 'system' ? systemMode : mode;
-  const isDark = (resolvedMode ?? 'dark') === 'dark';
+  const isDark = isHydrated ? (resolvedMode ?? 'dark') === 'dark' : true;
   const nextMode = isDark ? 'light' : 'dark';
+  const themeToggleLabel = isHydrated
+    ? `Switch to ${nextMode} mode`
+    : 'Toggle color mode';
 
   return (
     <Box
@@ -95,12 +109,12 @@ export default function Header() {
         </Link>
       </Box>
 
-      <Tooltip title={`Switch to ${nextMode} mode`}>
+      <Tooltip title={themeToggleLabel}>
         <IconButton
           sx={{ ml: 1 }}
           onClick={() => setMode(nextMode)}
           color="inherit"
-          aria-label={`Switch to ${nextMode} mode`}
+          aria-label={themeToggleLabel}
         >
           {isDark ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>

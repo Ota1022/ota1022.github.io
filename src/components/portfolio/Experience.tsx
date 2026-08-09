@@ -1,10 +1,5 @@
-import Timeline from '@mui/lab/Timeline';
-import TimelineConnector from '@mui/lab/TimelineConnector';
-import TimelineContent from '@mui/lab/TimelineContent';
-import TimelineDot from '@mui/lab/TimelineDot';
-import TimelineItem from '@mui/lab/TimelineItem';
-import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import { Box, Paper, Typography } from '@mui/material';
+import { PortfolioTimeline, PortfolioTimelineItem } from './PortfolioTimeline';
 
 export default function Experience() {
   return (
@@ -22,18 +17,9 @@ export default function Experience() {
       >
         Experience
       </Typography>
-      <Timeline
-        sx={{ '& .MuiTimelineItem-root:before': { flex: 0, padding: 0 } }}
-      >
-        <TimelineItem sx={{ '&:before': { display: 'none' } }}>
-          <TimelineSeparator>
-            <TimelineDot
-              sx={{ bgcolor: 'customColor.main' }}
-              variant="outlined"
-            />
-            <TimelineConnector />
-          </TimelineSeparator>
-          <TimelineContent sx={{ py: '12px', px: 2 }}>
+      <PortfolioTimeline>
+        <PortfolioTimelineItem>
+          <Box sx={{ py: 1 }}>
             <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
               January 2025 - Present
             </Typography>
@@ -62,15 +48,11 @@ export default function Experience() {
                 </li>
               </ul>
             </Box>
-          </TimelineContent>
-        </TimelineItem>
+          </Box>
+        </PortfolioTimelineItem>
 
-        <TimelineItem sx={{ '&:before': { display: 'none' } }}>
-          <TimelineSeparator>
-            <TimelineDot color="primary" variant="outlined" />
-            <TimelineConnector />
-          </TimelineSeparator>
-          <TimelineContent sx={{ py: '12px', px: 2 }}>
+        <PortfolioTimelineItem>
+          <Box sx={{ py: 1 }}>
             <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
               April 2023 - December 2024
             </Typography>
@@ -98,15 +80,11 @@ export default function Experience() {
                 </li>
               </ul>
             </Box>
-          </TimelineContent>
-        </TimelineItem>
+          </Box>
+        </PortfolioTimelineItem>
 
-        <TimelineItem sx={{ '&:before': { display: 'none' } }}>
-          <TimelineSeparator>
-            <TimelineDot color="secondary" variant="outlined" />
-            <TimelineConnector />
-          </TimelineSeparator>
-          <TimelineContent sx={{ py: '12px', px: 2 }}>
+        <PortfolioTimelineItem>
+          <Box sx={{ py: 1 }}>
             <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
               October 2021 - March 2023
             </Typography>
@@ -135,9 +113,9 @@ export default function Experience() {
                 </li>
               </ul>
             </Box>
-          </TimelineContent>
-        </TimelineItem>
-      </Timeline>
+          </Box>
+        </PortfolioTimelineItem>
+      </PortfolioTimeline>
     </Paper>
   );
 }

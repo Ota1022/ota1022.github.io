@@ -1,24 +1,11 @@
 import { experimental_extendTheme as extendTheme } from '@mui/material/styles';
 
-declare module '@mui/material/styles' {
-  interface Palette {
-    customColor: Palette['primary'];
-  }
-
-  interface PaletteOptions {
-    customColor?: PaletteOptions['primary'];
-  }
-}
-
 const sharedPalette = {
   primary: {
     main: '#4f9cf9',
   },
   secondary: {
     main: '#e85d8e',
-  },
-  customColor: {
-    main: '#ff9800',
   },
 };
 
