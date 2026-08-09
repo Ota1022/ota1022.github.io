@@ -1,9 +1,6 @@
 import { experimental_extendTheme as extendTheme } from '@mui/material/styles';
 
 const sharedPalette = {
-  primary: {
-    main: '#4f9cf9',
-  },
   secondary: {
     main: '#e85d8e',
   },
@@ -14,6 +11,9 @@ const theme = extendTheme({
     light: {
       palette: {
         ...sharedPalette,
+        primary: {
+          main: '#1565c0',
+        },
         background: {
           default: '#f5f5f5',
           paper: '#ffffff',
@@ -23,6 +23,9 @@ const theme = extendTheme({
     dark: {
       palette: {
         ...sharedPalette,
+        primary: {
+          main: '#4f9cf9',
+        },
         background: {
           default: '#121212',
           paper: '#2f2f2f',
