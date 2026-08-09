@@ -11,13 +11,26 @@
         "noDangerouslySetInnerHtml": "off"
       }
     },
-    "ignore": ["out/**/*", ".next/**/*", "node_modules/**/*"]
+    "ignore": [
+      "out/**/*",
+      ".next/**/*",
+      "node_modules/**/*",
+      ".claude/**/*",
+      "next-env.d.ts"
+    ]
   },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2,
-    "ignore": ["out/**/*", ".next/**/*", "node_modules/**/*", ".git/**/*"]
+    "ignore": [
+      "out/**/*",
+      ".next/**/*",
+      "node_modules/**/*",
+      ".git/**/*",
+      ".claude/**/*",
+      "next-env.d.ts"
+    ]
   },
   "javascript": {
     "formatter": {

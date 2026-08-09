@@ -1,23 +1,16 @@
-import { FlatCompat } from '@eslint/eslintrc';
-import { fileURLToPath } from 'url';
-import path from 'path';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTypescript from 'eslint-config-next/typescript';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const compat = new FlatCompat({ baseDirectory: __dirname });
-
-/** @type {import('eslint').Linter.Config[]} */
-const config = [
+export default defineConfig([
+  ...nextVitals,
+  ...nextTypescript,
   {
-    ignores: ['out/**/*', '.next/**/*', 'node_modules/**/*'],
-  },
-  ...compat.extends('next/core-web-vitals', 'prettier'),
-  {
+    files: ['src/components/blog/MDXComponents.tsx'],
     rules: {
-      'react/react-in-jsx-scope': 'off',
+      // MDX images are pre-sized WebP assets in a fully static export.
+      '@next/next/no-img-element': 'off',
     },
   },
-];
-
-export default config;
+  globalIgnores(['out/**', '.next/**', 'node_modules/**']),
+]);

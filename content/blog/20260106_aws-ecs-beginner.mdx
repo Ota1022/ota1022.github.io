@@ -18,7 +18,7 @@ In this guide, I'll break down when to use each approach and show you exactly ho
 
 ## Understanding Amazon ECS and Microservices
 
-![Amazon ECS](/blog/images/Arch_Amazon-Elastic-Container-Service_64.png)
+![Amazon ECS](/blog/images/amazon-ecs.webp)
 
 AWS describes ECS as "a fully managed container orchestration service that makes it easy to deploy, manage, and scale containerized applications." That's accurate, but it's not immediately clear how it works under the hood.
 
@@ -34,7 +34,7 @@ In traditional **monolithic architecture**, all functionality lives in one large
 
 **Microservices architecture** solves these problems by breaking your application into small, independent services.
 
-![Comparison of Monolithic and Microservices](/blog/images/monolith_1-monolith-microservices.70b547e30e30b013051d58a93a6e35e77408a2a8.png)
+![Comparison of Monolithic and Microservices](/blog/images/monolith-microservices.webp)
 *Source: AWS - The Difference Between Monolithic and Microservices Architecture*
 
 ### Real-World Example: E-Commerce Platform
@@ -75,7 +75,7 @@ Let's break down the core building blocks:
 * **Task**: A running instance based on a task definition (can contain multiple containers)
 * **Service**: Ensures your application keeps running by maintaining a specified number of tasks, handling restarts, scaling, and load balancing
 
-![ECS Components](/blog/images/ecs-core-component.png)
+![ECS Components](/blog/images/ecs-core-component.webp)
 *Source: AWS ECS Immersion Day*
 
 ---
@@ -108,7 +108,7 @@ Service Connect is an ECS-native feature designed specifically for **communicati
 
 Service Connect works by automatically injecting an **Envoy sidecar** (a proxy container) into each task. Envoy handles all the routing logic.
 
-![How Service Connect Works](/blog/images/service-connect.png)
+![How Service Connect Works](/blog/images/service-connect.webp)
 *Source: AWS Builders Flash - Web Application Architecture Design Patterns*
 
 Here's what makes it powerful:
@@ -140,7 +140,7 @@ AWS Cloud Map provides two methods for service discovery:
 
 ECS Service Discovery uses the DNS-based approach. When a task starts, it's automatically registered in Cloud Map and becomes resolvable via DNS. When it stops, it's automatically removed.
 
-![How Service Discovery Works](/blog/images/service-discovery_en.png)
+![How Service Discovery Works](/blog/images/service-discovery_en.webp)
 *Source: AWS Builders Flash - Web Application Architecture Design Patterns*
 
 ### Key Benefits

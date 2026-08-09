@@ -66,7 +66,9 @@ export function GitHubRepoCard({ url, description }: GitHubRepoCardProps) {
             </Typography>
           )}
         </Box>
-        <OpenInNewIcon sx={{ fontSize: 18, color: 'grey.500', flexShrink: 0 }} />
+        <OpenInNewIcon
+          sx={{ fontSize: 18, color: 'grey.500', flexShrink: 0 }}
+        />
       </Box>
     </MuiLink>
   );

@@ -10,8 +10,19 @@ import {
   Typography,
 } from '@mui/material';
 import type { MDXComponents } from 'mdx/types';
+import type { ReactNode } from 'react';
+import { slugifyHeading } from '@/lib/markdown';
 import { CodeBlock } from './CodeBlock';
 import { GitHubRepoCard } from './GitHubRepoCard';
+
+const BLOG_IMAGE_DIMENSIONS: Record<string, { width: number; height: number }> =
+  {
+    '/blog/images/amazon-ecs.webp': { width: 80, height: 80 },
+    '/blog/images/monolith-microservices.webp': { width: 491, height: 301 },
+    '/blog/images/ecs-core-component.webp': { width: 637, height: 332 },
+    '/blog/images/service-connect.webp': { width: 1303, height: 723 },
+    '/blog/images/service-discovery_en.webp': { width: 1600, height: 855 },
+  };
 
 /**
  * Custom components for MDX
@@ -19,17 +30,42 @@ import { GitHubRepoCard } from './GitHubRepoCard';
  */
 export const mdxComponents: MDXComponents = {
   h1: ({ children }) => (
-    <Typography variant="h3" component="h1" gutterBottom sx={{ mt: 4, mb: 2 }}>
+    <Typography
+      id={slugifyHeading(getTextContent(children))}
+      variant="h3"
+      component="h2"
+      gutterBottom
+      sx={{ mt: 4, mb: 2, scrollMarginTop: 24 }}
+    >
       {children}
     </Typography>
   ),
   h2: ({ children }) => (
-    <Typography variant="h4" component="h2" gutterBottom sx={{ mt: 4, mb: 2, pb: 1, borderBottom: 1, borderColor: 'grey.600' }}>
+    <Typography
+      id={slugifyHeading(getTextContent(children))}
+      variant="h4"
+      component="h2"
+      gutterBottom
+      sx={{
+        mt: 4,
+        mb: 2,
+        pb: 1,
+        borderBottom: 1,
+        borderColor: 'grey.600',
+        scrollMarginTop: 24,
+      }}
+    >
       {children}
     </Typography>
   ),
   h3: ({ children }) => (
-    <Typography variant="h5" component="h3" gutterBottom sx={{ mt: 2, mb: 1 }}>
+    <Typography
+      id={slugifyHeading(getTextContent(children))}
+      variant="h5"
+      component="h3"
+      gutterBottom
+      sx={{ mt: 2, mb: 1, scrollMarginTop: 24 }}
+    >
       {children}
     </Typography>
   ),
@@ -43,11 +79,20 @@ export const mdxComponents: MDXComponents = {
       {children}
     </Typography>
   ),
-  a: ({ href, children }) => (
-    <MuiLink href={href} target="_blank" rel="noopener noreferrer" underline="hover">
-      {children}
-    </MuiLink>
-  ),
+  a: ({ href, children }) => {
+    const isExternal = typeof href === 'string' && /^https?:\/\//.test(href);
+
+    return (
+      <MuiLink
+        href={href}
+        target={isExternal ? '_blank' : undefined}
+        rel={isExternal ? 'noopener noreferrer' : undefined}
+        underline="hover"
+      >
+        {children}
+      </MuiLink>
+    );
+  },
   ul: ({ children }) => (
     <Box component="ul" sx={{ pl: 3, mb: 2 }}>
       {children}
@@ -59,7 +104,11 @@ export const mdxComponents: MDXComponents = {
     </Box>
   ),
   li: ({ children }) => (
-    <Typography component="li" variant="body1" sx={{ mb: 0.5, lineHeight: 1.8 }}>
+    <Typography
+      component="li"
+      variant="body1"
+      sx={{ mb: 0.5, lineHeight: 1.8 }}
+    >
       {children}
     </Typography>
   ),
@@ -81,19 +130,20 @@ export const mdxComponents: MDXComponents = {
   ),
   code: ({ children, className, ...props }) => {
     // rehype-pretty-code uses data-language for fenced code blocks
-    const isInline = !className && !(props as Record<string, unknown>)['data-language'];
+    const isInline =
+      !className && !(props as Record<string, unknown>)['data-language'];
     if (isInline) {
       return (
         <Box
           component="code"
           sx={{
-            bgcolor: 'rgba(255, 255, 255, 0.1)',
+            bgcolor: 'action.hover',
             px: 0.75,
             py: 0.25,
             borderRadius: 0.5,
             fontFamily: 'Menlo, Monaco, "Courier New", monospace',
             fontSize: '0.9em',
-            color: '#ff6b6b',
+            color: 'secondary.main',
           }}
         >
           {children}
@@ -101,7 +151,11 @@ export const mdxComponents: MDXComponents = {
       );
     }
     // For fenced code blocks, preserve all props from rehype-pretty-code
-    return <code className={className} {...props}>{children}</code>;
+    return (
+      <code className={className} {...props}>
+        {children}
+      </code>
+    );
   },
   pre: ({ children, ...rest }) => {
     return <CodeBlock {...rest}>{children}</CodeBlock>;
@@ -117,9 +171,11 @@ export const mdxComponents: MDXComponents = {
       }}
     />
   ),
-  img: ({ src, alt }) => {
+  img: ({ src, alt, width, height }) => {
     // Amazon ECS icon should remain transparent
     const isTransparent = alt === 'Amazon ECS';
+    const dimensions =
+      typeof src === 'string' ? BLOG_IMAGE_DIMENSIONS[src] : undefined;
 
     return (
       <Box
@@ -133,11 +189,14 @@ export const mdxComponents: MDXComponents = {
           justifyContent: 'center',
         }}
       >
-        <Box
-          component="img"
+        <img
           src={src}
           alt={alt}
-          sx={{
+          loading="lazy"
+          decoding="async"
+          width={width ?? dimensions?.width}
+          height={height ?? dimensions?.height}
+          style={{
             maxWidth: '100%',
             height: 'auto',
             display: 'block',
@@ -168,7 +227,24 @@ export const mdxComponents: MDXComponents = {
     </TableCell>
   ),
   td: ({ children }) => (
-    <TableCell sx={{ borderBottom: 1, borderColor: 'divider' }}>{children}</TableCell>
+    <TableCell sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      {children}
+    </TableCell>
   ),
   GitHubRepo: GitHubRepoCard,
 };
+
+function getTextContent(node: ReactNode): string {
+  if (typeof node === 'string' || typeof node === 'number') {
+    return String(node);
+  }
+  if (Array.isArray(node)) {
+    return node.map(getTextContent).join('');
+  }
+  if (node && typeof node === 'object' && 'props' in node) {
+    return getTextContent(
+      (node as { props: { children?: ReactNode } }).props.children
+    );
+  }
+  return '';
+}

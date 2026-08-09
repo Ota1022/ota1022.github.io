@@ -10,13 +10,13 @@ Place images for blog posts in this directory.
 2. Reference them in MDX files as follows:
 
 ```mdx
-![Image description](/blog/images/your-image.jpg)
+![Image description](/blog/images/your-image.webp)
 ```
 
 Or use HTML img tag:
 
 ```mdx
-<img src="/blog/images/your-image.jpg" alt="Image description" />
+<img src="/blog/images/your-image.webp" alt="Image description" />
 ```
 
 ### Example
@@ -34,13 +34,13 @@ category: "tech"
 
 Here's an image:
 
-![Example Image](/blog/images/example.png)
+![Example Image](/blog/images/example.webp)
 ```
 
-Image file: `public/blog/images/example.png`
+Image file: `public/blog/images/example.webp`
 
 ### Recommendations
 
-- Use lowercase letters and hyphens for file names (e.g., `my-image.jpg`)
-- Optimize image sizes appropriately
-- File formats: JPG, PNG, WebP, etc.
+- Use lowercase letters and hyphens for file names (e.g., `my-image.webp`)
+- Prefer WebP for photographs and diagrams; keep SVG for vector artwork
+- Resize images to the largest size used by the site before committing them

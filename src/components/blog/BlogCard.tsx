@@ -1,34 +1,20 @@
 'use client';
 
 import type { BlogPostMetadata } from '@/types/blog';
+import { formatDateOnly } from '@/lib/date';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Box, Card, CardContent, Chip, Link, Typography } from '@mui/material';
-import { format } from 'date-fns';
 import NextLink from 'next/link';
+import BlogCategoryChip from './BlogCategoryChip';
 
 interface BlogCardProps {
   post: BlogPostMetadata;
+  headingLevel?: 'h2' | 'h3';
 }
 
-export default function BlogCard({ post }: BlogCardProps) {
+export default function BlogCard({ post, headingLevel = 'h2' }: BlogCardProps) {
   const { slug, frontmatter } = post;
-  const formattedDate = format(new Date(frontmatter.date), 'MMM d, yyyy');
-
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case 'blog':
-        return { bg: '#26a69a', text: '#fff' }; // teal
-      case 'zenn':
-        return 'primary';
-      case 'speakerdeck':
-        return 'success';
-      case 'activity':
-        return 'secondary';
-      case 'announcement':
-        return 'warning';
-      default:
-        return 'default';
-    }
-  };
+  const formattedDate = formatDateOnly(frontmatter.date, 'short');
 
   const href = frontmatter.externalUrl || `/blog/${slug}`;
   const isExternal = !!frontmatter.externalUrl;
@@ -39,6 +25,11 @@ export default function BlogCard({ post }: BlogCardProps) {
       href={href}
       target={isExternal ? '_blank' : undefined}
       rel={isExternal ? 'noopener noreferrer' : undefined}
+      aria-label={
+        isExternal
+          ? `${frontmatter.title}, opens in a new tab`
+          : frontmatter.title
+      }
       underline="none"
       color="inherit"
       display="block"
@@ -51,37 +42,45 @@ export default function BlogCard({ post }: BlogCardProps) {
             transform: 'translateY(-4px)',
             boxShadow: 4,
           },
+          '@media (prefers-reduced-motion: reduce)': {
+            '&:hover': { transform: 'none' },
+          },
           cursor: 'pointer',
         }}
       >
         <CardContent>
           <Box sx={{ mb: 1 }}>
-            {(() => {
-              const colorValue = getCategoryColor(frontmatter.category);
-              const isCustomColor = typeof colorValue === 'object';
-              return (
-                <Chip
-                  label={frontmatter.category}
-                  color={isCustomColor ? 'default' : colorValue as 'primary' | 'secondary' | 'success' | 'warning' | 'default'}
-                  size="small"
-                  sx={{
-                    mb: 1,
-                    ...(isCustomColor && {
-                      backgroundColor: colorValue.bg,
-                      color: colorValue.text,
-                    }),
-                  }}
-                />
-              );
-            })()}
+            <BlogCategoryChip category={frontmatter.category} />
             <Typography variant="caption" color="text.secondary" sx={{ ml: 1 }}>
               {formattedDate}
             </Typography>
+            {post.readingTimeMinutes && (
+              <Typography
+                variant="caption"
+                color="text.secondary"
+                sx={{ ml: 1 }}
+              >
+                · {post.readingTimeMinutes} min read
+              </Typography>
+            )}
           </Box>
 
-          <Typography variant="h5" component="h2" gutterBottom sx={{ mb: 1 }}>
-            {frontmatter.title}
-          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+            <Typography
+              variant="h5"
+              component={headingLevel}
+              gutterBottom
+              sx={{ mb: 1, flex: 1 }}
+            >
+              {frontmatter.title}
+            </Typography>
+            {isExternal && (
+              <OpenInNewIcon
+                aria-hidden="true"
+                sx={{ mt: 0.5, fontSize: 18, color: 'text.secondary' }}
+              />
+            )}
+          </Box>
 
           <Typography variant="body2" color="text.secondary" paragraph>
             {frontmatter.description}
