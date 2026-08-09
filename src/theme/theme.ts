@@ -1,60 +1,67 @@
-import { createTheme } from '@mui/material/styles';
+import { experimental_extendTheme as extendTheme } from '@mui/material/styles';
 
-// Extend MUI palette type
 declare module '@mui/material/styles' {
   interface Palette {
     customColor: Palette['primary'];
   }
+
   interface PaletteOptions {
     customColor?: PaletteOptions['primary'];
   }
 }
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1976d2',
+const sharedPalette = {
+  primary: {
+    main: '#4f9cf9',
+  },
+  secondary: {
+    main: '#e85d8e',
+  },
+  customColor: {
+    main: '#ff9800',
+  },
+};
+
+const theme = extendTheme({
+  colorSchemes: {
+    light: {
+      palette: {
+        ...sharedPalette,
+        background: {
+          default: '#f5f5f5',
+          paper: '#ffffff',
+        },
+      },
     },
-    secondary: {
-      main: '#dc004e',
+    dark: {
+      palette: {
+        ...sharedPalette,
+        background: {
+          default: '#121212',
+          paper: '#2f2f2f',
+        },
+      },
     },
-    customColor: {
-      main: '#ff9800',
-    },
-    // Background and color settings for dark mode
-    background: {
-      default: '#121212',
-      paper: '#1e1e1e',
-    },
-    // Text color settings for dark mode
-    text: {
-      primary: '#ffffff',
-      secondary: 'rgba(255, 255, 255, 0.7)',
-      disabled: 'rgba(255, 255, 255, 0.5)',
-    },
-    // Light mode settings will be overridden in ThemeContext
+  },
+  typography: {
+    fontFamily:
+      'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+  },
+  shape: {
+    borderRadius: 8,
   },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          transition: 'background-color 0.3s, color 0.3s',
+          transition: 'background-color 0.2s ease, color 0.2s ease',
         },
-      },
-    },
-    // Typography settings for dark mode
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          color: '#ffffff',
-        },
-      },
-    },
-    // Icon button settings for dark mode
-    MuiIconButton: {
-      styleOverrides: {
-        root: {
-          color: '#ffffff',
+        '@media (prefers-reduced-motion: reduce)': {
+          '*': {
+            scrollBehavior: 'auto !important',
+            transitionDuration: '0.01ms !important',
+            animationDuration: '0.01ms !important',
+          },
         },
       },
     },

@@ -13,6 +13,6 @@ npm run dev
 
 ## Tech Stack
 
-- Next.js 14 (App Router)
+- Next.js 16 (App Router)
 - Material UI
 - MDX (Blog)

@@ -7,7 +7,13 @@ import sharp from 'sharp';
 const CONTENT_DIR = path.join(process.cwd(), 'content', 'blog');
 const OUTPUT_DIR = path.join(process.cwd(), 'public', 'og');
 const FONTS_DIR = path.join(process.cwd(), 'src', 'assets', 'fonts');
-const AVATAR_PATH = path.join(process.cwd(), 'src', 'assets', 'images', 'avatar.jpg');
+const AVATAR_PATH = path.join(
+  process.cwd(),
+  'src',
+  'assets',
+  'images',
+  'avatar.jpg'
+);
 
 const WIDTH = 1200;
 const HEIGHT = 630;
@@ -24,7 +30,12 @@ interface Frontmatter {
   externalUrl?: string;
 }
 
-function buildOgImage(title: string, tags: string[] = [], date?: string, avatarDataUri?: string) {
+function buildOgImage(
+  title: string,
+  tags: string[] = [],
+  date?: string,
+  avatarDataUri?: string
+) {
   const displayTags = tags.slice(0, 4);
 
   return {
@@ -36,7 +47,8 @@ function buildOgImage(title: string, tags: string[] = [], date?: string, avatarD
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundImage: 'linear-gradient(135deg, #2c2c2c 0%, #4a4a4a 40%, #6b6b6b 60%, #4a4a4a 80%, #2c2c2c 100%)',
+        backgroundImage:
+          'linear-gradient(135deg, #2c2c2c 0%, #4a4a4a 40%, #6b6b6b 60%, #4a4a4a 80%, #2c2c2c 100%)',
         fontFamily: 'Noto Sans JP, Inconsolata',
         position: 'relative',
         overflow: 'hidden',
@@ -112,7 +124,12 @@ function buildOgImage(title: string, tags: string[] = [], date?: string, avatarD
                             type: 'div',
                             props: {
                               style: {
-                                fontSize: title.length > 50 ? 52 : title.length > 35 ? 58 : 64,
+                                fontSize:
+                                  title.length > 50
+                                    ? 52
+                                    : title.length > 35
+                                      ? 58
+                                      : 64,
                                 fontWeight: 700,
                                 color: '#1a1a2e',
                                 lineHeight: 1.3,
@@ -142,8 +159,10 @@ function buildOgImage(title: string, tags: string[] = [], date?: string, avatarD
                                         style: {
                                           fontSize: 26,
                                           color: '#7a5c00',
-                                          backgroundColor: 'rgba(212, 165, 32, 0.15)',
-                                          border: '1px solid rgba(212, 165, 32, 0.4)',
+                                          backgroundColor:
+                                            'rgba(212, 165, 32, 0.15)',
+                                          border:
+                                            '1px solid rgba(212, 165, 32, 0.4)',
                                           borderRadius: 12,
                                           padding: '6px 20px',
                                         },
@@ -292,7 +311,12 @@ async function main() {
 
   // Generate default OG image
   console.log('Generating default OG image...');
-  const defaultElement = buildOgImage('Itaru OTA — Portfolio & Blog', [], undefined, avatarDataUri);
+  const defaultElement = buildOgImage(
+    'Itaru OTA — Portfolio & Blog',
+    [],
+    undefined,
+    avatarDataUri
+  );
   const defaultSvg = await satori(defaultElement as React.ReactElement, {
     width: WIDTH,
     height: HEIGHT,
@@ -309,9 +333,7 @@ async function main() {
     return;
   }
 
-  const files = fs
-    .readdirSync(CONTENT_DIR)
-    .filter((f) => f.endsWith('.mdx'));
+  const files = fs.readdirSync(CONTENT_DIR).filter((f) => f.endsWith('.mdx'));
 
   let generated = 0;
   let skipped = 0;
@@ -329,7 +351,12 @@ async function main() {
       continue;
     }
 
-    const element = buildOgImage(frontmatter.title, frontmatter.tags, frontmatter.date, avatarDataUri);
+    const element = buildOgImage(
+      frontmatter.title,
+      frontmatter.tags,
+      frontmatter.date,
+      avatarDataUri
+    );
     const svg = await satori(element as React.ReactElement, {
       width: WIDTH,
       height: HEIGHT,

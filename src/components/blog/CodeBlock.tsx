@@ -3,10 +3,15 @@
 import { Box, IconButton, Tooltip } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CheckIcon from '@mui/icons-material/Check';
-import { useState, type CSSProperties } from 'react';
+import {
+  isValidElement,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react';
 
 interface CodeBlockProps {
-  children: React.ReactNode;
+  children: ReactNode;
   style?: CSSProperties;
   [key: string]: unknown;
 }
@@ -22,11 +27,11 @@ export function CodeBlock({ children, style, ...props }: CodeBlockProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const extractTextContent = (node: React.ReactNode): string => {
+  const extractTextContent = (node: ReactNode): string => {
     if (typeof node === 'string') return node;
     if (typeof node === 'number') return String(node);
     if (Array.isArray(node)) return node.map(extractTextContent).join('');
-    if (node && typeof node === 'object' && 'props' in node) {
+    if (isValidElement<{ children?: ReactNode }>(node)) {
       return extractTextContent(node.props.children);
     }
     return '';
@@ -85,7 +90,11 @@ export function CodeBlock({ children, style, ...props }: CodeBlockProps) {
           }}
           size="small"
         >
-          {copied ? <CheckIcon fontSize="small" /> : <ContentCopyIcon fontSize="small" />}
+          {copied ? (
+            <CheckIcon fontSize="small" />
+          ) : (
+            <ContentCopyIcon fontSize="small" />
+          )}
         </IconButton>
       </Tooltip>
     </Box>

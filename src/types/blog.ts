@@ -1,21 +1,16 @@
-export type BlogCategory = 'blog' | 'zenn' | 'speakerdeck' | 'announcement' | 'activity' | 'other';
+import type { BlogPostFrontmatter } from '@/lib/blog-schema';
 
-export interface BlogPostFrontmatter {
-  title: string;
-  description: string;
-  date: string;
-  category: BlogCategory;
-  tags?: string[];
-  externalUrl?: string;
-}
+export type { BlogCategory, BlogPostFrontmatter } from '@/lib/blog-schema';
 
 export interface BlogPost {
   slug: string;
   frontmatter: BlogPostFrontmatter;
   content: string;
+  readingTimeMinutes: number;
 }
 
 export interface BlogPostMetadata {
   slug: string;
   frontmatter: BlogPostFrontmatter;
+  readingTimeMinutes?: number;
 }

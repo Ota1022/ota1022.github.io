@@ -1,11 +1,13 @@
+import BlogCard from '@/components/blog/BlogCard';
+import BlogCategoryChip from '@/components/blog/BlogCategoryChip';
 import { mdxComponents } from '@/components/blog/MDXComponents';
-import Header from '@/components/layout/Header';
-import { getAllPostSlugs, getPostBySlug } from '@/lib/blog';
-import { Box, Chip, Container, Link, Paper, Typography } from '@mui/material';
-import { format } from 'date-fns';
+import PageShell from '@/components/layout/PageShell';
+import { getAllPostSlugs, getPostBySlug, getRelatedPosts } from '@/lib/blog';
+import { formatDateOnly } from '@/lib/date';
+import { extractTableOfContents } from '@/lib/markdown';
+import { Box, Chip, Link, Paper, Typography } from '@mui/material';
 import type { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import NextLink from 'next/link';
 import { notFound } from 'next/navigation';
 import rehypePrettyCode from 'rehype-pretty-code';
 import remarkGfm from 'remark-gfm';
@@ -13,15 +15,16 @@ import remarkGfm from 'remark-gfm';
 const PLACEHOLDER_SLUG = '__blog-placeholder__';
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
-  const post = getPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
   if (!post) {
     return {};
   }
@@ -29,19 +32,23 @@ export async function generateMetadata({
   return {
     title: frontmatter.title,
     description: frontmatter.description,
+    authors: [{ name: 'Itaru OTA', url: 'https://ota1022.github.io' }],
+    alternates: { canonical: `/blog/${slug}` },
     openGraph: {
       type: 'article',
       title: frontmatter.title,
       description: frontmatter.description,
-      images: [{ url: `/og/${params.slug}.png`, width: 1200, height: 630 }],
+      url: `/blog/${slug}`,
+      images: [{ url: `/og/${slug}.png`, width: 1200, height: 630 }],
       publishedTime: frontmatter.date,
+      authors: ['Itaru OTA'],
       tags: frontmatter.tags,
     },
     twitter: {
       card: 'summary_large_image',
       title: frontmatter.title,
       description: frontmatter.description,
-      images: [`/og/${params.slug}.png`],
+      images: [`/og/${slug}.png`],
     },
   };
 }
@@ -63,21 +70,20 @@ export const generateStaticParams = async () => {
   }));
 };
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
   const hasAnyPosts = getAllPostSlugs().length > 0;
-  const post = getPostBySlug(params.slug);
+  const post = getPostBySlug(slug);
 
   if (!post) {
     // Only show the placeholder page when there are zero posts.
     // This prevents conflicts if someone ever creates a real post whose slug
     // happens to match the placeholder.
-    if (!hasAnyPosts && params.slug === PLACEHOLDER_SLUG) {
+    if (!hasAnyPosts && slug === PLACEHOLDER_SLUG) {
       return (
-        <Container maxWidth="md" sx={{ mt: 4 }}>
-          <Header />
-          <Box sx={{ my: 4 }}>
+        <PageShell>
+          <Box component="main" sx={{ my: 4 }}>
             <Link
-              component={NextLink}
               href="/blog"
               underline="hover"
               sx={{ mb: 2, display: 'inline-block' }}
@@ -91,109 +97,186 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               Blog posts are coming soon.
             </Typography>
           </Box>
-        </Container>
+        </PageShell>
       );
     }
     notFound();
   }
 
-  const { frontmatter, content } = post;
-  const formattedDate = format(new Date(frontmatter.date), 'MMMM d, yyyy');
-
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case 'blog':
-        return { bg: '#26a69a', text: '#fff' }; // teal
-      case 'zenn':
-        return 'primary';
-      case 'speakerdeck':
-        return 'success';
-      case 'activity':
-        return 'secondary';
-      case 'announcement':
-        return 'warning';
-      default:
-        return 'default';
-    }
+  const { frontmatter, content, readingTimeMinutes } = post;
+  const formattedDate = formatDateOnly(frontmatter.date);
+  const tableOfContents = extractTableOfContents(content);
+  const relatedPosts = getRelatedPosts(slug);
+  const postUrl = `https://ota1022.github.io/blog/${slug}`;
+  const blogPostingJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: frontmatter.title,
+    description: frontmatter.description,
+    datePublished: frontmatter.date,
+    mainEntityOfPage: postUrl,
+    url: postUrl,
+    image: `https://ota1022.github.io/og/${slug}.png`,
+    author: {
+      '@type': 'Person',
+      name: 'Itaru OTA',
+      url: 'https://ota1022.github.io',
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Itaru OTA',
+      url: 'https://ota1022.github.io',
+    },
+    keywords: frontmatter.tags?.join(', '),
   };
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Header />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(blogPostingJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+      <PageShell>
+        <Box component="main" sx={{ my: 4 }}>
+          <Link
+            href="/blog"
+            underline="hover"
+            sx={{ mb: 2, display: 'inline-block' }}
+          >
+            ← Back to Writing &amp; Talks
+          </Link>
 
-      <Box sx={{ my: 4 }}>
-        <Link
-          component={NextLink}
-          href="/blog"
-          underline="hover"
-          sx={{ mb: 2, display: 'inline-block' }}
-        >
-          ← Back to Blog
-        </Link>
+          <Paper
+            component="article"
+            elevation={2}
+            sx={{ p: { xs: 2, sm: 3, md: 4 }, mt: 2 }}
+          >
+            <Box sx={{ mb: 3 }}>
+              <BlogCategoryChip
+                category={frontmatter.category}
+                marginBottom={2}
+              />
+              <Typography
+                variant="h3"
+                component="h1"
+                gutterBottom
+                sx={{
+                  fontSize: { xs: '2.25rem', sm: '3rem' },
+                  lineHeight: 1.1,
+                }}
+              >
+                {frontmatter.title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" paragraph>
+                <Box component="time" dateTime={frontmatter.date}>
+                  {formattedDate}
+                </Box>
+                {' · '}
+                {readingTimeMinutes} min read
+              </Typography>
+              {frontmatter.tags && frontmatter.tags.length > 0 && (
+                <Box
+                  sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 3 }}
+                >
+                  {frontmatter.tags.map((tag) => (
+                    <Chip
+                      key={tag}
+                      label={tag}
+                      size="small"
+                      variant="outlined"
+                    />
+                  ))}
+                </Box>
+              )}
+            </Box>
 
-        <Paper elevation={2} sx={{ p: { xs: 2, sm: 3, md: 4 }, mt: 2 }}>
-          <Box sx={{ mb: 3 }}>
-            {(() => {
-              const colorValue = getCategoryColor(frontmatter.category);
-              const isCustomColor = typeof colorValue === 'object';
-              return (
-                <Chip
-                  label={frontmatter.category}
-                  color={isCustomColor ? 'default' : colorValue as 'primary' | 'secondary' | 'success' | 'warning' | 'default'}
-                  size="small"
-                  sx={{
-                    mb: 2,
-                    ...(isCustomColor && {
-                      backgroundColor: colorValue.bg,
-                      color: colorValue.text,
-                    }),
-                  }}
-                />
-              );
-            })()}
-            <Typography variant="h3" component="h1" gutterBottom>
-              {frontmatter.title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary" paragraph>
-              {formattedDate}
-            </Typography>
-            {frontmatter.tags && frontmatter.tags.length > 0 && (
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 3 }}>
-                {frontmatter.tags.map((tag) => (
-                  <Chip
-                    key={tag}
-                    label={tag}
-                    size="small"
-                    variant="outlined"
-                  />
-                ))}
+            {tableOfContents.length > 1 && (
+              <Box
+                component="nav"
+                aria-label="Table of contents"
+                sx={{
+                  mb: 4,
+                  p: 2,
+                  border: 1,
+                  borderColor: 'divider',
+                  borderRadius: 1,
+                }}
+              >
+                <Typography variant="h6" component="h2" sx={{ mb: 1 }}>
+                  On this page
+                </Typography>
+                <Box
+                  component="ol"
+                  sx={{ m: 0, pl: 2.5, maxHeight: 360, overflowY: 'auto' }}
+                >
+                  {tableOfContents.map((heading) => (
+                    <Box
+                      component="li"
+                      key={`${heading.level}-${heading.id}`}
+                      sx={{ ml: heading.level === 3 ? 2 : 0, py: 0.25 }}
+                    >
+                      <Link href={`#${heading.id}`} underline="hover">
+                        {heading.title}
+                      </Link>
+                    </Box>
+                  ))}
+                </Box>
               </Box>
             )}
-          </Box>
 
-          <Box
-            sx={{
-              '& code': {
-                fontFamily: 'Menlo, Monaco, "Courier New", monospace',
-                fontSize: '0.95em',
-              },
-            }}
-          >
-            <MDXRemote
-              source={content}
-              components={mdxComponents}
-              options={{
-                mdxOptions: {
-                  remarkPlugins: [remarkGfm],
-                  rehypePlugins: [
-                    [rehypePrettyCode, { theme: 'github-dark', keepBackground: true }],
-                  ],
+            <Box
+              sx={{
+                '& code': {
+                  fontFamily: 'Menlo, Monaco, "Courier New", monospace',
+                  fontSize: '0.95em',
                 },
               }}
-            />
-          </Box>
-        </Paper>
-      </Box>
-    </Container>
+            >
+              <MDXRemote
+                source={content}
+                components={mdxComponents}
+                options={{
+                  mdxOptions: {
+                    remarkPlugins: [remarkGfm],
+                    rehypePlugins: [
+                      [
+                        rehypePrettyCode,
+                        { theme: 'github-dark', keepBackground: true },
+                      ],
+                    ],
+                  },
+                }}
+              />
+            </Box>
+          </Paper>
+
+          {relatedPosts.length > 0 && (
+            <Box
+              component="section"
+              aria-labelledby="related-writing"
+              sx={{ mt: 5 }}
+            >
+              <Typography
+                id="related-writing"
+                variant="h4"
+                component="h2"
+                sx={{ mb: 2 }}
+              >
+                Related writing &amp; talks
+              </Typography>
+              {relatedPosts.map((relatedPost) => (
+                <BlogCard
+                  key={relatedPost.slug}
+                  post={relatedPost}
+                  headingLevel="h3"
+                />
+              ))}
+            </Box>
+          )}
+        </Box>
+      </PageShell>
+    </>
   );
 }

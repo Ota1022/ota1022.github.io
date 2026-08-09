@@ -6,97 +6,92 @@ import ZennIcon from '@/components/icons/ZennIcon';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import XIcon from '@mui/icons-material/X';
-import { Link } from '@mui/material';
+import { Box, IconButton, Tooltip } from '@mui/material';
+import type { ReactNode } from 'react';
 
-const Contact = (): React.ReactNode => {
+interface ServiceLink {
+  label: string;
+  href: string;
+  icon: ReactNode;
+}
+
+const services: ServiceLink[] = [
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/itaru-ota/',
+    icon: <LinkedInIcon />,
+  },
+  {
+    label: 'GitHub',
+    href: 'https://github.com/Ota1022',
+    icon: <GitHubIcon />,
+  },
+  {
+    label: 'X',
+    href: 'https://x.com/iorandd',
+    icon: <XIcon />,
+  },
+  {
+    label: 'Speaker Deck',
+    href: 'https://speakerdeck.com/ota1022',
+    icon: <SpeakerDeckIcon />,
+  },
+  {
+    label: 'Zenn (Japanese)',
+    href: 'https://zenn.dev/iorandd',
+    icon: <ZennIcon />,
+  },
+  {
+    label: 'Credly',
+    href: 'https://www.credly.com/users/itaru-ota',
+    icon: <CredlyIcon />,
+  },
+];
+
+const Contact = (): ReactNode => {
   return (
-    <div
-      style={{
+    <Box
+      component="nav"
+      aria-label="External profiles"
+      sx={{
         display: 'flex',
         justifyContent: 'center',
-        flexWrap: 'wrap',
-        gap: '16px',
+        alignItems: 'center',
+        flexWrap: 'nowrap',
+        gap: { xs: 0.5, sm: 2 },
+        width: '100%',
       }}
     >
-      <Link href="https://www.linkedin.com/in/itaru-ota/" color="inherit">
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '50px',
-            height: '50px',
-          }}
-        >
-          <LinkedInIcon style={{ width: '100%', height: '100%' }} />
-        </div>
-      </Link>
-      <Link href="https://github.com/Ota1022" color="inherit">
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '50px',
-            height: '50px',
-          }}
-        >
-          <GitHubIcon style={{ width: '100%', height: '100%' }} />
-        </div>
-      </Link>
-      <Link href="https://x.com/iorandd" color="inherit">
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '50px',
-            height: '50px',
-          }}
-        >
-          <XIcon style={{ width: '100%', height: '100%' }} />
-        </div>
-      </Link>
-      <Link href="https://speakerdeck.com/ota1022" color="inherit">
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '50px',
-            height: '50px',
-          }}
-        >
-          <SpeakerDeckIcon />
-        </div>
-      </Link>
-      <Link href="https://zenn.dev/iorandd" color="inherit">
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '50px',
-            height: '50px',
-          }}
-        >
-          <ZennIcon />
-        </div>
-      </Link>
-      <Link href="https://www.credly.com/users/itaru-ota" color="inherit">
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '50px',
-            height: '50px',
-          }}
-        >
-          <CredlyIcon />
-        </div>
-      </Link>
-    </div>
+      {services.map(({ label, href, icon }) => (
+        <Tooltip key={label} title={label} arrow>
+          <IconButton
+            component="a"
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open ${label} profile in a new tab`}
+            color="inherit"
+            sx={{
+              width: { xs: 48, sm: 50 },
+              height: { xs: 48, sm: 50 },
+              p: 0.5,
+              '& .MuiSvgIcon-root': {
+                width: '100%',
+                height: '100%',
+                fontSize: { xs: 40, sm: 50 },
+              },
+              '&:focus-visible': {
+                outline: '2px solid',
+                outlineColor: 'primary.main',
+                outlineOffset: 3,
+              },
+            }}
+          >
+            {icon}
+          </IconButton>
+        </Tooltip>
+      ))}
+    </Box>
   );
 };
 
