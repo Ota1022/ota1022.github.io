@@ -1,9 +1,15 @@
 import '@/styles/globals.css';
+import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 import type { ReactNode } from 'react';
 import ClientProviders from './providers';
+import {
+  COLOR_SCHEME_ATTRIBUTE,
+  DEFAULT_MODE,
+  MODE_STORAGE_KEY,
+} from './theme-config';
 
 const inconsolata = localFont({
   src: '../assets/fonts/Inconsolata-Regular.ttf',
@@ -87,6 +93,11 @@ export default function RootLayout({
         />
       </head>
       <body className={inconsolata.variable}>
+        <InitColorSchemeScript
+          attribute={COLOR_SCHEME_ATTRIBUTE}
+          modeStorageKey={MODE_STORAGE_KEY}
+          defaultMode={DEFAULT_MODE}
+        />
         <ClientProviders>{children}</ClientProviders>
       </body>
     </html>

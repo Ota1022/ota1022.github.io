@@ -6,12 +6,34 @@ html {
   scroll-behavior: smooth;
 }
 
+/*
+ * The canvas is painted before MUI's CSS variables are available, so the
+ * background is duplicated here to avoid a light flash on first paint.
+ * Keep these values in sync with `palette.background.default` in
+ * `src/theme/theme.ts`.
+ *
+ * `data-mui-color-scheme` is set by the render-blocking InitColorSchemeScript;
+ * the media query is the fallback for the moment before it runs.
+ */
+html {
+  color-scheme: light dark;
+  background-color: #f5f5f5;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: #121212;
+  }
+}
+
 html[data-mui-color-scheme="light"] {
   color-scheme: light;
+  background-color: #f5f5f5;
 }
 
 html[data-mui-color-scheme="dark"] {
   color-scheme: dark;
+  background-color: #121212;
 }
 
 html,
