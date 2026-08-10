@@ -4,6 +4,11 @@ export interface TableOfContentsItem {
   level: 2 | 3;
 }
 
+export interface TableOfContentsSection {
+  heading: TableOfContentsItem;
+  children: TableOfContentsItem[];
+}
+
 /**
  * Creates stable anchor IDs shared by the MDX renderer and table of contents.
  */
@@ -40,6 +45,24 @@ export function extractTableOfContents(content: string): TableOfContentsItem[] {
   }
 
   return headings;
+}
+
+export function groupTableOfContents(
+  headings: TableOfContentsItem[]
+): TableOfContentsSection[] {
+  const sections: TableOfContentsSection[] = [];
+
+  for (const heading of headings) {
+    const currentSection = sections.at(-1);
+    if (heading.level === 2 || !currentSection) {
+      sections.push({ heading, children: [] });
+      continue;
+    }
+
+    currentSection.children.push(heading);
+  }
+
+  return sections;
 }
 
 export function calculateReadingTime(content: string): number {
