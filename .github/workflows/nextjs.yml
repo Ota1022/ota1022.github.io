@@ -55,6 +55,7 @@ jobs:
             lmodern \
             pandoc \
             poppler-utils \
+            texlive-fonts-recommended \
             texlive-latex-extra \
             texlive-latex-recommended \
             texlive-xetex
