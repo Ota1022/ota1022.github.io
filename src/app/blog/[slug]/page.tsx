@@ -4,7 +4,7 @@ import { mdxComponents } from '@/components/blog/MDXComponents';
 import PageShell from '@/components/layout/PageShell';
 import { getAllPostSlugs, getPostBySlug, getRelatedPosts } from '@/lib/blog';
 import { formatDateOnly } from '@/lib/date';
-import { extractTableOfContents } from '@/lib/markdown';
+import { extractTableOfContents, groupTableOfContents } from '@/lib/markdown';
 import { Box, Chip, Link, Paper, Typography } from '@mui/material';
 import type { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
@@ -106,6 +106,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { frontmatter, content, readingTimeMinutes } = post;
   const formattedDate = formatDateOnly(frontmatter.date);
   const tableOfContents = extractTableOfContents(content);
+  const tableOfContentsSections = groupTableOfContents(tableOfContents);
+  const sectionHeadings = tableOfContents.filter(
+    (heading) => heading.level === 2
+  );
+  const headingsIncludeSectionNumbers =
+    sectionHeadings.length > 0 &&
+    sectionHeadings.every((heading) => /^\d+\.\s+/.test(heading.title));
   const relatedPosts = getRelatedPosts(slug);
   const postUrl = `https://ota1022.github.io/blog/${slug}`;
   const blogPostingJsonLd = {
@@ -209,17 +216,34 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </Typography>
                 <Box
                   component="ol"
-                  sx={{ m: 0, pl: 2.5, maxHeight: 360, overflowY: 'auto' }}
+                  sx={{ m: 0, pl: 3.5, maxHeight: 360, overflowY: 'auto' }}
                 >
-                  {tableOfContents.map((heading) => (
+                  {tableOfContentsSections.map(({ heading, children }) => (
                     <Box
                       component="li"
                       key={`${heading.level}-${heading.id}`}
-                      sx={{ ml: heading.level === 3 ? 2 : 0, py: 0.25 }}
+                      sx={{ py: 0.25, pl: 0.5 }}
                     >
                       <Link href={`#${heading.id}`} underline="hover">
-                        {heading.title}
+                        {headingsIncludeSectionNumbers
+                          ? heading.title.replace(/^\d+\.\s+/, '')
+                          : heading.title}
                       </Link>
+                      {children.length > 0 && (
+                        <Box component="ul" sx={{ mt: 0.25, mb: 0.25, pl: 3 }}>
+                          {children.map((child) => (
+                            <Box
+                              component="li"
+                              key={`${child.level}-${child.id}`}
+                              sx={{ py: 0.25, pl: 0.25 }}
+                            >
+                              <Link href={`#${child.id}`} underline="hover">
+                                {child.title}
+                              </Link>
+                            </Box>
+                          ))}
+                        </Box>
+                      )}
                     </Box>
                   ))}
                 </Box>
