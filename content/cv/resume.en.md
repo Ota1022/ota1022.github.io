@@ -70,8 +70,8 @@ Selected as one of 114 early-career engineers in Japan for technical capability,
 
 ### Presentations (2025-2026)
 
-* [NW-JAWS #22: "Reaching Services on Service Connect from Outside an ECS Service"](https://jawsug-nw.connpass.com/event/399100/), Aug 2026
-* [JAWS-UG Ibaraki #15: "Continuing to Engage with Software Engineering"](https://jawsug-ibaraki.connpass.com/event/397307/), Jul 2026
+* [NW-JAWS #22: "Reaching Services on Service Connect from Outside an ECS Service"](https://speakerdeck.com/ota1022/service-connect-shang-nosabisuni-ecs-service-nowai-ce-karadao-da-dekinakatutahua), Aug 2026
+* [JAWS-UG Ibaraki #15: "Continuing to Engage with Software Engineering"](https://speakerdeck.com/ota1022/sohutoueaenziniaringutoxiang-kihe-isok-keru-aws-jr-championsxuan-chu-qian-hou-dekao-etakoto), Jul 2026
 * [Meguro LT #37: "Reading the Why Behind Commits"](https://speakerdeck.com/ota1022/komitutono-naze-wodu-mu), Jun 2026
 * [3-shake SRE Tech Talk LT](https://speakerdeck.com/ota1022/github-actions-x-aws-oidclian-xi-noshi-zu-mitojing-wei-woli-jie-suru), Sep 2025
 * [JAWS-UG Container Branch LT](https://speakerdeck.com/ota1022/dockerkaraecshe-awsnohai-nichu-ruqian-nizhi-tuteokitaikoto), Aug 2025
