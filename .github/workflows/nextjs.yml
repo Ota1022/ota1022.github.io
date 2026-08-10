@@ -3,8 +3,16 @@ name: Deploy Next.js site to Pages
 on:
   push:
     branches: ["main"]
+    paths-ignore:
+      - 'README.md'
+      - 'CLAUDE.md'
+      - 'AGENTS.md'
   pull_request:
     branches: ["main"]
+    paths-ignore:
+      - 'README.md'
+      - 'CLAUDE.md'
+      - 'AGENTS.md'
   workflow_dispatch:
 
 permissions:
@@ -15,57 +23,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Pull requests only verify the build. They deliberately avoid the
+  # github-pages environment, which would record a deployment and can be
+  # rejected outright by the environment's branch protection rules.
   build:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: 'npm'
-
-      - name: Setup Pages
-        if: github.event_name != 'pull_request'
-        uses: actions/configure-pages@v5
-        with:
-          static_site_generator: next
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Detect public CV source
-        id: cv_source
-        shell: bash
-        run: |
-          if [[ -f content/cv/resume.en.md ]]; then
-            echo "available=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "available=false" >> "$GITHUB_OUTPUT"
-            echo "Public CV source is not present; keeping the checked-in public/cv.pdf."
-          fi
-
-      - name: Install CV build dependencies
-        if: steps.cv_source.outputs.available == 'true'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            lmodern \
-            pandoc \
-            poppler-utils \
-            texlive-fonts-recommended \
-            texlive-latex-extra \
-            texlive-latex-recommended \
-            texlive-xetex
-
-      - name: Generate public CV PDF
-        if: steps.cv_source.outputs.available == 'true'
-        run: bash scripts/generate-cv.sh
+      - name: Build site
+        id: site
+        uses: ./.github/actions/build-site
 
       - name: Upload CV preview
-        if: github.event_name == 'pull_request' && steps.cv_source.outputs.available == 'true'
+        if: steps.site.outputs.cv-available == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: cv-preview
@@ -73,32 +46,35 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-      - name: Lint
-        run: npm run lint
-
-      - name: Type check
-        run: npm run typecheck
-
-      - name: Build and Static HTML export with Next.js
-        run: npm run build
-
-      - name: Upload artifact
-        if: github.event_name != 'pull_request'
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./out
-
+  # Build and deploy share a runner: a separate deploy job spent more time
+  # waiting for a runner than deploying.
   deploy:
     if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
     permissions:
+      contents: read
       pages: write
       id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          static_site_generator: next
+
+      - name: Build site
+        uses: ./.github/actions/build-site
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

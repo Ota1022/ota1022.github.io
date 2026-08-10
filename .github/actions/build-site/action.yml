@@ -1,0 +1,92 @@
+name: Build site
+description: Install dependencies, run the checks, and produce the static export in ./out.
+
+outputs:
+  cv-available:
+    description: Whether a public CV source is present in the repository.
+    value: ${{ steps.cv_source.outputs.available }}
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v5
+      with:
+        node-version: "22"
+        cache: 'npm'
+
+    - name: Install dependencies
+      shell: bash
+      run: npm ci --prefer-offline --no-audit --no-fund
+
+    # Fail fast on cheap checks before spending time on the CV toolchain.
+    - name: Lint
+      shell: bash
+      run: npm run lint
+
+    - name: Type check
+      shell: bash
+      run: npm run typecheck
+
+    - name: Detect public CV source
+      id: cv_source
+      shell: bash
+      run: |
+        if [[ -f content/cv/resume.en.md ]]; then
+          echo "available=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "available=false" >> "$GITHUB_OUTPUT"
+          echo "Public CV source is not present; keeping the checked-in public/cv.pdf."
+        fi
+
+    # Installing the TeX Live toolchain takes over a minute, so the rendered
+    # PDF is cached against its inputs and only rebuilt when they change.
+    - name: Restore generated CV PDF
+      id: cv_cache
+      if: steps.cv_source.outputs.available == 'true'
+      uses: actions/cache/restore@v4
+      with:
+        path: public/cv.pdf
+        key: cv-pdf-v1-${{ hashFiles('content/cv/**', 'scripts/generate-cv.sh') }}
+
+    - name: Install CV build dependencies
+      if: steps.cv_source.outputs.available == 'true' && steps.cv_cache.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends \
+          lmodern \
+          pandoc \
+          poppler-utils \
+          texlive-fonts-recommended \
+          texlive-latex-extra \
+          texlive-latex-recommended \
+          texlive-xetex
+
+    - name: Generate public CV PDF
+      if: steps.cv_source.outputs.available == 'true' && steps.cv_cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: bash scripts/generate-cv.sh
+
+    # Only reached when generation succeeded, so a failed build cannot store
+    # a stale PDF under the current input hash.
+    - name: Save generated CV PDF
+      if: steps.cv_source.outputs.available == 'true' && steps.cv_cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v4
+      with:
+        path: public/cv.pdf
+        key: cv-pdf-v1-${{ hashFiles('content/cv/**', 'scripts/generate-cv.sh') }}
+
+    - name: Restore Next.js build cache
+      uses: actions/cache@v4
+      with:
+        path: .next/cache
+        key: nextjs-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**', 'content/**', 'next.config.mjs') }}
+        restore-keys: |
+          nextjs-${{ hashFiles('package-lock.json') }}-
+
+    - name: Build and Static HTML export with Next.js
+      shell: bash
+      run: npm run build
