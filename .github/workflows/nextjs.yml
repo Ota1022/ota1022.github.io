@@ -36,6 +36,43 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Detect public CV source
+        id: cv_source
+        shell: bash
+        run: |
+          if [[ -f content/cv/resume.en.md ]]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "Public CV source is not present; keeping the checked-in public/cv.pdf."
+          fi
+
+      - name: Install CV build dependencies
+        if: steps.cv_source.outputs.available == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            lmodern \
+            pandoc \
+            poppler-utils \
+            texlive-fonts-recommended \
+            texlive-latex-extra \
+            texlive-latex-recommended \
+            texlive-xetex
+
+      - name: Generate public CV PDF
+        if: steps.cv_source.outputs.available == 'true'
+        run: bash scripts/generate-cv.sh
+
+      - name: Upload CV preview
+        if: github.event_name == 'pull_request' && steps.cv_source.outputs.available == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cv-preview
+          path: public/cv.pdf
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Lint
         run: npm run lint
 
