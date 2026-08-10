@@ -7,7 +7,6 @@ import {
   Education,
   Experience,
   Publications,
-  SelectedWork,
 } from '@/components/portfolio';
 import { Box, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
@@ -35,7 +34,7 @@ export default function Home() {
             component="h1"
             align="center"
             gutterBottom
-            sx={{ fontFamily: 'var(--font-inconsolata)' }}
+            sx={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
           >
             Itaru OTA
           </Typography>
@@ -43,7 +42,6 @@ export default function Home() {
 
         <Contact />
         <AboutMe />
-        <SelectedWork />
         <Experience />
         <Education />
         <Publications />

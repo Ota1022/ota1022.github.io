@@ -5,6 +5,10 @@ interface PortfolioTimelineProps {
   children: ReactNode;
 }
 
+interface PortfolioTimelineItemProps extends PortfolioTimelineProps {
+  current?: boolean;
+}
+
 export function PortfolioTimeline({ children }: PortfolioTimelineProps) {
   return (
     <Box
@@ -20,7 +24,10 @@ export function PortfolioTimeline({ children }: PortfolioTimelineProps) {
   );
 }
 
-export function PortfolioTimelineItem({ children }: PortfolioTimelineProps) {
+export function PortfolioTimelineItem({
+  children,
+  current = false,
+}: PortfolioTimelineItemProps) {
   return (
     <Box
       component="li"
@@ -48,9 +55,12 @@ export function PortfolioTimelineItem({ children }: PortfolioTimelineProps) {
           height: 16,
           boxSizing: 'border-box',
           border: 3,
-          borderColor: 'primary.main',
+          borderColor: current ? 'background.paper' : 'primary.main',
           borderRadius: '50%',
-          bgcolor: 'background.paper',
+          bgcolor: current ? 'primary.main' : 'background.paper',
+          boxShadow: current
+            ? '0 0 0 2px var(--mui-palette-primary-main)'
+            : 'none',
         },
       }}
     >
