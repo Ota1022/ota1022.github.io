@@ -5,8 +5,20 @@ export default function Certifications() {
     <Paper
       component="section"
       aria-labelledby="certifications-title"
-      sx={{ mx: 'auto', my: 4, p: 3, maxWidth: 600, overflow: 'hidden' }}
-      elevation={3}
+      elevation={0}
+      sx={{
+        mx: 'auto',
+        my: { xs: 3, sm: 4 },
+        px: { xs: 0.5, sm: 1 },
+        py: { xs: 3, sm: 4 },
+        maxWidth: 600,
+        overflow: 'hidden',
+        bgcolor: 'transparent',
+        border: 0,
+        borderTop: 1,
+        borderColor: 'divider',
+        borderRadius: 0,
+      }}
     >
       <Typography
         id="certifications-title"

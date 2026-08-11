@@ -6,8 +6,20 @@ export default function Education() {
     <Paper
       component="section"
       aria-labelledby="education-title"
-      sx={{ mx: 'auto', my: 4, p: 3, maxWidth: 600, overflow: 'hidden' }}
-      elevation={3}
+      elevation={0}
+      sx={{
+        mx: 'auto',
+        my: { xs: 3, sm: 4 },
+        px: { xs: 0.5, sm: 1 },
+        py: { xs: 3, sm: 4 },
+        maxWidth: 600,
+        overflow: 'hidden',
+        bgcolor: 'transparent',
+        border: 0,
+        borderTop: 1,
+        borderColor: 'divider',
+        borderRadius: 0,
+      }}
     >
       <Typography
         id="education-title"
@@ -20,7 +32,11 @@ export default function Education() {
       <PortfolioTimeline>
         <PortfolioTimelineItem>
           <Box sx={{ py: 1 }}>
-            <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+            <Typography
+              variant="subtitle2"
+              component="p"
+              sx={{ color: 'text.secondary' }}
+            >
               April 2021 - March 2023
             </Typography>
             <Typography
@@ -67,7 +83,11 @@ export default function Education() {
         </PortfolioTimelineItem>
         <PortfolioTimelineItem>
           <Box sx={{ py: 1 }}>
-            <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+            <Typography
+              variant="subtitle2"
+              component="p"
+              sx={{ color: 'text.secondary' }}
+            >
               April 2017 - March 2021
             </Typography>
             <Typography

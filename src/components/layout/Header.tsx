@@ -38,16 +38,17 @@ export default function Header() {
         justifyContent: 'space-between',
         bgcolor: 'transparent',
         color: 'text.primary',
-        borderRadius: 1,
-        px: { xs: 2, sm: 3 },
-        py: 3,
+        borderBottom: 1,
+        borderColor: 'divider',
+        px: 0,
+        py: { xs: 2, sm: 2.5 },
         fontFamily: 'var(--font-inconsolata)',
       }}
     >
       <Box
         component="nav"
         aria-label="Primary navigation"
-        sx={{ display: 'flex', gap: 3 }}
+        sx={{ display: 'flex', gap: { xs: 2.5, sm: 3.5 } }}
       >
         <Link
           component={NextLink}
@@ -56,7 +57,20 @@ export default function Header() {
           underline="none"
           color="inherit"
           sx={{
-            '&:hover': { opacity: 0.8 },
+            position: 'relative',
+            color: 'text.secondary',
+            transition: 'color 160ms ease',
+            '&:hover': { color: 'text.primary' },
+            '&[aria-current="page"]': { color: 'primary.main' },
+            '&[aria-current="page"]::after': {
+              content: '""',
+              position: 'absolute',
+              right: 0,
+              bottom: -10,
+              left: 0,
+              height: 2,
+              bgcolor: 'primary.main',
+            },
             '&:focus-visible': {
               outline: '2px solid',
               outlineColor: 'primary.main',
@@ -75,7 +89,20 @@ export default function Header() {
           underline="none"
           color="inherit"
           sx={{
-            '&:hover': { opacity: 0.8 },
+            position: 'relative',
+            color: 'text.secondary',
+            transition: 'color 160ms ease',
+            '&:hover': { color: 'text.primary' },
+            '&[aria-current="page"]': { color: 'primary.main' },
+            '&[aria-current="page"]::after': {
+              content: '""',
+              position: 'absolute',
+              right: 0,
+              bottom: -10,
+              left: 0,
+              height: 2,
+              bgcolor: 'primary.main',
+            },
             '&:focus-visible': {
               outline: '2px solid',
               outlineColor: 'primary.main',
@@ -95,7 +122,9 @@ export default function Header() {
           color="inherit"
           aria-label="Open CV as a PDF in a new tab"
           sx={{
-            '&:hover': { opacity: 0.8 },
+            color: 'text.secondary',
+            transition: 'color 160ms ease',
+            '&:hover': { color: 'text.primary' },
             '&:focus-visible': {
               outline: '2px solid',
               outlineColor: 'primary.main',
@@ -111,7 +140,11 @@ export default function Header() {
 
       <Tooltip title={themeToggleLabel}>
         <IconButton
-          sx={{ ml: 1 }}
+          sx={{
+            ml: 1,
+            color: 'text.secondary',
+            '&:hover': { color: 'primary.main', bgcolor: 'action.hover' },
+          }}
           onClick={() => setMode(nextMode)}
           color="inherit"
           aria-label={themeToggleLabel}

@@ -58,8 +58,9 @@ const Contact = (): ReactNode => {
         justifyContent: 'center',
         alignItems: 'center',
         flexWrap: 'nowrap',
-        gap: { xs: 0.5, sm: 2 },
+        gap: { xs: 0.75, sm: 1.5 },
         width: '100%',
+        mb: { xs: 1, sm: 2 },
       }}
     >
       {services.map(({ label, href, icon }) => (
@@ -72,13 +73,20 @@ const Contact = (): ReactNode => {
             aria-label={`Open ${label} profile in a new tab`}
             color="inherit"
             sx={{
-              width: { xs: 48, sm: 50 },
-              height: { xs: 48, sm: 50 },
-              p: 0.5,
+              width: { xs: 42, sm: 44 },
+              height: { xs: 42, sm: 44 },
+              p: 0.75,
+              color: 'text.secondary',
+              borderRadius: 1,
               '& .MuiSvgIcon-root': {
-                width: '100%',
-                height: '100%',
-                fontSize: { xs: 40, sm: 50 },
+                width: { xs: 27, sm: 29 },
+                height: { xs: 27, sm: 29 },
+                fontSize: { xs: 27, sm: 29 },
+              },
+              '&:hover': {
+                color: 'primary.main',
+                bgcolor: 'action.hover',
+                transform: 'translateY(-2px)',
               },
               '&:focus-visible': {
                 outline: '2px solid',

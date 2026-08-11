@@ -6,8 +6,20 @@ export default function Experience() {
     <Paper
       component="section"
       aria-labelledby="experience-title"
-      sx={{ mx: 'auto', my: 4, p: 3, maxWidth: 600, overflow: 'hidden' }}
-      elevation={3}
+      elevation={0}
+      sx={{
+        mx: 'auto',
+        my: { xs: 3, sm: 4 },
+        px: { xs: 0.5, sm: 1 },
+        py: { xs: 3, sm: 4 },
+        maxWidth: 600,
+        overflow: 'hidden',
+        bgcolor: 'transparent',
+        border: 0,
+        borderTop: 1,
+        borderColor: 'divider',
+        borderRadius: 0,
+      }}
     >
       <Typography
         id="experience-title"
@@ -20,7 +32,11 @@ export default function Experience() {
       <PortfolioTimeline>
         <PortfolioTimelineItem current>
           <Box sx={{ py: 1 }}>
-            <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+            <Typography
+              variant="subtitle2"
+              component="p"
+              sx={{ color: 'text.secondary' }}
+            >
               January 2025 - Present
             </Typography>
             <Typography
@@ -53,7 +69,11 @@ export default function Experience() {
 
         <PortfolioTimelineItem>
           <Box sx={{ py: 1 }}>
-            <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+            <Typography
+              variant="subtitle2"
+              component="p"
+              sx={{ color: 'text.secondary' }}
+            >
               April 2023 - December 2024
             </Typography>
             <Typography
@@ -85,7 +105,11 @@ export default function Experience() {
 
         <PortfolioTimelineItem>
           <Box sx={{ py: 1 }}>
-            <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+            <Typography
+              variant="subtitle2"
+              component="p"
+              sx={{ color: 'text.secondary' }}
+            >
               October 2021 - March 2023
             </Typography>
             <Typography

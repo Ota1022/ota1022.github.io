@@ -5,12 +5,12 @@ import { Box } from '@mui/material';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Writing & Talks',
+  title: 'Blog',
   description:
     'Technical articles, talks, and professional updates in English by Itaru OTA.',
   alternates: { canonical: '/blog' },
   openGraph: {
-    title: 'Writing & Talks | Itaru OTA',
+    title: 'Blog | Itaru OTA',
     description:
       'Technical articles, talks, and professional updates in English by Itaru OTA.',
     url: '/blog',

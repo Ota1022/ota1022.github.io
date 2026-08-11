@@ -152,7 +152,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             underline="hover"
             sx={{ mb: 2, display: 'inline-block' }}
           >
-            ← Back to Writing &amp; Talks
+            ← Back to Blog
           </Link>
 
           <Paper

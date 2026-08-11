@@ -35,7 +35,7 @@ export default function BlogList({ initialPosts }: BlogListProps) {
   return (
     <>
       <Typography variant="h3" component="h1" gutterBottom>
-        Writing &amp; Talks
+        Blog
       </Typography>
       <Typography variant="body1" color="text.secondary" paragraph>
         Selected technical writing, talks, and professional updates in English.

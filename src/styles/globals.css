@@ -17,23 +17,23 @@ html {
  */
 html {
   color-scheme: light dark;
-  background-color: #f5f5f5;
+  background-color: #f3f4f7;
 }
 
 @media (prefers-color-scheme: dark) {
   html {
-    background-color: #121212;
+    background-color: #111218;
   }
 }
 
 html[data-mui-color-scheme="light"] {
   color-scheme: light;
-  background-color: #f5f5f5;
+  background-color: #f3f4f7;
 }
 
 html[data-mui-color-scheme="dark"] {
   color-scheme: dark;
-  background-color: #121212;
+  background-color: #111218;
 }
 
 html,
@@ -45,6 +45,8 @@ body {
 
 body {
   margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 a {

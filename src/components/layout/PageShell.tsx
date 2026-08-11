@@ -9,7 +9,10 @@ interface PageShellProps {
 
 export default function PageShell({ children }: PageShellProps) {
   return (
-    <Container maxWidth="md" sx={{ mt: 4 }}>
+    <Container
+      maxWidth="md"
+      sx={{ px: { xs: 2, sm: 3 }, pb: { xs: 1, sm: 2 } }}
+    >
       <Header />
       {children}
       <Footer />

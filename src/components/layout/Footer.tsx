@@ -10,9 +10,13 @@ export default function Footer() {
         alignItems: 'center',
         justifyContent: 'space-between',
         gap: 1,
-        my: 4,
-        px: { xs: 2, sm: 3 },
-        py: 2,
+        mt: { xs: 5, sm: 6 },
+        mb: 2,
+        px: 0,
+        pt: 3,
+        pb: 2,
+        borderTop: 1,
+        borderColor: 'divider',
         color: 'text.secondary',
       }}
     >
@@ -21,7 +25,7 @@ export default function Footer() {
       </Typography>
       <Box sx={{ display: 'flex', gap: 2 }}>
         <Link href="/blog" color="inherit" underline="hover" variant="caption">
-          Writing &amp; Talks
+          Blog
         </Link>
         <Link
           href="/cv.pdf"

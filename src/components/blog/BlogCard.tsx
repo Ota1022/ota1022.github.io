@@ -33,14 +33,15 @@ export default function BlogCard({ post, headingLevel = 'h2' }: BlogCardProps) {
       underline="none"
       color="inherit"
       display="block"
-      sx={{ mb: 3 }}
+      sx={{ mb: 2.5 }}
     >
       <Card
         sx={{
-          transition: 'transform 0.2s, box-shadow 0.2s',
+          transition:
+            'transform 180ms ease, border-color 180ms ease, background-color 180ms ease',
           '&:hover': {
-            transform: 'translateY(-4px)',
-            boxShadow: 4,
+            transform: 'translateY(-2px)',
+            borderColor: 'primary.main',
           },
           '@media (prefers-reduced-motion: reduce)': {
             '&:hover': { transform: 'none' },

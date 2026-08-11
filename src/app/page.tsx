@@ -17,7 +17,8 @@ export default function Home() {
       <Box component="main">
         <Box
           sx={{
-            my: 2,
+            pt: { xs: 4, sm: 5 },
+            pb: { xs: 2, sm: 3 },
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -27,14 +28,26 @@ export default function Home() {
           <Avatar
             alt="Itaru Ota"
             src="/profile.webp"
-            sx={{ width: 150, height: 150, mb: 4 }}
+            sx={{
+              width: { xs: 136, sm: 150 },
+              height: { xs: 136, sm: 150 },
+              mb: 3,
+              border: 1,
+              borderColor: 'divider',
+            }}
           />
           <Typography
             variant="h3"
             component="h1"
             align="center"
             gutterBottom
-            sx={{ fontFamily: 'Helvetica, Arial, sans-serif' }}
+            sx={{
+              mb: 0,
+              fontSize: { xs: '2.75rem', sm: '3.25rem' },
+              fontWeight: 700,
+              letterSpacing: '-0.05em',
+              wordSpacing: '0.14em',
+            }}
           >
             Itaru OTA
           </Typography>
