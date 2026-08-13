@@ -48,6 +48,7 @@ export interface BlogPostFrontmatter {
   category: BlogCategory;
   tags?: string[];
   externalUrl?: string;
+  ogImage?: string;
 }
 
 export function getBlogCategoryDefinition(category: BlogCategory) {
@@ -148,6 +149,20 @@ export function parseBlogFrontmatter(
     externalUrl = value.externalUrl;
   }
 
+  let ogImage: string | undefined;
+  if (value.ogImage !== undefined) {
+    if (
+      typeof value.ogImage !== 'string' ||
+      !value.ogImage.startsWith('/') ||
+      value.ogImage.startsWith('//')
+    ) {
+      throw new Error(
+        `${source}: frontmatter.ogImage must be an absolute site path`
+      );
+    }
+    ogImage = value.ogImage;
+  }
+
   return {
     title,
     description,
@@ -155,5 +170,6 @@ export function parseBlogFrontmatter(
     category: value.category,
     ...(tags ? { tags } : {}),
     ...(externalUrl ? { externalUrl } : {}),
+    ...(ogImage ? { ogImage } : {}),
   };
 }

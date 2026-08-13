@@ -24,11 +24,47 @@ const BLOG_IMAGE_DIMENSIONS: Record<string, { width: number; height: number }> =
     '/blog/images/service-discovery_en.webp': { width: 1600, height: 855 },
   };
 
+interface VideoEmbedProps {
+  videoId: string;
+  title: string;
+}
+
+function VideoEmbed({ videoId, title }: VideoEmbedProps) {
+  return (
+    <Box
+      component="figure"
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100%',
+        m: 0,
+        my: 3,
+      }}
+    >
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+        title={title}
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        style={{
+          display: 'block',
+          width: '100%',
+          maxWidth: '56rem',
+          aspectRatio: '16 / 9',
+          border: 0,
+        }}
+      />
+    </Box>
+  );
+}
+
 /**
  * Custom components for MDX
  * Applies styles integrated with MUI theme
  */
 export const mdxComponents: MDXComponents = {
+  VideoEmbed,
   h1: ({ children }) => (
     <Typography
       id={slugifyHeading(getTextContent(children))}
@@ -174,6 +210,10 @@ export const mdxComponents: MDXComponents = {
   img: ({ src, alt, width, height }) => {
     // Amazon ECS icon should remain transparent
     const isTransparent = alt === 'Amazon ECS';
+    const isConferenceImage =
+      typeof src === 'string' &&
+      src.startsWith('/blog/images/kubecon-japan-2026/');
+    const hasFrame = !isTransparent && !isConferenceImage;
     const dimensions =
       typeof src === 'string' ? BLOG_IMAGE_DIMENSIONS[src] : undefined;
 
@@ -182,11 +222,12 @@ export const mdxComponents: MDXComponents = {
         component="span"
         sx={{
           display: 'flex',
-          bgcolor: isTransparent ? 'transparent' : '#ffffff',
-          p: 2,
+          bgcolor: hasFrame ? '#ffffff' : 'transparent',
+          p: hasFrame ? 2 : 0,
           borderRadius: 1,
           my: 2,
           justifyContent: 'center',
+          overflow: 'hidden',
         }}
       >
         <img
