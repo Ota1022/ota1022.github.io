@@ -41,6 +41,7 @@ date: string (YYYY-MM-DD)
 category: 'blog' | 'zenn' | 'speakerdeck' | 'announcement' | 'activity' | 'other'
 tags?: string[]
 externalUrl?: string  # If set, links to external site instead of rendering content
+ogImage?: string      # Optional absolute site path for the article's social preview image
 ```
 
 ### Theming

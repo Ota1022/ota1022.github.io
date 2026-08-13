@@ -29,6 +29,7 @@ export async function generateMetadata({
     return {};
   }
   const { frontmatter } = post;
+  const socialImage = frontmatter.ogImage ?? `/og/${slug}.png`;
   return {
     title: frontmatter.title,
     description: frontmatter.description,
@@ -39,7 +40,7 @@ export async function generateMetadata({
       title: frontmatter.title,
       description: frontmatter.description,
       url: `/blog/${slug}`,
-      images: [{ url: `/og/${slug}.png`, width: 1200, height: 630 }],
+      images: [{ url: socialImage, width: 1200, height: 630 }],
       publishedTime: frontmatter.date,
       authors: ['Itaru OTA'],
       tags: frontmatter.tags,
@@ -48,7 +49,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: frontmatter.title,
       description: frontmatter.description,
-      images: [`/og/${slug}.png`],
+      images: [socialImage],
     },
   };
 }
@@ -115,6 +116,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     sectionHeadings.every((heading) => /^\d+\.\s+/.test(heading.title));
   const relatedPosts = getRelatedPosts(slug);
   const postUrl = `https://ota1022.github.io/blog/${slug}`;
+  const socialImageUrl = `https://ota1022.github.io${
+    frontmatter.ogImage ?? `/og/${slug}.png`
+  }`;
   const blogPostingJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -123,7 +127,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     datePublished: frontmatter.date,
     mainEntityOfPage: postUrl,
     url: postUrl,
-    image: `https://ota1022.github.io/og/${slug}.png`,
+    image: socialImageUrl,
     author: {
       '@type': 'Person',
       name: 'Itaru OTA',
