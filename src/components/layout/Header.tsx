@@ -32,11 +32,14 @@ export default function Header() {
     <Box
       component="header"
       sx={{
+        position: 'sticky',
+        top: 0,
+        zIndex: (theme) => theme.zIndex.appBar,
         display: 'flex',
         width: '100%',
         alignItems: 'center',
         justifyContent: 'space-between',
-        bgcolor: 'transparent',
+        bgcolor: 'background.default',
         color: 'text.primary',
         borderBottom: 1,
         borderColor: 'divider',
