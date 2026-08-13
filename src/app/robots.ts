@@ -1,3 +1,4 @@
+import { SITE_URL } from '@/lib/site';
 import type { MetadataRoute } from 'next';
 
 export const dynamic = 'force-static';
@@ -8,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://ota1022.github.io/sitemap.xml',
-    host: 'https://ota1022.github.io',
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }

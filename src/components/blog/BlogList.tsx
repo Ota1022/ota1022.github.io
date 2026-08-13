@@ -68,7 +68,7 @@ export default function BlogList({ initialPosts }: BlogListProps) {
           No entries found.
         </Typography>
       ) : (
-        <Box>
+        <Box component="ul" sx={{ listStyle: 'none', m: 0, p: 0 }}>
           {filteredPosts.map((post) => (
             <BlogCard key={post.slug} post={post} />
           ))}

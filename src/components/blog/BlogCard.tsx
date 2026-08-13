@@ -1,7 +1,7 @@
 'use client';
 
-import type { BlogPostMetadata } from '@/types/blog';
 import { formatDateOnly } from '@/lib/date';
+import type { BlogPostMetadata } from '@/types/blog';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Box, Card, CardContent, Chip, Link, Typography } from '@mui/material';
 import NextLink from 'next/link';
@@ -20,75 +20,101 @@ export default function BlogCard({ post, headingLevel = 'h2' }: BlogCardProps) {
   const isExternal = !!frontmatter.externalUrl;
 
   return (
-    <Link
-      component={isExternal ? 'a' : NextLink}
-      href={href}
-      target={isExternal ? '_blank' : undefined}
-      rel={isExternal ? 'noopener noreferrer' : undefined}
-      aria-label={
-        isExternal
-          ? `${frontmatter.title}, opens in a new tab`
-          : frontmatter.title
-      }
-      underline="none"
-      color="inherit"
-      display="block"
-      sx={{ mb: 2.5 }}
-    >
+    <Box component="li" sx={{ mb: 2.5, '&:last-of-type': { mb: 0 } }}>
       <Card
         sx={{
+          position: 'relative',
           transition:
             'transform 180ms ease, border-color 180ms ease, background-color 180ms ease',
           '&:hover': {
             transform: 'translateY(-2px)',
             borderColor: 'primary.main',
           },
+          '&:focus-within': {
+            borderColor: 'primary.main',
+            outline: '2px solid',
+            outlineColor: 'primary.main',
+            outlineOffset: 2,
+          },
           '@media (prefers-reduced-motion: reduce)': {
             '&:hover': { transform: 'none' },
           },
-          cursor: 'pointer',
         }}
       >
         <CardContent>
-          <Box sx={{ mb: 1 }}>
-            <BlogCategoryChip category={frontmatter.category} />
-            <Typography variant="caption" color="text.secondary" sx={{ ml: 1 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: 1,
+              mb: 1,
+            }}
+          >
+            <BlogCategoryChip
+              category={frontmatter.category}
+              marginBottom={0}
+            />
+            <Typography
+              component="time"
+              dateTime={frontmatter.date}
+              variant="caption"
+              color="text.secondary"
+            >
               {formattedDate}
             </Typography>
             {post.readingTimeMinutes && (
-              <Typography
-                variant="caption"
-                color="text.secondary"
-                sx={{ ml: 1 }}
-              >
+              <Typography variant="caption" color="text.secondary">
                 · {post.readingTimeMinutes} min read
               </Typography>
             )}
           </Box>
 
-          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
-            <Typography
-              variant="h5"
-              component={headingLevel}
-              gutterBottom
-              sx={{ mb: 1, flex: 1 }}
+          <Typography variant="h5" component={headingLevel} sx={{ mb: 1 }}>
+            <Link
+              component={isExternal ? 'a' : NextLink}
+              href={href}
+              target={isExternal ? '_blank' : undefined}
+              rel={isExternal ? 'noopener noreferrer' : undefined}
+              aria-label={
+                isExternal
+                  ? `${frontmatter.title}, opens in a new tab`
+                  : undefined
+              }
+              underline="hover"
+              color="inherit"
+              // Stretch the anchor across the card so the whole card stays
+              // clickable while the link text stays limited to the title.
+              sx={{
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  inset: 0,
+                },
+                '&:focus-visible': { outline: 'none' },
+              }}
             >
               {frontmatter.title}
-            </Typography>
-            {isExternal && (
-              <OpenInNewIcon
-                aria-hidden="true"
-                sx={{ mt: 0.5, fontSize: 18, color: 'text.secondary' }}
-              />
-            )}
-          </Box>
+              {isExternal && (
+                <OpenInNewIcon
+                  aria-hidden="true"
+                  sx={{
+                    ml: 0.75,
+                    fontSize: '0.7em',
+                    verticalAlign: 'middle',
+                    color: 'text.secondary',
+                  }}
+                />
+              )}
+            </Link>
+          </Typography>
 
-          <Typography variant="body2" color="text.secondary" paragraph>
+          <Typography variant="body2" color="text.secondary">
             {frontmatter.description}
           </Typography>
 
           {frontmatter.tags && frontmatter.tags.length > 0 && (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1 }}>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1.5 }}>
               {frontmatter.tags.map((tag) => (
                 <Chip
                   key={tag}
@@ -102,6 +128,6 @@ export default function BlogCard({ post, headingLevel = 'h2' }: BlogCardProps) {
           )}
         </CardContent>
       </Card>
-    </Link>
+    </Box>
   );
 }

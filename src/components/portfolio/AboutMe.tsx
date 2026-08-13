@@ -1,3 +1,4 @@
+import { CONTENT_MAX_WIDTH } from '@/theme/layout';
 import { Paper, Typography } from '@mui/material';
 
 export default function AboutMe() {
@@ -11,7 +12,7 @@ export default function AboutMe() {
         my: { xs: 3, sm: 4 },
         px: { xs: 0.5, sm: 1 },
         py: { xs: 3, sm: 4 },
-        maxWidth: 600,
+        maxWidth: CONTENT_MAX_WIDTH,
         overflow: 'hidden',
         bgcolor: 'transparent',
         border: 0,

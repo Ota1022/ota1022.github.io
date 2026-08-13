@@ -1,9 +1,8 @@
 import { getAllPosts } from '@/lib/blog';
+import { SITE_URL } from '@/lib/site';
 import type { MetadataRoute } from 'next';
 
 export const dynamic = 'force-static';
-
-const SITE_URL = 'https://ota1022.github.io';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts()

@@ -5,7 +5,9 @@ import PageShell from '@/components/layout/PageShell';
 import { getAllPostSlugs, getPostBySlug, getRelatedPosts } from '@/lib/blog';
 import { formatDateOnly } from '@/lib/date';
 import { extractTableOfContents, groupTableOfContents } from '@/lib/markdown';
-import { Box, Chip, Link, Paper, Typography } from '@mui/material';
+import { SITE_AUTHOR, SITE_URL } from '@/lib/site';
+import { CONTENT_MAX_WIDTH } from '@/theme/layout';
+import { Box, Chip, Link, Typography } from '@mui/material';
 import type { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
@@ -83,7 +85,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     if (!hasAnyPosts && slug === PLACEHOLDER_SLUG) {
       return (
         <PageShell>
-          <Box component="main" sx={{ my: 4 }}>
+          <Box
+            component="main"
+            sx={{ mx: 'auto', my: 4, maxWidth: CONTENT_MAX_WIDTH }}
+          >
             <Link
               href="/blog"
               underline="hover"
@@ -115,10 +120,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     sectionHeadings.length > 0 &&
     sectionHeadings.every((heading) => /^\d+\.\s+/.test(heading.title));
   const relatedPosts = getRelatedPosts(slug);
-  const postUrl = `https://ota1022.github.io/blog/${slug}`;
-  const socialImageUrl = `https://ota1022.github.io${
-    frontmatter.ogImage ?? `/og/${slug}.png`
-  }`;
+  const postUrl = `${SITE_URL}/blog/${slug}`;
+  const socialImageUrl = `${SITE_URL}${frontmatter.ogImage ?? `/og/${slug}.png`}`;
   const blogPostingJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -128,16 +131,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     mainEntityOfPage: postUrl,
     url: postUrl,
     image: socialImageUrl,
-    author: {
-      '@type': 'Person',
-      name: 'Itaru OTA',
-      url: 'https://ota1022.github.io',
-    },
-    publisher: {
-      '@type': 'Person',
-      name: 'Itaru OTA',
-      url: 'https://ota1022.github.io',
-    },
+    isPartOf: { '@type': 'Blog', '@id': `${SITE_URL}/blog` },
+    author: SITE_AUTHOR,
+    publisher: SITE_AUTHOR,
     keywords: frontmatter.tags?.join(', '),
   };
 
@@ -150,7 +146,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         }}
       />
       <PageShell>
-        <Box component="main" sx={{ my: 4 }}>
+        <Box
+          component="main"
+          sx={{ mx: 'auto', my: 4, maxWidth: CONTENT_MAX_WIDTH }}
+        >
           <Link
             href="/blog"
             underline="hover"
@@ -159,11 +158,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             ← Back to Blog
           </Link>
 
-          <Paper
-            component="article"
-            elevation={2}
-            sx={{ p: { xs: 2, sm: 3, md: 4 }, mt: 2 }}
-          >
+          <Box component="article" sx={{ mt: 2 }}>
             <Box sx={{ mb: 3 }}>
               <BlogCategoryChip
                 category={frontmatter.category}
@@ -278,7 +273,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 }}
               />
             </Box>
-          </Paper>
+          </Box>
 
           {relatedPosts.length > 0 && (
             <Box
@@ -294,13 +289,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               >
                 Related writing &amp; talks
               </Typography>
-              {relatedPosts.map((relatedPost) => (
-                <BlogCard
-                  key={relatedPost.slug}
-                  post={relatedPost}
-                  headingLevel="h3"
-                />
-              ))}
+              <Box component="ul" sx={{ listStyle: 'none', m: 0, p: 0 }}>
+                {relatedPosts.map((relatedPost) => (
+                  <BlogCard
+                    key={relatedPost.slug}
+                    post={relatedPost}
+                    headingLevel="h3"
+                  />
+                ))}
+              </Box>
             </Box>
           )}
         </Box>

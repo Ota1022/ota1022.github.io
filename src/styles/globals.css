@@ -40,6 +40,14 @@ html,
 body {
   max-width: 100vw;
   min-height: 100%;
+}
+
+/*
+ * Only the root element clips horizontal overflow. `overflow-x` on `body`
+ * would turn it into a scroll container, which stops the sticky header from
+ * sticking to the viewport.
+ */
+html {
   overflow-x: hidden;
 }
 

@@ -12,6 +12,7 @@ import {
 import type { MDXComponents } from 'mdx/types';
 import type { ReactNode } from 'react';
 import { slugifyHeading } from '@/lib/markdown';
+import { ANCHOR_SCROLL_MARGIN } from '@/theme/layout';
 import { CodeBlock } from './CodeBlock';
 import { GitHubRepoCard } from './GitHubRepoCard';
 
@@ -71,7 +72,7 @@ export const mdxComponents: MDXComponents = {
       variant="h3"
       component="h2"
       gutterBottom
-      sx={{ mt: 4, mb: 2, scrollMarginTop: 24 }}
+      sx={{ mt: 4, mb: 2, scrollMarginTop: ANCHOR_SCROLL_MARGIN }}
     >
       {children}
     </Typography>
@@ -88,7 +89,7 @@ export const mdxComponents: MDXComponents = {
         pb: 1,
         borderBottom: 1,
         borderColor: 'grey.600',
-        scrollMarginTop: 24,
+        scrollMarginTop: ANCHOR_SCROLL_MARGIN,
       }}
     >
       {children}
@@ -100,7 +101,7 @@ export const mdxComponents: MDXComponents = {
       variant="h5"
       component="h3"
       gutterBottom
-      sx={{ mt: 2, mb: 1, scrollMarginTop: 24 }}
+      sx={{ mt: 2, mb: 1, scrollMarginTop: ANCHOR_SCROLL_MARGIN }}
     >
       {children}
     </Typography>

@@ -1,3 +1,4 @@
+import { CONTENT_MAX_WIDTH } from '@/theme/layout';
 import { Box, Link, Paper, Typography } from '@mui/material';
 import { PortfolioTimeline, PortfolioTimelineItem } from './PortfolioTimeline';
 
@@ -12,7 +13,7 @@ export default function Education() {
         my: { xs: 3, sm: 4 },
         px: { xs: 0.5, sm: 1 },
         py: { xs: 3, sm: 4 },
-        maxWidth: 600,
+        maxWidth: CONTENT_MAX_WIDTH,
         overflow: 'hidden',
         bgcolor: 'transparent',
         border: 0,
