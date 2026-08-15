@@ -14,6 +14,7 @@ import type { ReactNode } from 'react';
 import { slugifyHeading } from '@/lib/markdown';
 import { ANCHOR_SCROLL_MARGIN } from '@/theme/layout';
 import { CodeBlock } from './CodeBlock';
+import { ExternalArticleCard } from './ExternalArticleCard';
 import { GitHubRepoCard } from './GitHubRepoCard';
 
 const BLOG_IMAGE_DIMENSIONS: Record<string, { width: number; height: number }> =
@@ -23,10 +24,20 @@ const BLOG_IMAGE_DIMENSIONS: Record<string, { width: number; height: number }> =
     '/blog/images/ecs-core-component.webp': { width: 637, height: 332 },
     '/blog/images/service-connect.webp': { width: 1303, height: 723 },
     '/blog/images/service-discovery_en.webp': { width: 1600, height: 855 },
+    '/blog/images/aws-jr-champions-2026/2026-japan-aws-jr-champions-roster.jpg':
+      {
+        width: 1675,
+        height: 1800,
+      },
   };
 
 interface VideoEmbedProps {
   videoId: string;
+  title: string;
+}
+
+interface SpeakerDeckEmbedProps {
+  deckId: string;
   title: string;
 }
 
@@ -60,11 +71,46 @@ function VideoEmbed({ videoId, title }: VideoEmbedProps) {
   );
 }
 
+function SpeakerDeckEmbed({ deckId, title }: SpeakerDeckEmbedProps) {
+  return (
+    <Box
+      component="figure"
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100%',
+        m: 0,
+        my: 3,
+      }}
+    >
+      <iframe
+        src={`https://speakerdeck.com/player/${deckId}`}
+        title={title}
+        loading="lazy"
+        allowFullScreen
+        style={{
+          display: 'block',
+          width: '100%',
+          maxWidth: '56rem',
+          aspectRatio: '710 / 399',
+          border: 0,
+          padding: 0,
+          margin: 0,
+          background: 'transparent',
+          clipPath: 'inset(4px)',
+        }}
+      />
+    </Box>
+  );
+}
+
 /**
  * Custom components for MDX
  * Applies styles integrated with MUI theme
  */
 export const mdxComponents: MDXComponents = {
+  ExternalArticleCard,
+  SpeakerDeckEmbed,
   VideoEmbed,
   h1: ({ children }) => (
     <Typography
@@ -209,12 +255,6 @@ export const mdxComponents: MDXComponents = {
     />
   ),
   img: ({ src, alt, width, height }) => {
-    // Amazon ECS icon should remain transparent
-    const isTransparent = alt === 'Amazon ECS';
-    const isConferenceImage =
-      typeof src === 'string' &&
-      src.startsWith('/blog/images/kubecon-japan-2026/');
-    const hasFrame = !isTransparent && !isConferenceImage;
     const dimensions =
       typeof src === 'string' ? BLOG_IMAGE_DIMENSIONS[src] : undefined;
 
@@ -223,12 +263,8 @@ export const mdxComponents: MDXComponents = {
         component="span"
         sx={{
           display: 'flex',
-          bgcolor: hasFrame ? '#ffffff' : 'transparent',
-          p: hasFrame ? 2 : 0,
-          borderRadius: 1,
           my: 2,
           justifyContent: 'center',
-          overflow: 'hidden',
         }}
       >
         <img

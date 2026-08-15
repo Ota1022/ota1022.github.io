@@ -24,22 +24,22 @@ export function GitHubRepoCard({ url, description }: GitHubRepoCardProps) {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          gap: 2,
-          p: 2.5,
-          border: 1,
-          borderColor: 'grey.700',
-          borderRadius: 2,
-          bgcolor: 'rgba(255, 255, 255, 0.03)',
-          transition: 'all 0.2s ease',
+          gap: 1.5,
+          py: 1,
           '&:hover': {
-            borderColor: 'grey.500',
-            bgcolor: 'rgba(255, 255, 255, 0.06)',
+            '& .github-repo-name': {
+              textDecoration: 'underline',
+              textUnderlineOffset: '0.18em',
+            },
           },
         }}
       >
-        <GitHubIcon sx={{ fontSize: 40, color: 'grey.400', flexShrink: 0 }} />
+        <GitHubIcon
+          sx={{ fontSize: 32, color: 'text.secondary', flexShrink: 0 }}
+        />
         <Box sx={{ minWidth: 0, flex: 1 }}>
           <Typography
+            className="github-repo-name"
             variant="body1"
             sx={{
               fontWeight: 600,
@@ -67,7 +67,7 @@ export function GitHubRepoCard({ url, description }: GitHubRepoCardProps) {
           )}
         </Box>
         <OpenInNewIcon
-          sx={{ fontSize: 18, color: 'grey.500', flexShrink: 0 }}
+          sx={{ fontSize: 18, color: 'text.secondary', flexShrink: 0 }}
         />
       </Box>
     </MuiLink>
