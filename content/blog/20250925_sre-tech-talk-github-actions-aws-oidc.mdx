@@ -1,0 +1,25 @@
+---
+title: "Lightning Talk at SRE Tech Talk: GitHub Actions and AWS OIDC"
+description: "A cloud security lightning talk on how GitHub Actions obtains short-lived AWS credentials and why OIDC replaced stored access keys."
+date: "2025-09-25"
+category: "activity"
+tags: ["AWS", "GitHub Actions", "Cloud Security"]
+---
+
+On September 25, 2025, I presented at [3-shake SRE Tech Talk #13](https://3-shake.connpass.com/event/362683/) on the integration between GitHub Actions and AWS through OpenID Connect (OIDC). The talk explained both the authentication flow and the developments that made OIDC the standard choice for this use case.
+
+## About SRE Tech Talk
+
+SRE Tech Talk is a meetup organized by volunteer engineers at 3-shake to share knowledge from infrastructure, site reliability engineering, and DevOps work. The thirteenth edition was a cloud security special with two main sessions and lightning talks. It was hosted on-site at KINTO Technologies and streamed online.
+
+## What I shared
+
+The integration starts with AWS trusting GitHub as an identity provider. For each workflow run, GitHub issues a signed OIDC token containing claims about its repository, branch, and execution context. The workflow presents that token to AWS Security Token Service and receives short-lived credentials for an IAM role.
+
+This removes the need to store long-lived IAM access keys as repository secrets. It also avoids manual key rotation and makes access conditions more specific to individual repositories and workflows.
+
+I also traced the adoption path from the OpenID Connect standard to GitHub Actions support, AWS guidance, and later security improvements. The broader lesson was that using OIDC is only one part of the setup: trust-policy conditions, explicit `id-token: write` permission, least-privilege IAM roles, and pinned third-party actions still determine the strength of the workflow.
+
+<SpeakerDeckEmbed deckId="100b23be8cdb48eeb8eb092c2a99b519" title="Understanding GitHub Actions and AWS OIDC Integration" />
+
+[View the slides on Speaker Deck](https://speakerdeck.com/ota1022/github-actions-x-aws-oidclian-xi-noshi-zu-mitojing-wei-woli-jie-suru).

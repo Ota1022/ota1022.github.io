@@ -1,0 +1,32 @@
+---
+title: "Lightning Talk at Meguro LT: The 'Why' Behind AI-Assisted Commits"
+description: "A Meguro LT talk on linking AI coding sessions to Git commits so reviewers can inspect the reasoning behind a small diff."
+date: "2026-06-23"
+category: "activity"
+tags: ["AI", "Git", "Code Review"]
+---
+
+On June 23, 2026, I spoke at [Meguro LT #37](https://meguro-lt.connpass.com/event/390951/) about preserving the reasoning behind AI-assisted code changes. The Japanese title, *Reading the “Why” Behind a Commit*, introduced Entire CLI as one way to connect an AI coding session with the Git commit it produced.
+
+## About Meguro LT
+
+Meguro LT is a community-run lightning-talk series in Tokyo. Despite the name, this edition was held at Hacobell's Hatchobori office. Its theme was “AI and Team Development: What Is Everyone Doing?”, with engineers sharing how tools such as ChatGPT, Claude, GitHub Copilot, and Cursor were being used in day-to-day team workflows.
+
+<ExternalArticleCard
+  url="https://note.com/hacobell/n/n7a867829c779"
+  source="Hacobell on note · Japanese"
+  title="Meguro LT #37: AI and Team Development Event Report"
+  description="The organizer's recap of all six talks, including this presentation as the event MVP."
+/>
+
+## What I shared
+
+AI can make an implementation faster while making its decision trail harder to see. A pull request may contain only a small configuration change even though the work behind it involved checking test data, CI variables, infrastructure configuration, and the deployed environment. A reviewer sees the final diff, but not the investigation that established which value was correct.
+
+[Entire CLI](https://github.com/entireio/cli) records AI-agent sessions as checkpoints associated with Git commits. The normal commit remains on the working branch, while prompts, tool activity, and session metadata can be stored separately and linked from the pull request.
+
+That record can give a reviewer more context, but it also introduces a data-handling decision. Prompts and tool output may contain confidential information, and checkpoint data can be published with the repository if the team does not define its storage and sharing rules. My conclusion was that preserving reasoning is useful only when the team also agrees on what the AI may receive and what the repository may retain.
+
+<SpeakerDeckEmbed deckId="d46c1b58501a4a6dae4ea96810b1687a" title="Reading the Why Behind Commits" />
+
+[View the slides on Speaker Deck](https://speakerdeck.com/ota1022/komitutono-naze-wodu-mu).

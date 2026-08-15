@@ -1,0 +1,29 @@
+---
+title: "Lightning Talk at JAWS-UG: From Docker to Amazon ECS"
+description: "A beginner-focused lightning talk on the CI/CD, IAM, and observability concerns that appear when a container moves from a local environment to Amazon ECS."
+date: "2025-08-21"
+category: "activity"
+tags: ["AWS", "Amazon ECS", "JAWS-UG"]
+---
+
+On August 21, 2025, I gave my first JAWS-UG presentation at [JAWS-UG Containers for Beginners #8](https://jawsug-container.connpass.com/event/361918/). My talk, *From Docker to Amazon ECS: What to Know Before Heading Out into the AWS Ocean*, covered the concerns that appear when an application moves beyond a local Docker environment.
+
+## About JAWS-UG Containers
+
+[JAWS-UG](https://jaws-ug.jp/about-us/) stands for AWS User Group - Japan. It is a nonprofit, volunteer-run community with regional chapters and chapters organized around technical themes. The Containers chapter focuses on running container workloads on AWS.
+
+This beginner edition was an in-person lightning-talk meetup for engineers starting with containers on AWS. Speakers shared early projects, lessons, and questions rather than assuming production experience with Amazon ECS.
+
+## What I shared
+
+Local AWS emulators such as LocalStack make it possible to work quickly without cloud credentials, but they hide several parts of a real deployment. I organized the gap into three areas:
+
+- CI/CD: understanding how source changes become images in Amazon ECR and new Amazon ECS tasks
+- Permissions: separating the GitHub Actions role, ECS task execution role, and application task role
+- Observability: moving from local container output to workflow logs and Amazon CloudWatch Logs
+
+The talk treated local emulation as a useful starting point, while emphasizing that deployment design, IAM, logging, cost, secrets, and networking need separate attention before an application reaches AWS.
+
+<SpeakerDeckEmbed deckId="2026b4607da94c60ad2dbfe84ae6541c" title="From Docker to Amazon ECS: What to Know Before Moving to AWS" />
+
+[View the slides on Speaker Deck](https://speakerdeck.com/ota1022/dockerkaraecshe-awsnohai-nichu-ruqian-nizhi-tuteokitaikoto).

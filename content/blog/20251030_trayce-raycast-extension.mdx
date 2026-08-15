@@ -1,8 +1,181 @@
 ---
-title: "Trayce, a Raycast Extension for Tokyo AI Hackathon 2025"
-description: "Pitch deck for Tokyo AI Hackathon 2025. Introducing Trayce, a Raycast Extension that auto-generates procedure documents from clipboard history."
+title: "Hackathon Report: Building Trayce at Raycast Tokyo"
+description: "From an ideathon and the Tokyo AI Hackathon to a community meetup, three events that took Trayce from an idea to a working Raycast extension."
 date: "2025-10-30"
-category: "speakerdeck"
-tags: ["SpeakerDeck", "Raycast", "AI", "Hackathon", "MCP", "Claude"]
-externalUrl: "https://speakerdeck.com/ota1022/trayce-a-raycast-extension-tokyo-ai-hackathon-2025"
+category: "activity"
+tags: ["AI", "Raycast", "Hackathon"]
 ---
+
+Between October 23 and 31, 2025, I attended three events organized by Raycast Community Japan: an ideathon, the Tokyo AI Hackathon, and Raycast Meetup Japan #2. Together, they took an idea from a brainstorming session to a working Raycast extension and then into conversations with the wider community.
+
+Raycast Community Japan is a user-led group built around Raycast's productivity tools and extension ecosystem. The Tokyo AI Hackathon organizers described it as the world's first Raycast user community.
+
+A [Japanese version of this report](https://zenn.dev/iorandd/articles/20251214-raycast-tokyo-ai-hackathon) was originally published on Zenn.
+
+## 1. Before the events
+
+At the start of 2025, I was setting up a computer after changing jobs and wanted to install a clipboard manager. I saw Raycast recommended in an internal Slack channel, along with comments about its wider set of productivity features, and installed it. In practice, I used Clipboard History almost exclusively and had not explored many of its built-in features or extensions.
+
+More than six months later, I saw an announcement on X for a hackathon jointly organized by Raycast, Anthropic, Vercel, and Supabase. The lineup caught my attention, and the event seemed like a good opportunity to understand a tool I had only been using at a basic level. I registered with the expectation that I could participate alone if I did not form a team.
+
+## 2. The three events
+
+Raycast Community Japan scheduled events before and after the hackathon, so I arranged my work schedule to attend all three:
+
+- **October 23: Ideathon - Tokyo AI Hackathon Pre-event** — Participants surfaced recurring problems from daily life and work, then shared possible solutions.
+- **October 30: Tokyo AI Hackathon** — Participants used Claude Code to build and pitch a Raycast extension in one day.
+- **October 31: Raycast Meetup Japan #2 with Raycast** — Users met visiting Raycast team members, including CEO Thomas, for talks, demonstrations, and networking.
+
+## 3. October 23: Ideathon pre-event
+
+[Event page](https://raycast.connpass.com/event/371015/)
+
+The pre-event was held at primeNumber's office in Meguro, Tokyo.
+
+### 3.1 Finding problems before choosing a product
+
+Around ten people attended, ranging from new Raycast users to experienced users. Before turning an idea into a product for the hackathon, we rapidly wrote down tasks that we repeat in everyday life and work.
+
+The exercise deliberately went beyond our formal job responsibilities. We wrote recurring or inconvenient tasks on sticky notes, shared them with others at the table, and expanded the ideas through discussion.
+
+![Participants brainstorming at the ideathon pre-event](/blog/images/raycast-community-japan-2025/1_preevent.jpg)
+
+### 3.2 Ideas from the brainstorming session
+
+Examples from my table included:
+
+- Looking up AWS and other commands again after forgetting them
+- Managing calendars across multiple work computers
+- Typing the same Git branch prefixes several times a day
+
+The discussion made me notice several routines I had accepted even though they could be automated. I wanted the hackathon project to solve a problem I encountered myself: when someone asks how I completed a task that I usually handle, reconstructing and formatting the procedure takes time.
+
+That led to a concrete direction for the hackathon: generate a procedure document from clipboard history.
+
+### 3.3 Learning practical Raycast features
+
+Members of Raycast Community Japan also shared practical usage tips. I had not used per-extension hotkeys or Snippets before the event. Assigning a hotkey lets an extension open directly, while Snippets make command templates and other frequently used text available from Raycast.
+
+Seeing how experienced users applied these features made them easier to understand and incorporate into my own workflow.
+
+## 4. October 30: Tokyo AI Hackathon
+
+[Event page](https://raycast.connpass.com/event/369928/)
+
+### The theme
+
+> Integrate AI into your desktop with Raycast AI Extensions and MCP servers.
+>
+> Build Raycast extensions powered by Claude AI that:
+>
+> - fit into everyday workflows,
+> - use MCP servers, or
+> - automate repetitive tasks.
+
+The goal was to turn the pre-event idea into a working Raycast extension in a single day.
+
+### 4.1 The event
+
+![Participants working at the Tokyo AI Hackathon](/blog/images/raycast-community-japan-2025/2_hackathon_discussion.jpg)
+
+The hackathon was held at AWS Startup Loft Tokyo. More than a third of the participants appeared to have come from outside Japan, and the event was conducted in English. With more than 100 participants and a fixed submission deadline, it felt different from the technology meetups I usually attend through connpass.
+
+Only a small portion of the participants had attended the ideathon. Entering that environment without a prepared problem would have made finishing a project much less likely, so the pre-event was useful preparation.
+
+### 4.2 Schedule and development environment
+
+The event ran for almost seven hours, from the 3:00 p.m. opening to the 9:45 p.m. close.
+
+![Tokyo AI Hackathon schedule](/blog/images/raycast-community-japan-2025/2_hackathon_timeline.png)
+
+Development began at around 4:00 p.m. and continued until the 7:45 p.m. submission deadline. Staff from Raycast, Supabase, and Vercel circulated through the venue and provided technical support.
+
+Each participant received $100 in time-limited Claude API credits. The credits could be used with Claude Code in API mode and by the extension itself, which made it possible to use Claude throughout development and in the product.
+
+### 4.3 Building Trayce
+
+#### Development approach
+
+More than half of the participants worked alone, while most of the remaining participants worked in pairs. I participated alone and built the idea from the pre-event.
+
+I set three constraints for the day:
+
+- Define an MVP that could be completed in one day.
+- Keep the product to one concept that could be explained quickly.
+- Reserve enough time to prepare the pitch and demonstration.
+
+I used GitHub issues to divide the work into tasks such as displaying clipboard history, adding notes, and generating text with AI. Each part was tested before moving to the next.
+
+#### Concept
+
+A familiar documentation problem is trying to write a procedure after the work is complete and no longer remembering every command that was used.
+
+Trayce is a Raycast extension that **generates procedure documents from clipboard history**. A user adds a short note to copied commands or URLs, and Claude formats those entries as a Markdown procedure.
+
+During the task, the user opens copied items in Raycast and records why each item was needed. After the Generate command runs, the resulting Markdown can be pasted into Notion, Jira, or another documentation tool.
+
+![Trayce generating a Markdown procedure from clipboard history](/blog/images/raycast-community-japan-2025/2_demo_trayce_full_960.gif)
+
+#### Technical choices
+
+The extension has two commands: one for creating a procedure and another for reviewing saved procedures. I kept the data model and state management small and used LocalStorage for persistence.
+
+During development, I found that Raycast's Clipboard History API returned only five items at a time. The interface therefore lets the user load additional batches of history from inside the extension. It was a compromise made to keep the project within the one-day deadline.
+
+I wrote a separate Japanese guide to [developing a Raycast extension](https://zenn.dev/iorandd/articles/20251215_start-raycast-extension-dev), covering the process from creating a project template to publishing in the Raycast Store.
+
+<GitHubRepo url="https://github.com/Ota1022/trayce" description="A Raycast extension that generates procedure documents from clipboard history." />
+
+The pitch emphasized the demonstration, but I also prepared a short deck to establish the concept before showing the product.
+
+<SpeakerDeckEmbed deckId="35cab14e743746aaab971e3628cf7406" title="Trayce, a Raycast Extension" />
+
+[View the pitch deck on Speaker Deck](https://speakerdeck.com/ota1022/trayce-a-raycast-extension-tokyo-ai-hackathon-2025).
+
+### 4.4 Pitching and the finalist presentations
+
+After the submission deadline, participants at each table pitched to one judge. The selected projects then advanced to a second round and were presented to the full audience.
+
+Pitching in English was one of the most memorable parts of the event. Most of my previous technology talks had been in Japanese. Explaining both the implementation and the product's value in limited time required a different level of preparation, particularly in an international group of engineers.
+
+![Finalists presenting at the Tokyo AI Hackathon](/blog/images/raycast-community-japan-2025/2_hackathon_final.jpg)
+
+My project did not advance from the table round. Watching the finalist presentations showed how much a carefully produced demo, a strong framing of the problem, and clear visual storytelling can improve a technical pitch. [Pedro Duarte shared a post from the event on X](https://x.com/peduarte/status/1983924112968876366?s=20).
+
+## 5. October 31: Raycast Meetup Japan #2 with Raycast
+
+[Event page](https://raycast.connpass.com/event/370096/)
+
+The meetup offered a different view of Raycast: its roadmap and the community around the product. It was held at Cybozu's Nihonbashi office and ran for about three hours. The program included lightning talks, demonstrations from the previous day's hackathon winners, a fireside chat with CEO Thomas and other Raycast team members, and networking.
+
+### 5.1 Fireside chat
+
+![Raycast team members during the fireside chat](/blog/images/raycast-community-japan-2025/3_meetup_fireside.jpg)
+
+During the fireside chat, Raycast's core team expressed its appreciation for the activity of the Japanese community. They described extension development and user feedback as important contributions to the product. According to the discussion, Japan had Raycast's third-largest user base at the time.
+
+### 5.2 Raycast for Windows demonstration
+
+![Raycast for Windows demonstration](/blog/images/raycast-community-japan-2025/3_meetup_win_demo.jpg)
+
+The meetup included a preview of Raycast for Windows, which has since been released. The demonstration showed how the interaction patterns established in the macOS version were being carried across to Windows.
+
+Seeing the CEO demonstrate the product directly was unusual and gave the preview more context than a release announcement alone. The Windows release also opened Raycast to a larger user base, creating more opportunities for community extensions and ideas.
+
+### 5.3 Meeting members of the Taiwan community
+
+The networking session brought together people with different backgrounds. One conversation began because a finalist's demo video from the hackathon had stood out for its production quality.
+
+The creators told me that they used [Screen Studio](https://screen.studio/), a macOS screen recorder that automatically zooms toward the cursor and smooths movement. It can produce a polished demonstration video in a short time and is used by teams at companies including Stripe, Vercel, and Google. It is a tool I would consider for another hackathon or product demonstration.
+
+As the conversation continued, I learned that they were organizers of the Raycast community in Taiwan. Meeting them showed that active Raycast communities were forming beyond Japan and that a shared product could connect engineers outside their workplaces and across national borders.
+
+The community was not limited to people using a convenient tool. Participants were interested in extending it and creating new value themselves, while the Raycast team was open to feedback from those users.
+
+## 6. What the three events changed
+
+Before these events, Clipboard History accounted for almost all of my Raycast usage. Building an extension changed how I thought about the product and about opportunities to improve my own workflow.
+
+The sequence of events mattered: the pre-event provided a place to test the idea, the hackathon imposed a deadline to build it, and the meetup connected the project to people from other communities. Users build, give feedback, and share what they learn; that cycle helps the product and its ecosystem develop together.
+
+Raycast Community Japan continues to organize events, and I plan to take part again when another opportunity comes up.

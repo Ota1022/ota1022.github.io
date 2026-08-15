@@ -1,0 +1,31 @@
+---
+title: "Lightning Talk at NW-JAWS: An Amazon ECS Service Connect E2E Failure"
+description: "An NW-JAWS talk on why a standalone ECS task could neither resolve nor receive traffic through Service Connect during an end-to-end test."
+date: "2026-08-04"
+category: "activity"
+tags: ["Amazon ECS", "Service Connect", "JAWS-UG"]
+---
+
+On August 4, 2026, I presented an Amazon ECS networking case study at [NW-JAWS #22](https://jawsug-nw.connpass.com/event/399100/). The talk explained why an end-to-end test running as a standalone ECS task could not communicate through Amazon ECS Service Connect in the same way as the application's normal services.
+
+The full event recording is available below.
+
+<VideoEmbed videoId="Q6BfunW5CyQ" title="NW-JAWS #22 event recording" />
+
+## About NW-JAWS
+
+NW-JAWS is a networking-focused chapter of [JAWS-UG](https://jaws-ug.jp/about-us/), the volunteer-run AWS user community in Japan. It brings together people working with AWS networking, traditional network engineering, and hybrid cloud environments.
+
+This edition was an online, Level 300-and-above event featuring speakers with AWS community and partner recognition, including AWS Heroes, Ambassadors, Community Builders, Top Engineers, and Jr. Champions. The theme invited each speaker to share a technical case that came from their own work.
+
+## What I shared
+
+Service Connect is configured on an ECS service, not on a task definition. Tasks started by that service receive the managed proxy and endpoint configuration; a task started independently with `RunTask` does not.
+
+That distinction caused two separate failures in our test environment. The standalone test task could not resolve the dependency's Service Connect name, and it was not registered as a destination for completion callbacks from an existing worker. We used AWS Cloud Map for dependency discovery and kept the test callback inside the test task, but that arrangement verified the application flow rather than the normal Service Connect path.
+
+The more general conclusion was to consider temporarily starting the existing ECS service first, creating a dedicated test service second, and using a standalone task only when its separate discovery and callback paths are intentional. When a workload's launch method changes, outbound name resolution and inbound destination registration need to be checked independently.
+
+<SpeakerDeckEmbed deckId="5101ad2d3b9c4f519a38de98bd611a27" title="Reaching an Amazon ECS Service Connect Service from Outside an ECS Service" />
+
+[View the slides on Speaker Deck](https://speakerdeck.com/ota1022/service-connect-shang-nosabisuni-ecs-service-nowai-ce-karadao-da-dekinakatutahua).
