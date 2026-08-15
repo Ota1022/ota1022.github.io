@@ -44,10 +44,19 @@ externalUrl?: string  # If set, links to external site instead of rendering cont
 ogImage?: string      # Optional absolute site path for the article's social preview image
 ```
 
+Tagging conventions:
+- Prefer two or three reusable topic tags per post.
+- Do not repeat a one-off event name as a tag when it is already clear from the title and `activity` category.
+- Use canonical labels consistently: `Amazon ECS` rather than `ECS`, `Containers` rather than `Container`, and `JAWS-UG` for all regional or specialist chapters.
+- Keep a community or program tag when it connects multiple posts, such as `JAWS-UG` or `AWS Jr. Champions`.
+
 ### Theming
 - `src/contexts/ThemeContext.tsx` - Dark/light mode toggle with system preference detection
 - `src/theme/theme.ts` - MUI theme customization
 - Uses Inconsolata font globally
+
+### Embedded media
+- Do not add decorative white backgrounds, padding, borders, or card shells around blog images, GitHub repository links, videos, or slide embeds. Let embedded content sit directly on the page background unless an asset has a documented legibility requirement.
 
 ### Static Export
 Configured for GitHub Pages deployment (`output: 'export'` in next.config.mjs). GitHub Actions workflow builds and deploys on push to main.
