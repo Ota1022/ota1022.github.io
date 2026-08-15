@@ -158,7 +158,11 @@ export const mdxComponents: MDXComponents = {
     </Typography>
   ),
   p: ({ children }) => (
-    <Typography variant="body1" paragraph sx={{ lineHeight: 1.8 }}>
+    <Typography
+      variant="body1"
+      paragraph
+      sx={{ lineHeight: 1.8, overflowWrap: 'anywhere' }}
+    >
       {children}
     </Typography>
   ),
@@ -190,7 +194,7 @@ export const mdxComponents: MDXComponents = {
     <Typography
       component="li"
       variant="body1"
-      sx={{ mb: 0.5, lineHeight: 1.8 }}
+      sx={{ mb: 0.5, lineHeight: 1.8, overflowWrap: 'anywhere' }}
     >
       {children}
     </Typography>
@@ -227,6 +231,10 @@ export const mdxComponents: MDXComponents = {
             fontFamily: 'Menlo, Monaco, "Courier New", monospace',
             fontSize: '0.9em',
             color: 'secondary.main',
+            // Identifiers like `aws_service_discovery_private_dns_namespace`
+            // have no space or hyphen to break on, so the default
+            // `overflow-wrap: normal` lets them run past the content column.
+            overflowWrap: 'anywhere',
           }}
         >
           {children}
