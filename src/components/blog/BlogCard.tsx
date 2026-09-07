@@ -6,6 +6,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Box, Card, CardContent, Chip, Link, Typography } from '@mui/material';
 import NextLink from 'next/link';
 import BlogCategoryChip from './BlogCategoryChip';
+import BlogEmoji from './BlogEmoji';
 
 interface BlogCardProps {
   post: BlogPostMetadata;
@@ -41,91 +42,97 @@ export default function BlogCard({ post, headingLevel = 'h2' }: BlogCardProps) {
           },
         }}
       >
-        <CardContent>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: 1,
-              mb: 1,
-            }}
-          >
-            <BlogCategoryChip
-              category={frontmatter.category}
-              marginBottom={0}
-            />
-            <Typography
-              component="time"
-              dateTime={frontmatter.date}
-              variant="caption"
-              color="text.secondary"
-            >
-              {formattedDate}
-            </Typography>
-            {post.readingTimeMinutes && (
-              <Typography variant="caption" color="text.secondary">
-                · {post.readingTimeMinutes} min read
-              </Typography>
-            )}
-          </Box>
+        <CardContent sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
+          <BlogEmoji frontmatter={frontmatter} />
 
-          <Typography variant="h5" component={headingLevel} sx={{ mb: 1 }}>
-            <Link
-              component={isExternal ? 'a' : NextLink}
-              href={href}
-              target={isExternal ? '_blank' : undefined}
-              rel={isExternal ? 'noopener noreferrer' : undefined}
-              aria-label={
-                isExternal
-                  ? `${frontmatter.title}, opens in a new tab`
-                  : undefined
-              }
-              underline="hover"
-              color="inherit"
-              // Stretch the anchor across the card so the whole card stays
-              // clickable while the link text stays limited to the title.
+          <Box sx={{ minWidth: 0, flexGrow: 1 }}>
+            <Box
               sx={{
-                '&::after': {
-                  content: '""',
-                  position: 'absolute',
-                  inset: 0,
-                },
-                '&:focus-visible': { outline: 'none' },
+                display: 'flex',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                gap: 1,
+                mb: 1,
               }}
             >
-              {frontmatter.title}
-              {isExternal && (
-                <OpenInNewIcon
-                  aria-hidden="true"
-                  sx={{
-                    ml: 0.75,
-                    fontSize: '0.7em',
-                    verticalAlign: 'middle',
-                    color: 'text.secondary',
-                  }}
-                />
+              <BlogCategoryChip
+                category={frontmatter.category}
+                marginBottom={0}
+              />
+              <Typography
+                component="time"
+                dateTime={frontmatter.date}
+                variant="caption"
+                color="text.secondary"
+              >
+                {formattedDate}
+              </Typography>
+              {post.readingTimeMinutes && (
+                <Typography variant="caption" color="text.secondary">
+                  · {post.readingTimeMinutes} min read
+                </Typography>
               )}
-            </Link>
-          </Typography>
-
-          <Typography variant="body2" color="text.secondary">
-            {frontmatter.description}
-          </Typography>
-
-          {frontmatter.tags && frontmatter.tags.length > 0 && (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1.5 }}>
-              {frontmatter.tags.map((tag) => (
-                <Chip
-                  key={tag}
-                  label={tag}
-                  size="small"
-                  variant="outlined"
-                  sx={{ fontSize: '0.7rem' }}
-                />
-              ))}
             </Box>
-          )}
+
+            <Typography variant="h5" component={headingLevel} sx={{ mb: 1 }}>
+              <Link
+                component={isExternal ? 'a' : NextLink}
+                href={href}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
+                aria-label={
+                  isExternal
+                    ? `${frontmatter.title}, opens in a new tab`
+                    : undefined
+                }
+                underline="hover"
+                color="inherit"
+                // Stretch the anchor across the card so the whole card stays
+                // clickable while the link text stays limited to the title.
+                sx={{
+                  '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    inset: 0,
+                  },
+                  '&:focus-visible': { outline: 'none' },
+                }}
+              >
+                {frontmatter.title}
+                {isExternal && (
+                  <OpenInNewIcon
+                    aria-hidden="true"
+                    sx={{
+                      ml: 0.75,
+                      fontSize: '0.7em',
+                      verticalAlign: 'middle',
+                      color: 'text.secondary',
+                    }}
+                  />
+                )}
+              </Link>
+            </Typography>
+
+            <Typography variant="body2" color="text.secondary">
+              {frontmatter.description}
+            </Typography>
+
+            {frontmatter.tags && frontmatter.tags.length > 0 && (
+              <Box
+                sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1.5 }}
+              >
+                {frontmatter.tags.map((tag) => (
+                  <Chip
+                    key={tag}
+                    label={tag}
+                    size="small"
+                    variant="outlined"
+                    sx={{ fontSize: '0.7rem' }}
+                  />
+                ))}
+              </Box>
+            )}
+          </Box>
         </CardContent>
       </Card>
     </Box>

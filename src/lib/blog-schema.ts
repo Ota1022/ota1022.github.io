@@ -1,36 +1,42 @@
 export const BLOG_CATEGORIES = [
   {
     value: 'blog',
+    defaultEmoji: '📝',
     label: 'Article',
     filterLabel: 'Articles',
     chipColor: 'teal',
   },
   {
     value: 'zenn',
+    defaultEmoji: '📘',
     label: 'Zenn article',
     filterLabel: 'Zenn articles',
     chipColor: 'primary',
   },
   {
     value: 'speakerdeck',
+    defaultEmoji: '🖥️',
     label: 'Presentation',
     filterLabel: 'Presentations',
     chipColor: 'success',
   },
   {
     value: 'announcement',
+    defaultEmoji: '🏆',
     label: 'Recognition',
     filterLabel: 'Recognition',
     chipColor: 'warning',
   },
   {
     value: 'activity',
+    defaultEmoji: '🎤',
     label: 'Activity',
     filterLabel: 'Activities',
     chipColor: 'secondary',
   },
   {
     value: 'other',
+    defaultEmoji: '📌',
     label: 'Update',
     filterLabel: 'Updates',
     chipColor: 'default',
@@ -46,6 +52,7 @@ export interface BlogPostFrontmatter {
   description: string;
   date: string;
   category: BlogCategory;
+  emoji?: string;
   tags?: string[];
   externalUrl?: string;
   ogImage?: string;
@@ -53,6 +60,26 @@ export interface BlogPostFrontmatter {
 
 export function getBlogCategoryDefinition(category: BlogCategory) {
   return BLOG_CATEGORIES.find((definition) => definition.value === category);
+}
+
+/**
+ * Resolve the emoji shown next to a post title, falling back to the emoji
+ * assigned to its category.
+ */
+export function getBlogPostEmoji(frontmatter: BlogPostFrontmatter): string {
+  return (
+    frontmatter.emoji ??
+    getBlogCategoryDefinition(frontmatter.category)?.defaultEmoji ??
+    '📄'
+  );
+}
+
+function countGraphemes(value: string): number {
+  if (typeof Intl.Segmenter === 'function') {
+    const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
+    return Array.from(segmenter.segment(value)).length;
+  }
+  return Array.from(value).length;
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -113,6 +140,18 @@ export function parseBlogFrontmatter(
     );
   }
 
+  let emoji: string | undefined;
+  if (value.emoji !== undefined) {
+    if (
+      typeof value.emoji !== 'string' ||
+      !/\p{Extended_Pictographic}/u.test(value.emoji) ||
+      countGraphemes(value.emoji) !== 1
+    ) {
+      throw new Error(`${source}: frontmatter.emoji must be a single emoji`);
+    }
+    emoji = value.emoji;
+  }
+
   let tags: string[] | undefined;
   if (value.tags !== undefined) {
     if (
@@ -168,6 +207,7 @@ export function parseBlogFrontmatter(
     description,
     date,
     category: value.category,
+    ...(emoji ? { emoji } : {}),
     ...(tags ? { tags } : {}),
     ...(externalUrl ? { externalUrl } : {}),
     ...(ogImage ? { ogImage } : {}),

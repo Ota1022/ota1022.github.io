@@ -39,6 +39,7 @@ title: string
 description: string
 date: string (YYYY-MM-DD)
 category: 'blog' | 'zenn' | 'speakerdeck' | 'announcement' | 'activity' | 'other'
+emoji?: string        # Single emoji shown with the title; defaults to the category emoji
 tags?: string[]
 externalUrl?: string  # If set, links to external site instead of rendering content
 ogImage?: string      # Optional absolute site path for the article's social preview image
