@@ -18,8 +18,14 @@ const AVATAR_PATH = path.join(
 const WIDTH = 1200;
 const HEIGHT = 630;
 
-const ACCENT_COLOR = '#D4A520';
-const ACCENT_SECONDARY = '#B8860B';
+// Mirrors the dark palette in src/theme/theme.ts so a shared link matches the site.
+const ACCENT_COLOR = '#AAA7E8';
+const ACCENT_SECONDARY = '#6F6CB8';
+const BACKGROUND_COLOR = '#0A0B10';
+const CARD_COLOR = '#191A21';
+const TEXT_PRIMARY = '#F0F1F5';
+const TEXT_SECONDARY = '#AAAEBA';
+const DIVIDER_COLOR = 'rgba(226, 228, 238, 0.16)';
 
 interface Frontmatter {
   title: string;
@@ -47,8 +53,9 @@ function buildOgImage(
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: BACKGROUND_COLOR,
         backgroundImage:
-          'linear-gradient(135deg, #2c2c2c 0%, #4a4a4a 40%, #6b6b6b 60%, #4a4a4a 80%, #2c2c2c 100%)',
+          'linear-gradient(135deg, #0A0B10 0%, #171826 40%, #26264080 60%, #171826 80%, #0A0B10 100%)',
         fontFamily: 'Noto Sans JP, Inconsolata',
         position: 'relative',
         overflow: 'hidden',
@@ -63,10 +70,10 @@ function buildOgImage(
               flexDirection: 'column',
               width: 1100,
               height: 540,
-              backgroundColor: '#FFFFFF',
+              backgroundColor: CARD_COLOR,
               borderRadius: 24,
-              border: '1.5px solid rgba(184, 134, 11, 0.5)',
-              boxShadow: '0 4px 24px rgba(0, 0, 0, 0.06)',
+              border: '1.5px solid rgba(170, 167, 232, 0.35)',
+              boxShadow: '0 4px 24px rgba(0, 0, 0, 0.45)',
               overflow: 'hidden',
             },
             children: [
@@ -111,7 +118,7 @@ function buildOgImage(
                                   props: {
                                     style: {
                                       fontSize: 26,
-                                      color: 'rgba(107, 114, 128, 0.85)',
+                                      color: TEXT_SECONDARY,
                                       letterSpacing: 1,
                                     },
                                     children: date,
@@ -131,7 +138,7 @@ function buildOgImage(
                                       ? 58
                                       : 64,
                                 fontWeight: 700,
-                                color: '#1a1a2e',
+                                color: TEXT_PRIMARY,
                                 lineHeight: 1.3,
                                 overflow: 'hidden',
                                 display: '-webkit-box',
@@ -158,11 +165,11 @@ function buildOgImage(
                                       props: {
                                         style: {
                                           fontSize: 26,
-                                          color: '#7a5c00',
+                                          color: '#CFCDF3',
                                           backgroundColor:
-                                            'rgba(212, 165, 32, 0.15)',
+                                            'rgba(170, 167, 232, 0.16)',
                                           border:
-                                            '1px solid rgba(212, 165, 32, 0.4)',
+                                            '1px solid rgba(170, 167, 232, 0.4)',
                                           borderRadius: 12,
                                           padding: '6px 20px',
                                         },
@@ -184,7 +191,7 @@ function buildOgImage(
                           display: 'flex',
                           justifyContent: 'space-between',
                           alignItems: 'center',
-                          borderTop: '1.5px solid rgba(184, 134, 11, 0.4)',
+                          borderTop: `1.5px solid ${DIVIDER_COLOR}`,
                           paddingTop: 22,
                         },
                         children: [
@@ -228,7 +235,7 @@ function buildOgImage(
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            color: '#1a1a2e',
+                                            color: '#171820',
                                             fontSize: 24,
                                             fontWeight: 700,
                                           },
@@ -242,7 +249,7 @@ function buildOgImage(
                                     style: {
                                       fontSize: 36,
                                       fontWeight: 700,
-                                      color: '#1a1a2e',
+                                      color: TEXT_PRIMARY,
                                     },
                                     children: 'Itaru OTA',
                                   },
@@ -256,7 +263,7 @@ function buildOgImage(
                             props: {
                               style: {
                                 fontSize: 28,
-                                color: 'rgba(107, 114, 128, 0.7)',
+                                color: 'rgba(170, 174, 186, 0.75)',
                               },
                               children: 'ota1022.github.io',
                             },
