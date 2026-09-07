@@ -1,5 +1,6 @@
 import BlogCard from '@/components/blog/BlogCard';
 import BlogCategoryChip from '@/components/blog/BlogCategoryChip';
+import BlogEmoji from '@/components/blog/BlogEmoji';
 import { mdxComponents } from '@/components/blog/MDXComponents';
 import PageShell from '@/components/layout/PageShell';
 import { getAllPostSlugs, getPostBySlug, getRelatedPosts } from '@/lib/blog';
@@ -160,6 +161,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           <Box component="article" sx={{ mt: 2 }}>
             <Box sx={{ mb: 3 }}>
+              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                <BlogEmoji frontmatter={frontmatter} size="large" />
+              </Box>
               <BlogCategoryChip
                 category={frontmatter.category}
                 marginBottom={2}
