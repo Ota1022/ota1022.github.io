@@ -7,7 +7,12 @@ import { getAllPostSlugs, getPostBySlug, getRelatedPosts } from '@/lib/blog';
 import { formatDateOnly } from '@/lib/date';
 import { extractTableOfContents, groupTableOfContents } from '@/lib/markdown';
 import { SITE_AUTHOR, SITE_URL } from '@/lib/site';
-import { CONTENT_MAX_WIDTH } from '@/theme/layout';
+import {
+  BLOG_ARTICLE_MAX_WIDTH,
+  BLOG_POST_MAX_WIDTH,
+  BLOG_TOC_WIDTH,
+  CONTENT_MAX_WIDTH,
+} from '@/theme/layout';
 import { Box, Chip, Link, Typography } from '@mui/material';
 import type { Metadata } from 'next';
 import { MDXRemote } from 'next-mdx-remote/rsc';
@@ -146,10 +151,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           __html: JSON.stringify(blogPostingJsonLd).replace(/</g, '\\u003c'),
         }}
       />
-      <PageShell>
+      <PageShell maxWidth="lg">
         <Box
           component="main"
-          sx={{ mx: 'auto', my: 4, maxWidth: CONTENT_MAX_WIDTH }}
+          sx={{ mx: 'auto', my: 4, maxWidth: BLOG_POST_MAX_WIDTH }}
         >
           <Link
             href="/blog"
@@ -159,151 +164,280 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             ← Back to Blog
           </Link>
 
-          <Box component="article" sx={{ mt: 2 }}>
-            <Box sx={{ mb: 3 }}>
-              <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-                <BlogEmoji frontmatter={frontmatter} size="large" />
+          <Box
+            component="header"
+            sx={{
+              mt: 2,
+              mb: { xs: 3, lg: 5 },
+              mx: 'auto',
+              maxWidth: 880,
+            }}
+          >
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+              <BlogEmoji frontmatter={frontmatter} size="large" />
+            </Box>
+            <BlogCategoryChip
+              category={frontmatter.category}
+              marginBottom={2}
+            />
+            <Typography
+              variant="h3"
+              component="h1"
+              gutterBottom
+              sx={{
+                fontSize: { xs: '2rem', sm: '2.5rem' },
+                lineHeight: 1.18,
+              }}
+            >
+              {frontmatter.title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" paragraph>
+              <Box component="time" dateTime={frontmatter.date}>
+                {formattedDate}
               </Box>
-              <BlogCategoryChip
-                category={frontmatter.category}
-                marginBottom={2}
-              />
-              <Typography
-                variant="h3"
-                component="h1"
-                gutterBottom
-                sx={{
-                  fontSize: { xs: '2.25rem', sm: '3rem' },
-                  lineHeight: 1.1,
-                }}
-              >
-                {frontmatter.title}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" paragraph>
-                <Box component="time" dateTime={frontmatter.date}>
-                  {formattedDate}
-                </Box>
-                {' · '}
-                {readingTimeMinutes} min read
-              </Typography>
-              {frontmatter.tags && frontmatter.tags.length > 0 && (
+              {' · '}
+              {readingTimeMinutes} min read
+            </Typography>
+            {frontmatter.tags && frontmatter.tags.length > 0 && (
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 3 }}>
+                {frontmatter.tags.map((tag) => (
+                  <Chip key={tag} label={tag} size="small" variant="outlined" />
+                ))}
+              </Box>
+            )}
+          </Box>
+
+          <Box
+            sx={{
+              display: {
+                xs: 'block',
+                lg: tableOfContents.length > 1 ? 'grid' : 'block',
+              },
+              gridTemplateColumns: {
+                lg: `minmax(0, ${BLOG_ARTICLE_MAX_WIDTH}px) ${BLOG_TOC_WIDTH}px`,
+              },
+              columnGap: { lg: 7 },
+              alignItems: 'start',
+            }}
+          >
+            <Box
+              sx={{
+                minWidth: 0,
+                maxWidth: {
+                  lg:
+                    tableOfContents.length > 1
+                      ? 'none'
+                      : BLOG_ARTICLE_MAX_WIDTH,
+                },
+                mx: { lg: tableOfContents.length > 1 ? 0 : 'auto' },
+              }}
+            >
+              <Box component="article">
+                {tableOfContents.length > 1 && (
+                  <Box
+                    component="nav"
+                    aria-label="Table of contents"
+                    sx={{
+                      display: { xs: 'block', lg: 'none' },
+                      mb: 4,
+                      p: 2,
+                      border: 1,
+                      borderColor: 'divider',
+                      borderRadius: 1,
+                    }}
+                  >
+                    <Typography
+                      variant="h6"
+                      component="h2"
+                      color="text.secondary"
+                      sx={{ mb: 1 }}
+                    >
+                      Contents
+                    </Typography>
+                    <Box
+                      component="ol"
+                      sx={{ m: 0, pl: 3.5, maxHeight: 360, overflowY: 'auto' }}
+                    >
+                      {tableOfContentsSections.map(({ heading, children }) => (
+                        <Box
+                          component="li"
+                          key={`${heading.level}-${heading.id}`}
+                          sx={{ py: 0.25, pl: 0.5 }}
+                        >
+                          <Link href={`#${heading.id}`} underline="hover">
+                            {headingsIncludeSectionNumbers
+                              ? heading.title.replace(/^\d+\.\s+/, '')
+                              : heading.title}
+                          </Link>
+                          {children.length > 0 && (
+                            <Box
+                              component="ul"
+                              sx={{ mt: 0.25, mb: 0.25, pl: 3 }}
+                            >
+                              {children.map((child) => (
+                                <Box
+                                  component="li"
+                                  key={`${child.level}-${child.id}`}
+                                  sx={{ py: 0.25, pl: 0.25 }}
+                                >
+                                  <Link href={`#${child.id}`} underline="hover">
+                                    {child.title}
+                                  </Link>
+                                </Box>
+                              ))}
+                            </Box>
+                          )}
+                        </Box>
+                      ))}
+                    </Box>
+                  </Box>
+                )}
+
                 <Box
-                  sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 3 }}
+                  sx={{
+                    '& code': {
+                      fontFamily: 'Menlo, Monaco, "Courier New", monospace',
+                      fontSize: '0.95em',
+                    },
+                  }}
                 >
-                  {frontmatter.tags.map((tag) => (
-                    <Chip
-                      key={tag}
-                      label={tag}
-                      size="small"
-                      variant="outlined"
-                    />
-                  ))}
+                  <MDXRemote
+                    source={content}
+                    components={mdxComponents}
+                    options={{
+                      mdxOptions: {
+                        remarkPlugins: [remarkGfm],
+                        rehypePlugins: [
+                          [
+                            rehypePrettyCode,
+                            { theme: 'github-dark', keepBackground: true },
+                          ],
+                        ],
+                      },
+                    }}
+                  />
+                </Box>
+              </Box>
+
+              {relatedPosts.length > 0 && (
+                <Box
+                  component="section"
+                  aria-labelledby="related-writing"
+                  sx={{ mt: 5 }}
+                >
+                  <Typography
+                    id="related-writing"
+                    variant="h4"
+                    component="h2"
+                    sx={{ mb: 2 }}
+                  >
+                    Related writing &amp; talks
+                  </Typography>
+                  <Box component="ul" sx={{ listStyle: 'none', m: 0, p: 0 }}>
+                    {relatedPosts.map((relatedPost) => (
+                      <BlogCard
+                        key={relatedPost.slug}
+                        post={relatedPost}
+                        headingLevel="h3"
+                      />
+                    ))}
+                  </Box>
                 </Box>
               )}
             </Box>
 
             {tableOfContents.length > 1 && (
               <Box
-                component="nav"
-                aria-label="Table of contents"
+                component="aside"
                 sx={{
-                  mb: 4,
-                  p: 2,
-                  border: 1,
+                  display: { xs: 'none', lg: 'block' },
+                  position: 'sticky',
+                  top: 96,
+                  maxHeight: 'calc(100vh - 120px)',
+                  overflowY: 'auto',
+                  borderTop: 1,
                   borderColor: 'divider',
-                  borderRadius: 1,
+                  pt: 2,
+                  pr: 1,
                 }}
               >
-                <Typography variant="h6" component="h2" sx={{ mb: 1 }}>
-                  On this page
-                </Typography>
-                <Box
-                  component="ol"
-                  sx={{ m: 0, pl: 3.5, maxHeight: 360, overflowY: 'auto' }}
-                >
-                  {tableOfContentsSections.map(({ heading, children }) => (
-                    <Box
-                      component="li"
-                      key={`${heading.level}-${heading.id}`}
-                      sx={{ py: 0.25, pl: 0.5 }}
-                    >
-                      <Link href={`#${heading.id}`} underline="hover">
-                        {headingsIncludeSectionNumbers
-                          ? heading.title.replace(/^\d+\.\s+/, '')
-                          : heading.title}
-                      </Link>
-                      {children.length > 0 && (
-                        <Box component="ul" sx={{ mt: 0.25, mb: 0.25, pl: 3 }}>
-                          {children.map((child) => (
-                            <Box
-                              component="li"
-                              key={`${child.level}-${child.id}`}
-                              sx={{ py: 0.25, pl: 0.25 }}
-                            >
-                              <Link href={`#${child.id}`} underline="hover">
-                                {child.title}
-                              </Link>
-                            </Box>
-                          ))}
-                        </Box>
-                      )}
-                    </Box>
-                  ))}
+                <Box component="nav" aria-label="Table of contents">
+                  <Typography
+                    variant="h6"
+                    component="h2"
+                    color="text.secondary"
+                    sx={{ mb: 1.5, fontWeight: 600 }}
+                  >
+                    Contents
+                  </Typography>
+                  <Box
+                    component="ol"
+                    sx={{
+                      m: 0,
+                      p: 0,
+                      listStyle: 'none',
+                      color: 'text.secondary',
+                    }}
+                  >
+                    {tableOfContentsSections.map(({ heading, children }) => (
+                      <Box
+                        component="li"
+                        key={`${heading.level}-${heading.id}`}
+                        sx={{ mb: 1.25 }}
+                      >
+                        <Link
+                          href={`#${heading.id}`}
+                          underline="hover"
+                          color="text.secondary"
+                          sx={{
+                            display: 'block',
+                            fontWeight: 500,
+                            lineHeight: 1.35,
+                          }}
+                        >
+                          {heading.title}
+                        </Link>
+                        {children.length > 0 && (
+                          <Box
+                            component="ul"
+                            sx={{
+                              m: 0,
+                              mt: 0.75,
+                              pl: 2,
+                              listStyle: 'none',
+                              borderLeft: 1,
+                              borderColor: 'divider',
+                            }}
+                          >
+                            {children.map((child) => (
+                              <Box
+                                component="li"
+                                key={`${child.level}-${child.id}`}
+                                sx={{ mb: 0.75, '&:last-child': { mb: 0 } }}
+                              >
+                                <Link
+                                  href={`#${child.id}`}
+                                  underline="hover"
+                                  color="text.secondary"
+                                  sx={{
+                                    display: 'block',
+                                    fontSize: '0.875rem',
+                                    lineHeight: 1.4,
+                                  }}
+                                >
+                                  {child.title}
+                                </Link>
+                              </Box>
+                            ))}
+                          </Box>
+                        )}
+                      </Box>
+                    ))}
+                  </Box>
                 </Box>
               </Box>
             )}
-
-            <Box
-              sx={{
-                '& code': {
-                  fontFamily: 'Menlo, Monaco, "Courier New", monospace',
-                  fontSize: '0.95em',
-                },
-              }}
-            >
-              <MDXRemote
-                source={content}
-                components={mdxComponents}
-                options={{
-                  mdxOptions: {
-                    remarkPlugins: [remarkGfm],
-                    rehypePlugins: [
-                      [
-                        rehypePrettyCode,
-                        { theme: 'github-dark', keepBackground: true },
-                      ],
-                    ],
-                  },
-                }}
-              />
-            </Box>
           </Box>
-
-          {relatedPosts.length > 0 && (
-            <Box
-              component="section"
-              aria-labelledby="related-writing"
-              sx={{ mt: 5 }}
-            >
-              <Typography
-                id="related-writing"
-                variant="h4"
-                component="h2"
-                sx={{ mb: 2 }}
-              >
-                Related writing &amp; talks
-              </Typography>
-              <Box component="ul" sx={{ listStyle: 'none', m: 0, p: 0 }}>
-                {relatedPosts.map((relatedPost) => (
-                  <BlogCard
-                    key={relatedPost.slug}
-                    post={relatedPost}
-                    headingLevel="h3"
-                  />
-                ))}
-              </Box>
-            </Box>
-          )}
         </Box>
       </PageShell>
     </>

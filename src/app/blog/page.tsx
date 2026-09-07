@@ -2,7 +2,7 @@ import BlogList from '@/components/blog/BlogList';
 import PageShell from '@/components/layout/PageShell';
 import { getAllPosts } from '@/lib/blog';
 import { SITE_AUTHOR, SITE_URL } from '@/lib/site';
-import { CONTENT_MAX_WIDTH } from '@/theme/layout';
+import { BLOG_INDEX_MAX_WIDTH } from '@/theme/layout';
 import { Box } from '@mui/material';
 import type { Metadata } from 'next';
 
@@ -56,7 +56,7 @@ export default function BlogPage() {
       <PageShell>
         <Box
           component="main"
-          sx={{ mx: 'auto', my: 4, maxWidth: CONTENT_MAX_WIDTH }}
+          sx={{ mx: 'auto', my: 4, maxWidth: BLOG_INDEX_MAX_WIDTH }}
         >
           <BlogList initialPosts={allPosts} />
         </Box>
