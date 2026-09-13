@@ -9,7 +9,7 @@ tags: ["AWS", "Terraform", "Infrastructure as Code"]
 
 I recently had the opportunity to use Terraformer at work to migrate existing AWS resources under Terraform management. With guidance from team members experienced in infrastructure, I learned a great deal throughout the process, so I'm documenting it here for future reference.
 
-<GitHubRepo url="https://github.com/GoogleCloudPlatform/terraformer" description="A CLI tool that generates tf/json and tfstate files based on existing infrastructure (reverse Terraform)." />
+::github{url="https://github.com/GoogleCloudPlatform/terraformer" description="A CLI tool that generates tf/json and tfstate files based on existing infrastructure (reverse Terraform)."}
 
 ## 1. What Is Terraformer?
 

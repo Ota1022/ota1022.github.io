@@ -13,12 +13,7 @@ On June 23, 2026, I spoke at [Meguro LT #37](https://meguro-lt.connpass.com/even
 
 Meguro LT is a community-run lightning-talk series in Tokyo. Despite the name, this edition was held at Hacobell's Hatchobori office. Its theme was “AI and Team Development: What Is Everyone Doing?”, with engineers sharing how tools such as ChatGPT, Claude, GitHub Copilot, and Cursor were being used in day-to-day team workflows.
 
-<ExternalArticleCard
-  url="https://note.com/hacobell/n/n7a867829c779"
-  source="Hacobell on note · Japanese"
-  title="Meguro LT #37: AI and Team Development Event Report"
-  description="The organizer's recap of all six talks, including this presentation as the event MVP."
-/>
+::article[Meguro LT #37: AI and Team Development Event Report]{url="https://note.com/hacobell/n/n7a867829c779" source="Hacobell on note · Japanese" description="The organizer's recap of all six talks, including this presentation as the event MVP."}
 
 ## What I shared
 
@@ -28,6 +23,6 @@ AI can make an implementation faster while making its decision trail harder to s
 
 That record can give a reviewer more context, but it also introduces a data-handling decision. Prompts and tool output may contain confidential information, and checkpoint data can be published with the repository if the team does not define its storage and sharing rules. My conclusion was that preserving reasoning is useful only when the team also agrees on what the AI may receive and what the repository may retain.
 
-<SpeakerDeckEmbed deckId="d46c1b58501a4a6dae4ea96810b1687a" title="Reading the Why Behind Commits" />
+::speakerdeck[Reading the Why Behind Commits]{id="d46c1b58501a4a6dae4ea96810b1687a"}
 
 [View the slides on Speaker Deck](https://speakerdeck.com/ota1022/komitutono-naze-wodu-mu).

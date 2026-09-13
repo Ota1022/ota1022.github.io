@@ -11,7 +11,7 @@ On August 4, 2026, I presented an Amazon ECS networking case study at [NW-JAWS #
 
 The full event recording is available below.
 
-<VideoEmbed videoId="Q6BfunW5CyQ" title="NW-JAWS #22 event recording" />
+::youtube[NW-JAWS #22 event recording]{id="Q6BfunW5CyQ"}
 
 ## About NW-JAWS
 
@@ -27,6 +27,6 @@ That distinction caused two separate failures in our test environment. The stand
 
 The more general conclusion was to consider temporarily starting the existing ECS service first, creating a dedicated test service second, and using a standalone task only when its separate discovery and callback paths are intentional. When a workload's launch method changes, outbound name resolution and inbound destination registration need to be checked independently.
 
-<SpeakerDeckEmbed deckId="5101ad2d3b9c4f519a38de98bd611a27" title="Reaching an Amazon ECS Service Connect Service from Outside an ECS Service" />
+::speakerdeck[Reaching an Amazon ECS Service Connect Service from Outside an ECS Service]{id="5101ad2d3b9c4f519a38de98bd611a27"}
 
 [View the slides on Speaker Deck](https://speakerdeck.com/ota1022/service-connect-shang-nosabisuni-ecs-service-nowai-ce-karadao-da-dekinakatutahua).

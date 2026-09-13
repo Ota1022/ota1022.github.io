@@ -38,7 +38,7 @@ The keynotes set out a direction: take what cloud native has learned over ten ye
 
 ### [The State of Cloud Native: The Shift Towards AI](https://kubecon-cloudnativecon-japan-2026.sessionize.com/session/1154416)
 
-<VideoEmbed videoId="6NLiR8uP1hE" title="The State of Cloud Native: The Shift Towards AI" />
+::youtube[The State of Cloud Native: The Shift Towards AI]{id="6NLiR8uP1hE"}
 
 Katie Gamanji, Principal Engineer at Apple, put the same shift a different way: "innovation within an established landscape." What carries over isn't only the design patterns, she argued, but open governance, vendor neutrality, and the way the community operates — the foundation for sustaining open source AI.
 
@@ -54,7 +54,7 @@ This was my first time hearing an Apple engineer speak live. The delivery, the p
 
 ### [Pluggable Interception: Using ExtAuthz and ExtProc in gRPC using xDS](https://kubecon-cloudnativecon-japan-2026.sessionize.com/session/1185705)
 
-<VideoEmbed videoId="y7Htyoy24BQ" title="Pluggable Interception: Using ExtAuthz and ExtProc in gRPC using xDS" />
+::youtube[Pluggable Interception: Using ExtAuthz and ExtProc in gRPC using xDS]{id="y7Htyoy24BQ"}
 
 A proxyless service mesh drops the sidecar. Instead of routing through an Envoy proxy, the gRPC library itself interprets xDS — the family of APIs a control plane uses to push routing and filter configuration out to the data plane. One less hop means lower latency and lower resource usage. Pawan Bhardwaj, Senior Software Engineer at Google and a gRPC maintainer, presented the work to bring new filters into that setup.
 
@@ -72,7 +72,7 @@ I use gRPC day to day, so this one sat near the top of my list. Authorization an
 
 ### [From Statsd to OpenTelemetry: Atlassian's Metrics Platform Migration at Scale](https://kubecon-cloudnativecon-japan-2026.sessionize.com/session/1191835)
 
-<VideoEmbed videoId="Qhtq9IuBKxg" title="From Statsd to OpenTelemetry: Atlassian's Metrics Platform Migration at Scale" />
+::youtube[From Statsd to OpenTelemetry: Atlassian's Metrics Platform Migration at Scale]{id="Qhtq9IuBKxg"}
 
 Atlassian's StatsD platform spanned 14 regions and roughly 100,000 hosts. Principal Software Engineer Iris Grace Endozo and Senior Software Engineer Farzad Vazirnia walked through moving all of it onto the OpenTelemetry Collector. The gostatsd deployment they had been running was stable enough; it just couldn't receive OTLP, and chasing Collector-equivalent optimizations on the gostatsd side had turned into real maintenance work.
 
@@ -84,7 +84,7 @@ Their first priority was to avoid changing what the metrics mean to the people r
 
 ### [Designing for High-cardinality Metrics](https://kubecon-cloudnativecon-japan-2026.sessionize.com/session/1194062)
 
-<VideoEmbed videoId="wI_nKRNjdxo" title="Designing for High-cardinality Metrics" />
+::youtube[Designing for High-cardinality Metrics]{id="wI_nKRNjdxo"}
 
 Reddit runs thousands of pods, and a single dashboard query can end up reading an enormous number of time series. Walther Lee (Software Engineer) and Aleksandr Krivoshchekov (Staff Software Engineer) walked through their fix: build Deployment-level aggregates at ingestion time, and keep them apart from the per-pod series they need during an incident.
 
@@ -96,7 +96,7 @@ I like fixes shaped like this one. Shrink the cumulative window to the scrape in
 
 ### [One Binary, Two Ecosystems: Embedding Prometheus Exporters with OCB](https://kubecon-cloudnativecon-japan-2026.sessionize.com/session/1189149)
 
-<VideoEmbed videoId="SbtH6iIt1DQ" title="One Binary, Two Ecosystems: Embedding Prometheus Exporters with OCB" />
+::youtube[One Binary, Two Ecosystems: Embedding Prometheus Exporters with OCB]{id="SbtH6iIt1DQ"}
 
 [opentelemetry-collector-bridge](https://github.com/prometheus/opentelemetry-collector-bridge) takes a Prometheus exporter and runs it as an OpenTelemetry Collector receiver. Kyle Eckhart (Principal Software Engineer) and Arthur Sens (Software Engineer) of Grafana Labs showed how it works: the exporter comes in as a library and runs inside the Collector process, with no HTTP endpoint exposed. The Bridge receiver drives the scrape loop within the Collector, reads in memory, and converts to OTel format. That puts a proven implementation on a new pipeline without rewriting an equivalent OTel receiver from scratch, and OCB (OpenTelemetry Collector Builder) selects only the components you need and builds them into a single binary.
 
@@ -108,7 +108,7 @@ A migration reuses more than implementations. The meaning that existing dashboar
 
 ### [Repurposing OpenTelemetry Traces as Test Data: Breaking the Cost Barrier in System Migration](https://kubecon-cloudnativecon-japan-2026.sessionize.com/session/1194861)
 
-<VideoEmbed videoId="68VhjKfv7KQ" title="Repurposing OpenTelemetry Traces as Test Data: Breaking the Cost Barrier in System Migration" />
+::youtube[Repurposing OpenTelemetry Traces as Test Data: Breaking the Cost Barrier in System Migration]{id="68VhjKfv7KQ"}
 
 The spec is gone and the code has no tests, so what do you compare against after a migration? Platform Engineer Yoshiki Fujikane of CyberAgent, Inc. answers with traces from the system already running. Record requests and responses in spans, replay the same requests against the migration target, compare the results, and you have characterization tests without reconstructing lost specifications or reading through untested code.
 
@@ -120,7 +120,7 @@ Piling up telemetry earns nothing on its own. It turns into something else — t
 
 ### [From Tool Calls to Context Fabric: Building AI-Native Observability for Platform Engineering](https://kubecon-cloudnativecon-japan-2026.sessionize.com/session/1194636)
 
-<VideoEmbed videoId="svCz4PBg0Uk" title="From Tool Calls to Context Fabric: Building AI-Native Observability for Platform Engineering" />
+::youtube[From Tool Calls to Context Fabric: Building AI-Native Observability for Platform Engineering]{id="svCz4PBg0Uk"}
 
 An alert fires on rising latency in the Thanos Store API. Three candidate causes line up, and not one has evidence behind it. That's where Deepak Choudhary, Senior Systems Software Engineer at NVIDIA, began his case for Context Fabric: prepare the context an investigation rests on before you hand it to an AI agent.
 
@@ -136,7 +136,7 @@ Three sessions covered handing judgment and work over to AI agents. None of thes
 
 ### [AIOps: (near) Zero-Touch Production Rollout Fixes](https://kubecon-cloudnativecon-japan-2026.sessionize.com/session/1145821)
 
-<VideoEmbed videoId="FH_fNfE90sU" title="AIOps: (near) Zero-Touch Production Rollout Fixes" />
+::youtube[AIOps: (near) Zero-Touch Production Rollout Fixes]{id="FH_fNfE90sU"}
 
 A canary release raises traffic to the new version in stages, checking at each step whether to keep going or roll back. Writing the conditions for that check has traditionally meant PromQL, one metric at a time. Kevin Dubois (Senior Principal Developer Advocate, IBM) and Carlos Sanchez (Principal Scientist, Adobe) presented a setup that hands the verdict to an AI agent instead.
 
@@ -148,7 +148,7 @@ A rollback lands you in a known prior state even when the call is wrong. A fix t
 
 ### [From Experiment to Enterprise: Scaling an AI Agent for Code Review](https://kubecon-cloudnativecon-japan-2026.sessionize.com/session/1194119)
 
-<VideoEmbed videoId="9ZF7bmwn_kI" title="From Experiment to Enterprise: Scaling an AI Agent for Code Review" />
+::youtube[From Experiment to Enterprise: Scaling an AI Agent for Code Review]{id="9ZF7bmwn_kI"}
 
 More than 400 PlayStation repositories run an AI code review agent. Adam Phan, Staff Software Engineer at Sony Interactive Entertainment, described how it got there. The hard part was never making an agent review code — it was operating one as a shared company-wide service while earning and holding onto trust. So a single review became a job with limits on input, output, and runtime. The agent reads the pull request diff and whatever context it's permitted to reference, uses only the tools it's allowed to use, and returns findings with supporting reasoning — nothing beyond that. Accepting a finding and merging the change stay with the engineer.
 
@@ -160,7 +160,7 @@ That's the detail I keep coming back to: every individual run looked fine, and t
 
 ### [The Great Doubt: What Building an AI Agent Taught Us About Trust](https://kubecon-cloudnativecon-japan-2026.sessionize.com/session/1192171)
 
-<VideoEmbed videoId="uW9Hlp3fT14" title="The Great Doubt: What Building an AI Agent Taught Us About Trust" />
+::youtube[The Great Doubt: What Building an AI Agent Taught Us About Trust]{id="uW9Hlp3fT14"}
 
 Grafana Assistant returned an analysis that read as though it had consulted Tempo traces — traces it had never received. A bug kept them out of the context, and the answer was plausible enough that human review missed the error. Nicole van der Hoeven, Senior Developer Advocate at Grafana Labs, started there and worked her way deeper into what to doubt: the agent, the tests, the grading model, the scores, and doubt itself. Her frame for all of it was the "Great Doubt" as taught by the philosopher Keiji Nishitani.
 

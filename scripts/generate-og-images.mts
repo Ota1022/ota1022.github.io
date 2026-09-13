@@ -340,13 +340,13 @@ async function main() {
     return;
   }
 
-  const files = fs.readdirSync(CONTENT_DIR).filter((f) => f.endsWith('.mdx'));
+  const files = fs.readdirSync(CONTENT_DIR).filter((f) => f.endsWith('.md'));
 
   let generated = 0;
   let skipped = 0;
 
   for (const file of files) {
-    const slug = file.replace(/\.mdx$/, '');
+    const slug = file.replace(/\.md$/, '');
     const fullPath = path.join(CONTENT_DIR, file);
     const raw = fs.readFileSync(fullPath, 'utf8');
     const { data } = matter(raw);

@@ -27,11 +27,11 @@ npm run format:biome # Biome formatter
 ### Components (`src/components/`)
 - `AboutMe.tsx`, `Contact.tsx` - Standalone portfolio section components
 - `layout/Header.tsx` - Navigation header with theme toggle and blog link
-- `blog/` - Blog-related components (BlogList, BlogCard, MDXComponents, CodeBlock)
+- `blog/` - Blog-related components (BlogList, BlogCard, MarkdownContent, MarkdownComponents, CodeBlock)
 - `icons/` - Custom SVG icon components (Zenn, SpeakerDeck, Credly)
 
 ### Content (`content/blog/`)
-MDX blog posts with frontmatter. Posts can be internal or link to external sources (Zenn, SpeakerDeck).
+Markdown blog posts with frontmatter and validated embed directives. Posts can be internal or link to external sources (Zenn, SpeakerDeck). See `docs/blog-authoring.md` for the authoring format.
 
 Frontmatter schema:
 ```yaml

@@ -6,9 +6,9 @@ export default defineConfig([
   ...nextVitals,
   ...nextTypescript,
   {
-    files: ['src/components/blog/MDXComponents.tsx'],
+    files: ['src/components/blog/MarkdownComponents.tsx'],
     rules: {
-      // MDX images are pre-sized WebP assets in a fully static export.
+      // Blog images are pre-sized assets in a fully static export.
       '@next/next/no-img-element': 'off',
     },
   },

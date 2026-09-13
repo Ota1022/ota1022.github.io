@@ -25,6 +25,6 @@ Local AWS emulators such as LocalStack make it possible to work quickly without 
 
 The talk treated local emulation as a useful starting point, while emphasizing that deployment design, IAM, logging, cost, secrets, and networking need separate attention before an application reaches AWS.
 
-<SpeakerDeckEmbed deckId="2026b4607da94c60ad2dbfe84ae6541c" title="From Docker to Amazon ECS: What to Know Before Moving to AWS" />
+::speakerdeck[From Docker to Amazon ECS: What to Know Before Moving to AWS]{id="2026b4607da94c60ad2dbfe84ae6541c"}
 
 [View the slides on Speaker Deck](https://speakerdeck.com/ota1022/dockerkaraecshe-awsnohai-nichu-ruqian-nizhi-tuteokitaikoto).

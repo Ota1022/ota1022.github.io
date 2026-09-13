@@ -17,9 +17,9 @@ export function getAllPosts(): BlogPostMetadata[] {
 
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames
-    .filter((fileName) => fileName.endsWith('.mdx'))
+    .filter((fileName) => fileName.endsWith('.md'))
     .map((fileName) => {
-      const slug = fileName.replace(/\.mdx$/, '');
+      const slug = fileName.replace(/\.md$/, '');
       const fullPath = path.join(postsDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, 'utf8');
       const { data, content } = matter(fileContents);
@@ -30,7 +30,7 @@ export function getAllPosts(): BlogPostMetadata[] {
         frontmatter,
         readingTimeMinutes: frontmatter.externalUrl
           ? undefined
-          : calculateReadingTime(content),
+          : calculateReadingTime(content, fileName),
       };
     });
 
@@ -46,7 +46,8 @@ export function getAllPosts(): BlogPostMetadata[] {
  * Get a single post by slug
  */
 export function getPostBySlug(slug: string): BlogPost | null {
-  const fullPath = path.join(postsDirectory, `${slug}.mdx`);
+  const fileName = `${slug}.md`;
+  const fullPath = path.join(postsDirectory, fileName);
 
   if (!fs.existsSync(fullPath)) {
     return null;
@@ -54,13 +55,13 @@ export function getPostBySlug(slug: string): BlogPost | null {
 
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
-  const frontmatter = parseBlogFrontmatter(data, `${slug}.mdx`);
+  const frontmatter = parseBlogFrontmatter(data, fileName);
 
   return {
     slug,
     frontmatter,
     content,
-    readingTimeMinutes: calculateReadingTime(content),
+    readingTimeMinutes: calculateReadingTime(content, fileName),
   };
 }
 
@@ -110,7 +111,7 @@ export function getAllPostSlugs(): string[] {
 
   const fileNames = fs.readdirSync(postsDirectory);
   return fileNames
-    .filter((fileName) => fileName.endsWith('.mdx'))
+    .filter((fileName) => fileName.endsWith('.md'))
     .filter((fileName) => {
       const fullPath = path.join(postsDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, 'utf8');
@@ -118,5 +119,5 @@ export function getAllPostSlugs(): string[] {
       const frontmatter = parseBlogFrontmatter(data, fileName);
       return !frontmatter.externalUrl;
     })
-    .map((fileName) => fileName.replace(/\.mdx$/, ''));
+    .map((fileName) => fileName.replace(/\.md$/, ''));
 }

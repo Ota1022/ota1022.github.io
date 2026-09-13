@@ -9,6 +9,7 @@ Personal portfolio website for Itaru OTA.
 ```bash
 npm install
 npm run dev
+npm run check
 ```
 
 ## CV generation
@@ -29,4 +30,7 @@ bash scripts/generate-cv.sh
 
 - Next.js 16 (App Router)
 - Material UI
-- MDX (Blog)
+- Markdown with validated embed directives (Blog)
+
+See [Blog authoring](docs/blog-authoring.md) for the frontmatter schema,
+supported embeds, validation rules, and preview workflow.
