@@ -4,7 +4,7 @@ description: "An NW-JAWS talk on why a standalone ECS task could neither resolve
 date: "2026-08-04"
 category: "activity"
 emoji: "🕵️"
-tags: ["Amazon ECS", "Service Connect", "JAWS-UG"]
+tags: ["Service Connect", "Amazon ECS", "JAWS-UG"]
 ---
 
 On August 4, 2026, I presented an Amazon ECS networking case study at [NW-JAWS #22](https://jawsug-nw.connpass.com/event/399100/). The talk explained why an end-to-end test running as a standalone ECS task could not communicate through Amazon ECS Service Connect in the same way as the application's normal services.

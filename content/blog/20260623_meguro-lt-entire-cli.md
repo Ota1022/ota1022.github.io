@@ -4,7 +4,7 @@ description: "A Meguro LT talk on linking AI coding sessions to Git commits so r
 date: "2026-06-23"
 category: "activity"
 emoji: "🔍"
-tags: ["AI", "Git", "Code Review"]
+tags: ["Git", "Code Review", "AI"]
 ---
 
 On June 23, 2026, I spoke at [Meguro LT #37](https://meguro-lt.connpass.com/event/390951/) about preserving the reasoning behind AI-assisted code changes. The Japanese title, *Reading the “Why” Behind a Commit*, introduced Entire CLI as one way to connect an AI coding session with the Git commit it produced.

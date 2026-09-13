@@ -4,7 +4,7 @@ description: "AWS selected 114 early-career engineers from APN companies for the
 date: "2026-06-25"
 category: "announcement"
 emoji: "🏆"
-tags: ["AWS", "AWS Jr. Champions"]
+tags: ["AWS Jr. Champions", "AWS"]
 ---
 
 AWS selected me as one of 114 members of the **2026 Japan AWS Jr. Champions** cohort.

@@ -4,7 +4,7 @@ description: "A JAWS-UG Ibaraki lightning talk on the work that led to AWS Jr. C
 date: "2026-07-22"
 category: "activity"
 emoji: "🎤"
-tags: ["AWS", "AWS Jr. Champions", "JAWS-UG"]
+tags: ["AWS Jr. Champions", "JAWS-UG", "AWS"]
 ---
 
 On July 22, 2026, I spoke at [JAWS-UG Ibaraki #15](https://jawsug-ibaraki.connpass.com/event/397307/) about how pursuing the Japan AWS Jr. Champions program changed the way I approach software engineering. The talk looked at the work before my selection and the direction I wanted to take afterward.

@@ -58,6 +58,8 @@ export interface BlogPostFrontmatter {
   ogImage?: string;
 }
 
+const MAX_BLOG_TAGS = 3;
+
 export function getBlogCategoryDefinition(category: BlogCategory) {
   return BLOG_CATEGORIES.find((definition) => definition.value === category);
 }
@@ -162,6 +164,18 @@ export function parseBlogFrontmatter(
     ) {
       throw new Error(
         `${source}: frontmatter.tags must be an array of non-empty strings`
+      );
+    }
+
+    if (value.tags.length > MAX_BLOG_TAGS) {
+      throw new Error(
+        `${source}: frontmatter.tags must contain at most ${MAX_BLOG_TAGS} tags`
+      );
+    }
+
+    if (new Set(value.tags).size !== value.tags.length) {
+      throw new Error(
+        `${source}: frontmatter.tags must not contain duplicates`
       );
     }
     tags = value.tags;

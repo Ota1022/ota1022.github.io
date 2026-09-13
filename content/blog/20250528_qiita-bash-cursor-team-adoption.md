@@ -4,7 +4,7 @@ description: "A lightning talk at Qiita Bash on the benefits, limits, and gradua
 date: "2025-05-28"
 category: "activity"
 emoji: "🧑‍💻"
-tags: ["AI", "Cursor", "Team Development"]
+tags: ["Cursor", "Team Development", "AI"]
 ---
 
 On May 28, 2025, I gave a lightning talk at [Qiita Bash: How Are You Using Generative AI Lately?](https://increments.connpass.com/event/351227/) about what happened during our first month of using Cursor as a team. The original Japanese title was *Can an AI Code Editor Change Development? An Honest Look After One Month of Team Adoption*.
