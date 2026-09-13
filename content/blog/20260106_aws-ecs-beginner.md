@@ -4,7 +4,7 @@ description: "A practical guide to choosing between Service Connect and Service 
 date: "2026-01-06"
 category: "blog"
 emoji: "🔗"
-tags: ["AWS", "Amazon ECS", "Service Connect"]
+tags: ["Service Connect", "Service Discovery", "Amazon ECS"]
 ---
 
 ## Why This Matters

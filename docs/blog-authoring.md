@@ -26,6 +26,40 @@ one of `blog`, `zenn`, `speakerdeck`, `announcement`, `activity`, or `other`.
 `emoji`, `tags`, and `ogImage` are optional. Set `externalUrl` for an entry that
 should link directly to another site and should not generate its own post page.
 
+### Tags
+
+Tags drive related-post matching and page metadata; they are not an exhaustive
+index of every technology in an article. Use two or three tags when they add
+useful connections to other posts. Choose the smallest set that answers what
+the post is primarily about:
+
+- Prefer established topics that can be reused across posts, such as a language,
+  platform, product, or community.
+- Describe the subject, not every technology mentioned or used to implement the
+  example. A supporting deployment tool does not need its own tag.
+- Avoid overlapping tags from the same hierarchy, such as a broad field and a
+  narrower technology, unless each one connects the post to a distinct group of
+  related posts.
+- Use the canonical product or community name. For example, use `Amazon ECS`
+  instead of `ECS`, `AWS X-Ray` instead of `X-Ray`, `Containers` instead of
+  `Container`, and `JAWS-UG` for every chapter.
+- Do not use an event name as a one-off tag when the title and `activity`
+  category already identify the event.
+
+Before adding a tag, search the existing frontmatter and reuse its spelling when
+the meaning matches:
+
+```bash
+rg '^tags:' content/blog
+```
+
+Add a new tag only when it is a central subject that distinguishes the post or
+is likely to recur in later posts.
+
+Tag order is most specific to most contextual: primary technology or subject,
+secondary technology, then community or program. The build rejects duplicate
+tags and more than three tags.
+
 ## Embeds
 
 Each embed occupies its own line. The title in square brackets becomes the

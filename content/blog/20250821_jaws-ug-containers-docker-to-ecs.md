@@ -4,7 +4,7 @@ description: "A beginner-focused lightning talk on the CI/CD, IAM, and observabi
 date: "2025-08-21"
 category: "activity"
 emoji: "🐳"
-tags: ["AWS", "Amazon ECS", "JAWS-UG"]
+tags: ["Amazon ECS", "Containers", "JAWS-UG"]
 ---
 
 On August 21, 2025, I gave my first JAWS-UG presentation at [JAWS-UG Containers for Beginners #8](https://jawsug-container.connpass.com/event/361918/). My talk, *From Docker to Amazon ECS: What to Know Before Heading Out into the AWS Ocean*, covered the concerns that appear when an application moves beyond a local Docker environment.

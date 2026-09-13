@@ -4,7 +4,7 @@ description: "A cloud security lightning talk on how GitHub Actions obtains shor
 date: "2025-09-25"
 category: "activity"
 emoji: "🔐"
-tags: ["AWS", "GitHub Actions", "Cloud Security"]
+tags: ["GitHub Actions", "OpenID Connect", "AWS"]
 ---
 
 On September 25, 2025, I presented at [3-shake SRE Tech Talk #13](https://3-shake.connpass.com/event/362683/) on the integration between GitHub Actions and AWS through OpenID Connect (OIDC). The talk explained both the authentication flow and the developments that made OIDC the standard choice for this use case.

@@ -4,7 +4,7 @@ description: "A practical guide to using Terraformer for converting existing AWS
 date: "2026-01-31"
 category: "blog"
 emoji: "🏗️"
-tags: ["AWS", "Terraform", "Infrastructure as Code"]
+tags: ["Terraformer", "Terraform", "AWS"]
 ---
 
 I recently had the opportunity to use Terraformer at work to migrate existing AWS resources under Terraform management. With guidance from team members experienced in infrastructure, I learned a great deal throughout the process, so I'm documenting it here for future reference.

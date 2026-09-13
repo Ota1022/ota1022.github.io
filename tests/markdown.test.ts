@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import matter from 'gray-matter';
+import { parseBlogFrontmatter } from '../src/lib/blog-schema';
 import {
   calculateReadingTime,
   extractTableOfContents,
@@ -44,6 +45,41 @@ test('all posts use Markdown and retain the expected slugs and frontmatter', () 
     assert.equal(typeof data.category, 'string');
     parseMarkdown(content, file);
   }
+});
+
+test('frontmatter accepts at most three unique tags', () => {
+  const frontmatter = {
+    title: 'Post title',
+    description: 'Post description',
+    date: '2026-09-13',
+    category: 'blog',
+  };
+
+  assert.doesNotThrow(() =>
+    parseBlogFrontmatter(
+      { ...frontmatter, tags: ['Rust', 'OpenTelemetry', 'AWS X-Ray'] },
+      'valid.md'
+    )
+  );
+  assert.throws(
+    () =>
+      parseBlogFrontmatter(
+        {
+          ...frontmatter,
+          tags: ['Rust', 'OpenTelemetry', 'AWS X-Ray', 'Amazon ECS'],
+        },
+        'too-many-tags.md'
+      ),
+    { message: /must contain at most 3 tags/ }
+  );
+  assert.throws(
+    () =>
+      parseBlogFrontmatter(
+        { ...frontmatter, tags: ['Rust', 'Rust'] },
+        'duplicate-tags.md'
+      ),
+    { message: /must not contain duplicates/ }
+  );
 });
 
 test('all four embed directives preserve decoded attribute values', () => {

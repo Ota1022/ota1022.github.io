@@ -4,7 +4,7 @@ description: "From an ideathon and the Tokyo AI Hackathon to a community meetup,
 date: "2025-10-30"
 category: "activity"
 emoji: "🛠️"
-tags: ["AI", "Raycast", "Hackathon"]
+tags: ["Raycast", "AI", "Hackathon"]
 ---
 
 Between October 23 and 31, 2025, I attended three events organized by Raycast Community Japan: an ideathon, the Tokyo AI Hackathon, and Raycast Meetup Japan #2. Together, they took an idea from a brainstorming session to a working Raycast extension and then into conversations with the wider community.

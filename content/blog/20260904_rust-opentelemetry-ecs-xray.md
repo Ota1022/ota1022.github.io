@@ -4,7 +4,7 @@ description: "Sending spans from a Rust axum app through an ADOT Collector sidec
 date: "2026-09-04"
 category: "blog"
 emoji: "🦀"
-tags: ["Rust", "OpenTelemetry", "AWS", "ECS", "Fargate", "X-Ray", "Terraform", "Observability"]
+tags: ["OpenTelemetry", "Rust", "AWS X-Ray"]
 ---
 
 This is a starter walkthrough for distributed tracing. A Rust web app sends spans through an ADOT Collector on ECS Fargate to AWS X-Ray, and the stored traces come back through the AWS CLI and a local Grafana.
