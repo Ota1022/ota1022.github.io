@@ -288,7 +288,7 @@ With the app and its Dockerfile in place, Terraform creates the image registry a
 
 All the Terraform lives in one [`main.tf`](https://github.com/Ota1022/rust-xray-handson/blob/main/terraform/main.tf). Dropped in as `rust-xray-handson/terraform/main.tf`, it creates a VPC, public subnets, IAM roles, a CloudWatch Logs group, an ECS cluster, a task definition, and an ECS service.
 
-<GitHubRepo url="https://github.com/Ota1022/rust-xray-handson" description="The Rust app, Dockerfile, and Terraform configuration used in this walkthrough." />
+::github{url="https://github.com/Ota1022/rust-xray-handson" description="The Rust app, Dockerfile, and Terraform configuration used in this walkthrough."}
 
 The source allowed to reach port 8080 comes from the `allowed_ingress_cidr` variable, which takes only a `/32` IPv4 CIDR. The deployment steps set it from your own public IP address.
 
@@ -304,7 +304,7 @@ Three decisions shape the rest.
 
 One task definition holds both the app and the ADOT Collector.
 
-![One ECS task definition holding the app and adot-collector containers, connected over OTLP/gRPC on localhost:4317](/blog/images/rust-opentelemetry-ecs-xray/ecs-task-definition.png)
+![One ECS task definition holding the app and adot-collector containers, connected over OTLP/gRPC on localhost\:4317](/blog/images/rust-opentelemetry-ecs-xray/ecs-task-definition.png)
 
 Here is that task definition with only the CloudWatch Logs configuration left out.
 

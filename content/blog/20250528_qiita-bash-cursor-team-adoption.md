@@ -9,7 +9,7 @@ tags: ["AI", "Cursor", "Team Development"]
 
 On May 28, 2025, I gave a lightning talk at [Qiita Bash: How Are You Using Generative AI Lately?](https://increments.connpass.com/event/351227/) about what happened during our first month of using Cursor as a team. The original Japanese title was *Can an AI Code Editor Change Development? An Honest Look After One Month of Team Adoption*.
 
-<VideoEmbed videoId="JQPfFtRd45A" title="Can an AI Code Editor Change Development? One Month After Introducing Cursor to a Team" />
+::youtube[Can an AI Code Editor Change Development? One Month After Introducing Cursor to a Team]{id="JQPfFtRd45A"}
 
 ## About Qiita Bash
 
@@ -23,6 +23,6 @@ After one month, team members reported faster implementation, less effort spent 
 
 The main point was that introducing an AI editor can encourage wider use of AI, but a single mandatory tool does not fit every engineer or project. We kept adoption optional, shared tips and project examples internally, and allowed Cursor to be used alongside existing editors.
 
-<SpeakerDeckEmbed deckId="e0d81e214d584ead8ab959c1dea62a43" title="Can an AI Code Editor Change Development? One Month After Introducing Cursor to a Team" />
+::speakerdeck[Can an AI Code Editor Change Development? One Month After Introducing Cursor to a Team]{id="e0d81e214d584ead8ab959c1dea62a43"}
 
 [View the slides on Speaker Deck](https://speakerdeck.com/ota1022/aikodoedeitahakai-fa-wobian-eruka-cursorwotimunidao-ru-site1keyue-jing-tutaben-yin).

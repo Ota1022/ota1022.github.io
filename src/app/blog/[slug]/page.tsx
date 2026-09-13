@@ -1,7 +1,7 @@
 import BlogCard from '@/components/blog/BlogCard';
 import BlogCategoryChip from '@/components/blog/BlogCategoryChip';
 import BlogEmoji from '@/components/blog/BlogEmoji';
-import { mdxComponents } from '@/components/blog/MDXComponents';
+import { MarkdownContent } from '@/components/blog/MarkdownContent';
 import PageShell from '@/components/layout/PageShell';
 import { getAllPostSlugs, getPostBySlug, getRelatedPosts } from '@/lib/blog';
 import { formatDateOnly } from '@/lib/date';
@@ -15,10 +15,7 @@ import {
 } from '@/theme/layout';
 import { Box, Chip, Link, Typography } from '@mui/material';
 import type { Metadata } from 'next';
-import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
-import rehypePrettyCode from 'rehype-pretty-code';
-import remarkGfm from 'remark-gfm';
 
 const PLACEHOLDER_SLUG = '__blog-placeholder__';
 
@@ -117,7 +114,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const { frontmatter, content, readingTimeMinutes } = post;
   const formattedDate = formatDateOnly(frontmatter.date);
-  const tableOfContents = extractTableOfContents(content);
+  const fileName = `${slug}.md`;
+  const tableOfContents = extractTableOfContents(content, fileName);
   const tableOfContentsSections = groupTableOfContents(tableOfContents);
   const sectionHeadings = tableOfContents.filter(
     (heading) => heading.level === 2
@@ -301,21 +299,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     },
                   }}
                 >
-                  <MDXRemote
-                    source={content}
-                    components={mdxComponents}
-                    options={{
-                      mdxOptions: {
-                        remarkPlugins: [remarkGfm],
-                        rehypePlugins: [
-                          [
-                            rehypePrettyCode,
-                            { theme: 'github-dark', keepBackground: true },
-                          ],
-                        ],
-                      },
-                    }}
-                  />
+                  <MarkdownContent source={content} fileName={fileName} />
                 </Box>
               </Box>
 

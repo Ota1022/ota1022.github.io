@@ -21,6 +21,6 @@ This removes the need to store long-lived IAM access keys as repository secrets.
 
 I also traced the adoption path from the OpenID Connect standard to GitHub Actions support, AWS guidance, and later security improvements. The broader lesson was that using OIDC is only one part of the setup: trust-policy conditions, explicit `id-token: write` permission, least-privilege IAM roles, and pinned third-party actions still determine the strength of the workflow.
 
-<SpeakerDeckEmbed deckId="100b23be8cdb48eeb8eb092c2a99b519" title="Understanding GitHub Actions and AWS OIDC Integration" />
+::speakerdeck[Understanding GitHub Actions and AWS OIDC Integration]{id="100b23be8cdb48eeb8eb092c2a99b519"}
 
 [View the slides on Speaker Deck](https://speakerdeck.com/ota1022/github-actions-x-aws-oidclian-xi-noshi-zu-mitojing-wei-woli-jie-suru).

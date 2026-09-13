@@ -7,27 +7,22 @@ Place images for blog posts in this directory.
 ### Placing Images
 
 1. Place image files in this directory (`public/blog/images/`)
-2. Reference them in MDX files as follows:
+2. Reference them in Markdown files as follows:
 
-```mdx
+```md
 ![Image description](/blog/images/your-image.webp)
-```
-
-Or use HTML img tag:
-
-```mdx
-<img src="/blog/images/your-image.webp" alt="Image description" />
 ```
 
 ### Example
 
-Article file: `content/blog/my-post.mdx`
+Article file: `content/blog/my-post.md`
 
-```mdx
+```md
 ---
 title: "My Post"
+description: "A short summary of the post."
 date: "2024-12-11"
-category: "tech"
+category: "blog"
 ---
 
 ## Introduction

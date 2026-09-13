@@ -11,7 +11,7 @@ On July 22, 2026, I spoke at [JAWS-UG Ibaraki #15](https://jawsug-ibaraki.connpa
 
 The full event recording is available below.
 
-<VideoEmbed videoId="6wdcJkyo1Es" title="JAWS-UG Ibaraki #15 event recording" />
+::youtube[JAWS-UG Ibaraki #15 event recording]{id="6wdcJkyo1Es"}
 
 ## About JAWS-UG Ibaraki #15
 
@@ -27,6 +27,6 @@ Preparing for the program shifted my attention from describing what I built to e
 
 My next goal is to keep treating applications and AWS infrastructure as one software system. That includes sharing implementation and operational knowledge inside the company, helping other early-career engineers participate in the community, and continuing toward the Japan AWS Top Engineers program.
 
-<SpeakerDeckEmbed deckId="fded038548804f7da38b29aba70f1cfc" title="Reflecting on Software Engineering as an AWS Jr. Champion" />
+::speakerdeck[Reflecting on Software Engineering as an AWS Jr. Champion]{id="fded038548804f7da38b29aba70f1cfc"}
 
 [View the slides on Speaker Deck](https://speakerdeck.com/ota1022/sohutoueaenziniaringutoxiang-kihe-isok-keru-aws-jr-championsxuan-chu-qian-hou-dekao-etakoto). I also wrote a separate note about [being named a 2026 Japan AWS Jr. Champion](/blog/20260625_aws-jr-champions-2026).

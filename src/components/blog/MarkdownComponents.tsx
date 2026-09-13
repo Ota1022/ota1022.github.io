@@ -9,13 +9,13 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import type { MDXComponents } from 'mdx/types';
-import type { ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import { slugifyHeading } from '@/lib/markdown';
 import { ANCHOR_SCROLL_MARGIN } from '@/theme/layout';
 import { CodeBlock } from './CodeBlock';
 import { ExternalArticleCard } from './ExternalArticleCard';
 import { GitHubRepoCard } from './GitHubRepoCard';
+import { SpeakerDeckEmbed, VideoEmbed } from './MediaEmbeds';
 
 const BLOG_IMAGE_DIMENSIONS: Record<string, { width: number; height: number }> =
   {
@@ -31,90 +31,17 @@ const BLOG_IMAGE_DIMENSIONS: Record<string, { width: number; height: number }> =
       },
   };
 
-interface VideoEmbedProps {
-  videoId: string;
-  title: string;
-}
-
-interface SpeakerDeckEmbedProps {
-  deckId: string;
-  title: string;
-}
-
-function VideoEmbed({ videoId, title }: VideoEmbedProps) {
-  return (
-    <Box
-      component="figure"
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        width: '100%',
-        m: 0,
-        my: 3,
-      }}
-    >
-      <iframe
-        src={`https://www.youtube-nocookie.com/embed/${videoId}`}
-        title={title}
-        loading="lazy"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-        style={{
-          display: 'block',
-          width: '100%',
-          maxWidth: '56rem',
-          aspectRatio: '16 / 9',
-          border: 0,
-        }}
-      />
-    </Box>
-  );
-}
-
-function SpeakerDeckEmbed({ deckId, title }: SpeakerDeckEmbedProps) {
-  return (
-    <Box
-      component="figure"
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        width: '100%',
-        m: 0,
-        my: 3,
-      }}
-    >
-      <iframe
-        src={`https://speakerdeck.com/player/${deckId}`}
-        title={title}
-        loading="lazy"
-        allowFullScreen
-        style={{
-          display: 'block',
-          width: '100%',
-          maxWidth: '56rem',
-          aspectRatio: '710 / 399',
-          border: 0,
-          padding: 0,
-          margin: 0,
-          background: 'transparent',
-          clipPath: 'inset(4px)',
-        }}
-      />
-    </Box>
-  );
-}
-
 /**
- * Custom components for MDX
+ * Custom components for Markdown
  * Applies styles integrated with MUI theme
  */
-export const mdxComponents: MDXComponents = {
-  ExternalArticleCard,
-  SpeakerDeckEmbed,
-  VideoEmbed,
-  h1: ({ children }) => (
+export const markdownComponents = {
+  'external-article': ExternalArticleCard,
+  'speakerdeck-embed': SpeakerDeckEmbed,
+  'youtube-embed': VideoEmbed,
+  h1: ({ children, id }: { children?: ReactNode; id?: string }) => (
     <Typography
-      id={slugifyHeading(getTextContent(children))}
+      id={id ?? slugifyHeading(getTextContent(children))}
       variant="h3"
       component="h2"
       gutterBottom
@@ -123,9 +50,9 @@ export const mdxComponents: MDXComponents = {
       {children}
     </Typography>
   ),
-  h2: ({ children }) => (
+  h2: ({ children, id }: { children?: ReactNode; id?: string }) => (
     <Typography
-      id={slugifyHeading(getTextContent(children))}
+      id={id ?? slugifyHeading(getTextContent(children))}
       variant="h4"
       component="h2"
       gutterBottom
@@ -141,9 +68,9 @@ export const mdxComponents: MDXComponents = {
       {children}
     </Typography>
   ),
-  h3: ({ children }) => (
+  h3: ({ children, id }: { children?: ReactNode; id?: string }) => (
     <Typography
-      id={slugifyHeading(getTextContent(children))}
+      id={id ?? slugifyHeading(getTextContent(children))}
       variant="h5"
       component="h3"
       gutterBottom
@@ -152,12 +79,12 @@ export const mdxComponents: MDXComponents = {
       {children}
     </Typography>
   ),
-  h4: ({ children }) => (
+  h4: ({ children }: ComponentProps<'h4'>) => (
     <Typography variant="h6" component="h4" gutterBottom sx={{ mt: 2, mb: 1 }}>
       {children}
     </Typography>
   ),
-  p: ({ children }) => (
+  p: ({ children }: ComponentProps<'p'>) => (
     <Typography
       variant="body1"
       paragraph
@@ -166,7 +93,7 @@ export const mdxComponents: MDXComponents = {
       {children}
     </Typography>
   ),
-  a: ({ href, children }) => {
+  a: ({ href, children }: ComponentProps<'a'>) => {
     const isExternal = typeof href === 'string' && /^https?:\/\//.test(href);
 
     return (
@@ -180,17 +107,17 @@ export const mdxComponents: MDXComponents = {
       </MuiLink>
     );
   },
-  ul: ({ children }) => (
+  ul: ({ children }: ComponentProps<'ul'>) => (
     <Box component="ul" sx={{ pl: 3, mb: 2 }}>
       {children}
     </Box>
   ),
-  ol: ({ children }) => (
+  ol: ({ children }: ComponentProps<'ol'>) => (
     <Box component="ol" sx={{ pl: 3, mb: 2 }}>
       {children}
     </Box>
   ),
-  li: ({ children }) => (
+  li: ({ children }: ComponentProps<'li'>) => (
     <Typography
       component="li"
       variant="body1"
@@ -199,7 +126,7 @@ export const mdxComponents: MDXComponents = {
       {children}
     </Typography>
   ),
-  blockquote: ({ children }) => (
+  blockquote: ({ children }: ComponentProps<'blockquote'>) => (
     <Box
       component="blockquote"
       sx={{
@@ -215,7 +142,7 @@ export const mdxComponents: MDXComponents = {
       {children}
     </Box>
   ),
-  code: ({ children, className, ...props }) => {
+  code: ({ children, className, ...props }: ComponentProps<'code'>) => {
     // rehype-pretty-code uses data-language for fenced code blocks
     const isInline =
       !className && !(props as Record<string, unknown>)['data-language'];
@@ -248,7 +175,7 @@ export const mdxComponents: MDXComponents = {
       </code>
     );
   },
-  pre: ({ children, ...rest }) => {
+  pre: ({ children, ...rest }: ComponentProps<'pre'>) => {
     return <CodeBlock {...rest}>{children}</CodeBlock>;
   },
   hr: () => (
@@ -262,7 +189,7 @@ export const mdxComponents: MDXComponents = {
       }}
     />
   ),
-  img: ({ src, alt, width, height }) => {
+  img: ({ src, alt, width, height }: ComponentProps<'img'>) => {
     const dimensions =
       typeof src === 'string' ? BLOG_IMAGE_DIMENSIONS[src] : undefined;
 
@@ -291,15 +218,19 @@ export const mdxComponents: MDXComponents = {
       </Box>
     );
   },
-  table: ({ children }) => (
+  table: ({ children }: ComponentProps<'table'>) => (
     <TableContainer sx={{ my: 3, overflowX: 'auto' }}>
       <Table sx={{ border: 1, borderColor: 'divider' }}>{children}</Table>
     </TableContainer>
   ),
-  thead: ({ children }) => <TableHead>{children}</TableHead>,
-  tbody: ({ children }) => <TableBody>{children}</TableBody>,
-  tr: ({ children }) => <TableRow>{children}</TableRow>,
-  th: ({ children }) => (
+  thead: ({ children }: ComponentProps<'thead'>) => (
+    <TableHead>{children}</TableHead>
+  ),
+  tbody: ({ children }: ComponentProps<'tbody'>) => (
+    <TableBody>{children}</TableBody>
+  ),
+  tr: ({ children }: ComponentProps<'tr'>) => <TableRow>{children}</TableRow>,
+  th: ({ children }: ComponentProps<'th'>) => (
     <TableCell
       component="th"
       sx={{
@@ -312,12 +243,12 @@ export const mdxComponents: MDXComponents = {
       {children}
     </TableCell>
   ),
-  td: ({ children }) => (
+  td: ({ children }: ComponentProps<'td'>) => (
     <TableCell sx={{ borderBottom: 1, borderColor: 'divider' }}>
       {children}
     </TableCell>
   ),
-  GitHubRepo: GitHubRepoCard,
+  'github-repo': GitHubRepoCard,
 };
 
 function getTextContent(node: ReactNode): string {

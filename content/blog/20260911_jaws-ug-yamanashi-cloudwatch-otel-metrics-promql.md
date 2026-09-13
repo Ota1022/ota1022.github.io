@@ -60,8 +60,8 @@ All thirteen points fell inside the range for every indicator on both paths. The
 
 The instrumentation code did not need to change to move the destination to CloudWatch. What changes is the Collector's destination configuration, meaning the OTLP endpoint, SigV4 signing, and IAM permissions, and the PromQL, which has to follow the destination's metric names, attribute names, and histogram representation.
 
-<SpeakerDeckEmbed deckId="6f4d9d38e5b743db8eb883e8ab64d4bb" title="Sending OpenTelemetry Metrics to CloudWatch and Querying Them with PromQL" />
+::speakerdeck[Sending OpenTelemetry Metrics to CloudWatch and Querying Them with PromQL]{id="6f4d9d38e5b743db8eb883e8ab64d4bb"}
 
 [View the slides on Speaker Deck](https://speakerdeck.com/ota1022/opentelemetry-no-o-cloudwatch-ni-oku-te-promql-de-mi-te-mita). The CloudWatch side of the experiment is available as Terraform.
 
-<GitHubRepo url="https://github.com/Ota1022/cloudwatch-otel-metrics-ecs-fargate" description="Terraform for the ECS Fargate task used on the CloudWatch path." />
+::github{url="https://github.com/Ota1022/cloudwatch-otel-metrics-ecs-fargate" description="Terraform for the ECS Fargate task used on the CloudWatch path."}

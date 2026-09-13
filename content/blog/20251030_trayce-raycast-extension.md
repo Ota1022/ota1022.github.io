@@ -125,11 +125,11 @@ During development, I found that Raycast's Clipboard History API returned only f
 
 I wrote a separate Japanese guide to [developing a Raycast extension](https://zenn.dev/iorandd/articles/20251215_start-raycast-extension-dev), covering the process from creating a project template to publishing in the Raycast Store.
 
-<GitHubRepo url="https://github.com/Ota1022/trayce" description="A Raycast extension that generates procedure documents from clipboard history." />
+::github{url="https://github.com/Ota1022/trayce" description="A Raycast extension that generates procedure documents from clipboard history."}
 
 The pitch emphasized the demonstration, but I also prepared a short deck to establish the concept before showing the product.
 
-<SpeakerDeckEmbed deckId="35cab14e743746aaab971e3628cf7406" title="Trayce, a Raycast Extension" />
+::speakerdeck[Trayce, a Raycast Extension]{id="35cab14e743746aaab971e3628cf7406"}
 
 [View the pitch deck on Speaker Deck](https://speakerdeck.com/ota1022/trayce-a-raycast-extension-tokyo-ai-hackathon-2025).
 
