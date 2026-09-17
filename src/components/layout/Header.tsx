@@ -46,6 +46,9 @@ export default function Header() {
         px: 0,
         py: { xs: 2, sm: 2.5 },
         fontFamily: 'var(--font-inconsolata)',
+        // Snapshotted separately during route transitions so the page body
+        // can crossfade underneath while the header stays put (globals.css).
+        viewTransitionName: 'site-header',
       }}
     >
       <Box

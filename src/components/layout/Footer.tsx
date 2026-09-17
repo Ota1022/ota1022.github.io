@@ -1,4 +1,5 @@
 import { Box, Link, Typography } from '@mui/material';
+import RouterLink from './RouterLink';
 
 export default function Footer() {
   return (
@@ -24,9 +25,14 @@ export default function Footer() {
         © {new Date().getFullYear()} Itaru OTA
       </Typography>
       <Box sx={{ display: 'flex', gap: 2 }}>
-        <Link href="/blog" color="inherit" underline="hover" variant="caption">
+        <RouterLink
+          href="/blog"
+          color="inherit"
+          underline="hover"
+          variant="caption"
+        >
           Blog
-        </Link>
+        </RouterLink>
         <Link
           href="/cv.pdf"
           target="_blank"

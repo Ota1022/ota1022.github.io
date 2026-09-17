@@ -2,9 +2,12 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/*
+ * `scroll-behavior: smooth` is deliberately not set on the root. It would also
+ * animate scrolls the reader did not ask for: the browser's scroll restoration
+ * on back/forward navigation and the jump to the top on route changes. In-page
+ * links that should glide opt in themselves (see TocLink).
+ */
 
 /*
  * The canvas is painted before MUI's CSS variables are available, so the
@@ -79,8 +82,54 @@ figure[data-rehype-pretty-code-figure] {
   padding: 0 0.5rem;
 }
 
+/*
+ * Route transitions.
+ *
+ * Client-side navigations run through React's <ViewTransition> boundary in
+ * PageShell; the rare full-page navigation opts into the browser's
+ * cross-document transition. Both crossfade over the same 200ms so the two
+ * paths feel identical.
+ */
+@view-transition {
+  /* biome-ignore lint/correctness/noUnknownProperty: descriptor of the @view-transition rule, not a property */
+  navigation: auto;
+}
+
+::view-transition-group(*),
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 200ms;
+  animation-timing-function: ease;
+}
+
+/*
+ * The header renders the same on both sides of a navigation, so it is
+ * snapshotted on its own and swapped without animating: the page body
+ * crossfades underneath while the header appears to stand still.
+ */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 1;
+}
+
+::view-transition-old(site-header) {
+  display: none;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* The overlay would otherwise swallow clicks for the length of the animation. */
+::view-transition {
+  pointer-events: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
   }
 }
