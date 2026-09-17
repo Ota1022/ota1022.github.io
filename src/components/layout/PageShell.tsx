@@ -1,11 +1,10 @@
-import { Container, type ContainerProps } from '@mui/material';
+import { Container } from '@mui/material';
 import { type ReactNode, ViewTransition } from 'react';
 import Footer from './Footer';
 import Header from './Header';
 
 interface PageShellProps {
   children: ReactNode;
-  maxWidth?: ContainerProps['maxWidth'];
 }
 
 // Client-side navigations crossfade the whole page; the timing lives in
@@ -17,14 +16,15 @@ interface PageShellProps {
 // that information past host elements, so a boundary nested inside the
 // Container would never animate. The header sits inside the boundary as a
 // result, and is pinned in place via `view-transition-name` (see Header).
-export default function PageShell({
-  children,
-  maxWidth = 'md',
-}: PageShellProps) {
+//
+// The Container is the same width on every route so the pinned header has
+// identical geometry on both sides of a navigation. Pages size their own
+// content column inside it.
+export default function PageShell({ children }: PageShellProps) {
   return (
     <ViewTransition>
       <Container
-        maxWidth={maxWidth}
+        maxWidth="lg"
         sx={{ px: { xs: 2, sm: 3 }, pb: { xs: 1, sm: 2 } }}
       >
         <Header />

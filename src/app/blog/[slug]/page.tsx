@@ -151,7 +151,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           __html: JSON.stringify(blogPostingJsonLd).replace(/</g, '\\u003c'),
         }}
       />
-      <PageShell maxWidth="lg">
+      <PageShell>
         <Box
           component="main"
           sx={{ mx: 'auto', my: 4, maxWidth: BLOG_POST_MAX_WIDTH }}

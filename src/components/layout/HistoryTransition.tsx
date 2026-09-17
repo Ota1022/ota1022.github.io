@@ -12,6 +12,7 @@ interface NavigateEventLike extends Event {
     readonly url: string;
     readonly sameDocument: boolean;
   };
+  readonly signal: AbortSignal;
   intercept(options: {
     handler?: () => Promise<void>;
     scroll?: 'after-transition' | 'manual';
@@ -21,11 +22,14 @@ interface NavigateEventLike extends Event {
 
 interface PendingTraversal {
   event: NavigateEventLike;
+  /** Lets the intercepted navigation finish. */
   settle: () => void;
 }
 
-/** Upper bound on waiting for React to commit the traversed-to page. */
-const COMMIT_TIMEOUT_MS = 1500;
+/** How long the crossfade waits for React to commit the traversed-to page. */
+const VISUAL_WAIT_MS = 1500;
+/** After this, a traversal that never committed is given up on entirely. */
+const ABANDON_MS = 10_000;
 
 // Crossfades browser back/forward the same way links crossfade.
 //
@@ -41,10 +45,12 @@ const COMMIT_TIMEOUT_MS = 1500;
 // 3. Inside the view transition's update callback, once the old page is
 //    captured, popstate is re-dispatched so Next.js restores the route. When the
 //    new page commits (pathname changes), the scroll position is restored and
-//    the callback resolves, so the new snapshot shows the restored position.
+//    the intercepted navigation finishes, so the new snapshot shows the
+//    restored position.
 //
-// Browsers without the Navigation API (or with reduced motion) keep the plain,
-// instant traversal.
+// A slow commit ends only the visual wait; scroll restoration still happens
+// when the page commits. Browsers without the Navigation API (or with reduced
+// motion) keep the plain, instant traversal.
 export default function HistoryTransition() {
   const pathname = usePathname();
   const onCommit = useRef<(() => void) | null>(null);
@@ -67,6 +73,10 @@ export default function HistoryTransition() {
     let redispatching = false;
 
     const onNavigate = (event: Event) => {
+      // Any navigation supersedes a traversal still waiting for its popstate,
+      // so a later (for example hash-only) popstate is never mistaken for it.
+      pending = null;
+
       const navigateEvent = event as NavigateEventLike;
       if (
         navigateEvent.navigationType !== 'traverse' ||
@@ -79,11 +89,23 @@ export default function HistoryTransition() {
       ) {
         return;
       }
+
+      const traversal: PendingTraversal = {
+        event: navigateEvent,
+        settle: () => {},
+      };
       const done = new Promise<void>((resolve) => {
-        pending = { event: navigateEvent, settle: resolve };
-        // Never leave the navigation hanging if popstate does not follow.
-        window.setTimeout(resolve, COMMIT_TIMEOUT_MS * 2);
+        traversal.settle = resolve;
       });
+      // Never leave the navigation hanging if popstate does not follow.
+      const forget = () => {
+        if (pending === traversal) {
+          pending = null;
+        }
+        traversal.settle();
+      };
+      pending = traversal;
+      window.setTimeout(forget, ABANDON_MS);
       navigateEvent.intercept({ scroll: 'manual', handler: () => done });
     };
 
@@ -91,25 +113,49 @@ export default function HistoryTransition() {
       if (redispatching || pending === null) {
         return;
       }
-      const { event: navigateEvent, settle } = pending;
+      const traversal = pending;
       pending = null;
+      const { event: navigateEvent } = traversal;
       event.stopImmediatePropagation();
+
+      let endVisualWait: (() => void) | null = null;
+
+      // Stop waiting for this traversal, whichever way it ended.
+      const finish = () => {
+        window.clearTimeout(abandonTimer);
+        if (onCommit.current === commit) {
+          onCommit.current = null;
+        }
+        endVisualWait?.();
+        endVisualWait = null;
+        traversal.settle();
+      };
+      // React has committed the traversed-to page: restore the scroll position
+      // against the new DOM, then let the navigation finish.
+      //
+      // The interception's signal is not consulted here. While applying the
+      // traversal Next.js calls `history.replaceState`, which the Navigation
+      // API reports as aborting the intercepted traversal, yet `scroll()` still
+      // restores the position afterwards. Treating that abort as "superseded"
+      // would drop the restoration on every back navigation.
+      const commit = () => {
+        try {
+          navigateEvent.scroll();
+        } catch {
+          // Already restored, or the traversal was genuinely superseded.
+        }
+        finish();
+      };
+      const abandonTimer = window.setTimeout(finish, ABANDON_MS);
 
       const transition = document.startViewTransition(
         () =>
           new Promise<void>((resolve) => {
-            const finish = () => {
-              window.clearTimeout(timer);
-              onCommit.current = null;
-              try {
-                navigateEvent.scroll();
-              } catch {
-                // Already restored, or the traversal was superseded.
-              }
-              resolve();
-            };
-            const timer = window.setTimeout(finish, COMMIT_TIMEOUT_MS);
-            onCommit.current = finish;
+            endVisualWait = resolve;
+            // A slow commit should not freeze rendering; the page then appears
+            // without the crossfade, and the scroll is still restored on commit.
+            window.setTimeout(resolve, VISUAL_WAIT_MS);
+            onCommit.current = commit;
             redispatching = true;
             try {
               window.dispatchEvent(
@@ -120,7 +166,6 @@ export default function HistoryTransition() {
             }
           })
       );
-      transition.updateCallbackDone.then(settle, settle);
       // The browser skips the animation (and rejects these) when the document
       // is hidden; the route still updates, so there is nothing to handle.
       transition.ready.catch(() => {});
