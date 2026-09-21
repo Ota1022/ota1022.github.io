@@ -10,6 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import type { ComponentProps, ReactNode } from 'react';
+import RouterLink from '@/components/layout/RouterLink';
 import { slugifyHeading } from '@/lib/markdown';
 import { ANCHOR_SCROLL_MARGIN } from '@/theme/layout';
 import { CodeBlock } from './CodeBlock';
@@ -94,6 +95,16 @@ export const markdownComponents = {
     </Typography>
   ),
   a: ({ href, children }: ComponentProps<'a'>) => {
+    // Site-relative links go through the client router so they get the same
+    // crossfade as the rest of the site instead of a full page load.
+    if (typeof href === 'string' && href.startsWith('/')) {
+      return (
+        <RouterLink href={href} underline="hover">
+          {children}
+        </RouterLink>
+      );
+    }
+
     const isExternal = typeof href === 'string' && /^https?:\/\//.test(href);
 
     return (

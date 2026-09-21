@@ -2,7 +2,9 @@ import BlogCard from '@/components/blog/BlogCard';
 import BlogCategoryChip from '@/components/blog/BlogCategoryChip';
 import BlogEmoji from '@/components/blog/BlogEmoji';
 import { MarkdownContent } from '@/components/blog/MarkdownContent';
+import TocLink from '@/components/blog/TocLink';
 import PageShell from '@/components/layout/PageShell';
+import BackLink from '@/components/layout/BackLink';
 import { getAllPostSlugs, getPostBySlug, getRelatedPosts } from '@/lib/blog';
 import { formatDateOnly } from '@/lib/date';
 import { extractTableOfContents, groupTableOfContents } from '@/lib/markdown';
@@ -13,7 +15,7 @@ import {
   BLOG_TOC_WIDTH,
   CONTENT_MAX_WIDTH,
 } from '@/theme/layout';
-import { Box, Chip, Link, Typography } from '@mui/material';
+import { Box, Chip, Typography } from '@mui/material';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -92,13 +94,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             component="main"
             sx={{ mx: 'auto', my: 4, maxWidth: CONTENT_MAX_WIDTH }}
           >
-            <Link
+            <BackLink
               href="/blog"
               underline="hover"
               sx={{ mb: 2, display: 'inline-block' }}
             >
               ← Back to Blog
-            </Link>
+            </BackLink>
             <Typography variant="h4" component="h1" gutterBottom>
               Coming soon
             </Typography>
@@ -149,18 +151,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           __html: JSON.stringify(blogPostingJsonLd).replace(/</g, '\\u003c'),
         }}
       />
-      <PageShell maxWidth="lg">
+      <PageShell>
         <Box
           component="main"
           sx={{ mx: 'auto', my: 4, maxWidth: BLOG_POST_MAX_WIDTH }}
         >
-          <Link
+          <BackLink
             href="/blog"
             underline="hover"
             sx={{ mb: 2, display: 'inline-block' }}
           >
             ← Back to Blog
-          </Link>
+          </BackLink>
 
           <Box
             component="header"
@@ -262,11 +264,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                           key={`${heading.level}-${heading.id}`}
                           sx={{ py: 0.25, pl: 0.5 }}
                         >
-                          <Link href={`#${heading.id}`} underline="hover">
+                          <TocLink href={`#${heading.id}`} underline="hover">
                             {headingsIncludeSectionNumbers
                               ? heading.title.replace(/^\d+\.\s+/, '')
                               : heading.title}
-                          </Link>
+                          </TocLink>
                           {children.length > 0 && (
                             <Box
                               component="ul"
@@ -278,9 +280,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                   key={`${child.level}-${child.id}`}
                                   sx={{ py: 0.25, pl: 0.25 }}
                                 >
-                                  <Link href={`#${child.id}`} underline="hover">
+                                  <TocLink
+                                    href={`#${child.id}`}
+                                    underline="hover"
+                                  >
                                     {child.title}
-                                  </Link>
+                                  </TocLink>
                                 </Box>
                               ))}
                             </Box>
@@ -369,7 +374,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         key={`${heading.level}-${heading.id}`}
                         sx={{ mb: 1.25 }}
                       >
-                        <Link
+                        <TocLink
                           href={`#${heading.id}`}
                           underline="hover"
                           color="text.secondary"
@@ -380,7 +385,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                           }}
                         >
                           {heading.title}
-                        </Link>
+                        </TocLink>
                         {children.length > 0 && (
                           <Box
                             component="ul"
@@ -399,7 +404,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                 key={`${child.level}-${child.id}`}
                                 sx={{ mb: 0.75, '&:last-child': { mb: 0 } }}
                               >
-                                <Link
+                                <TocLink
                                   href={`#${child.id}`}
                                   underline="hover"
                                   color="text.secondary"
@@ -410,7 +415,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                                   }}
                                 >
                                   {child.title}
-                                </Link>
+                                </TocLink>
                               </Box>
                             ))}
                           </Box>

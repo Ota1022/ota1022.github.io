@@ -4,6 +4,7 @@ import { CssBaseline } from '@mui/material';
 import { Experimental_CssVarsProvider } from '@mui/material/styles';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v16-appRouter';
 import type { ReactNode } from 'react';
+import HistoryTransition from '@/components/layout/HistoryTransition';
 import theme from '@/theme/theme';
 import {
   COLOR_SCHEME_ATTRIBUTE,
@@ -26,6 +27,7 @@ export default function ClientProviders({
         disableTransitionOnChange
       >
         <CssBaseline />
+        <HistoryTransition />
         {children}
       </Experimental_CssVarsProvider>
     </AppRouterCacheProvider>
