@@ -73,16 +73,21 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-DKVJZRT90P"
-          strategy="afterInteractive"
-        />
         <Script id="gtag-init" strategy="afterInteractive">
           {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-DKVJZRT90P');
+            (() => {
+              if (window.location.hostname !== 'ota1022.github.io') return;
+
+              window.dataLayer = window.dataLayer || [];
+              window.gtag = function () { window.dataLayer.push(arguments); };
+              window.gtag('js', new Date());
+              window.gtag('config', 'G-DKVJZRT90P');
+
+              const script = document.createElement('script');
+              script.async = true;
+              script.src = 'https://www.googletagmanager.com/gtag/js?id=G-DKVJZRT90P';
+              document.head.appendChild(script);
+            })();
           `}
         </Script>
         <script
