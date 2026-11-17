@@ -25,6 +25,7 @@ const EXPECTED_SLUGS = [
   '20260813_kubecon-cloudnativecon-japan-2026',
   '20260904_rust-opentelemetry-ecs-xray',
   '20260911_jaws-ug-yamanashi-cloudwatch-otel-metrics-promql',
+  '20260916_claude-design-to-local-marp-slide-system',
 ];
 
 test('all posts use Markdown and retain the expected slugs and frontmatter', () => {
